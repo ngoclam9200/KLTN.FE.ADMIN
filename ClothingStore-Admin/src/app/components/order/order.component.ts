@@ -4,28 +4,46 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
-import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.css']
 })
-export class ProductComponent implements OnInit {
+export class OrderComponent implements OnInit {
+
   rows:any = [];
   displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
-  dataSource:any;
+  dataSourceWaitConfirm:any;
+  dataSourceDelivering:any;
+  dataSourceDelivered:any;
+  dataSourceCancle:any;
+
+  
+
   constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('TableWaitConfirmPaginator') TableWaitConfirmPaginator: MatPaginator;
+  @ViewChild('TableDeliveringPaginator', {static: true}) TableDeliveringPaginator: MatPaginator;
+  @ViewChild('TableDeliveredPaginator', {static: true}) TableDeliveredPaginator: MatPaginator;
+  @ViewChild('TableCanclePaginator', {static: true}) TableCanclePaginator: MatPaginator;
   ngOnInit(): void {
+    
     this.fetch((data) => {
       this.rows = data;
-      this.dataSource = new MatTableDataSource(this.rows);
-      this.dataSource.paginator = this.paginator;
-   
-     
+      this.dataSourceWaitConfirm = new MatTableDataSource(this.rows);
+      this.dataSourceWaitConfirm.paginator = this.TableWaitConfirmPaginator;
+      // this.rows1 = data;
+      this.dataSourceDelivering = new MatTableDataSource(this.rows);
+      this.dataSourceDelivering.paginator = this.TableDeliveringPaginator;
+      //
+      this.dataSourceDelivered = new MatTableDataSource(this.rows);
+      this.dataSourceDelivered.paginator = this.TableDeliveredPaginator;
+     //
+     this.dataSourceCancle = new MatTableDataSource(this.rows);
+      this.dataSourceCancle.paginator = this.TableCanclePaginator;
     });
   }
+ 
   fetch(cb: { (data: any): void; (arg0: any): void; }) {
     const req = new XMLHttpRequest();
     req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
@@ -37,12 +55,7 @@ export class ProductComponent implements OnInit {
 
     req.send();
   }
-  openCreateStaff()
-  {
-    this.dialog.open(CreateEditProductComponent, {
-      width: '700px',
-    })
-  }
+  
   openAlertDelete()
   {
     Swal.fire({

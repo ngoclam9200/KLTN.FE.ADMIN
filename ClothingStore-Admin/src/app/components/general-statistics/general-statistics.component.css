@@ -1,0 +1,10 @@
+#divChart{
+    display: block;
+    width: 90%;
+    height: 500px;
+    
+}
+canvas{
+    width: 400px;
+    height: 500px;
+}

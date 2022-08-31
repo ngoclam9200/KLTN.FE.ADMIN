@@ -24,8 +24,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { ProductComponent } from './components/product/product.component';
- 
-
+import {MatButtonModule} from '@angular/material/button';
+import { CreateEditStaffComponent } from './components/staff/create-edit-staff/create-edit-staff.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from'@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import { GeneralStatisticsComponent } from './components/general-statistics/general-statistics.component';
+import { CategoryComponent } from './components/category/category.component';
+import { TurnoverComponent } from './components/turnover/turnover.component';
+import { OrderComponent } from './components/order/order.component';
+import { CreateEditProductComponent } from './components/product/create-edit-product/create-edit-product.component';
+import { CreateEditCategoryComponent } from './components/category/create-edit-category/create-edit-category.component';
+import {MatTabsModule} from '@angular/material/tabs';
 registerLocaleData(hi);
 @NgModule({
   declarations: [
@@ -35,6 +46,13 @@ registerLocaleData(hi);
     SignInComponent,
     LayoutComponent,
     ProductComponent,
+    CreateEditStaffComponent,
+    GeneralStatisticsComponent,
+    CategoryComponent,
+    TurnoverComponent,
+    OrderComponent,
+    CreateEditProductComponent,
+    CreateEditCategoryComponent,
    ],
   imports: [
     BrowserModule,
@@ -51,6 +69,13 @@ registerLocaleData(hi);
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatInputModule,
+    MatTabsModule,
+    
 
     
     

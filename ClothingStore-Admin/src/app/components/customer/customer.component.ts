@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { SignInService } from 'src/app/services/sign-in.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer',
@@ -7,9 +12,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerComponent implements OnInit {
 
-  constructor() { }
-
+  rows:any = [];
+  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
+  dataSource:any;
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
+    this.fetch((data) => {
+      this.rows = data;
+      this.dataSource = new MatTableDataSource(this.rows);
+      this.dataSource.paginator = this.paginator;
+   
+     
+    });
   }
+  fetch(cb: { (data: any): void; (arg0: any): void; }) {
+    const req = new XMLHttpRequest();
+    req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
+
+    req.onload = () => {
+      const data = JSON.parse(req.response);
+      cb(data);
+    };
+
+    req.send();
+  }
+  
+  openAlertDelete()
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
+
 
 }

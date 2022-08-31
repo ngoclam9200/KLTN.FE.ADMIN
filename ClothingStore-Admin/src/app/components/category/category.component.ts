@@ -4,14 +4,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
-import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
+import { CreateEditCategoryComponent } from './create-edit-category/create-edit-category.component';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css']
 })
-export class ProductComponent implements OnInit {
+export class CategoryComponent implements OnInit {
   rows:any = [];
   displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
   dataSource:any;
@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
   }
   openCreateStaff()
   {
-    this.dialog.open(CreateEditProductComponent, {
+    this.dialog.open(CreateEditCategoryComponent, {
       width: '700px',
     })
   }

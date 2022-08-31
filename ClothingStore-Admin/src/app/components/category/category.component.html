@@ -1,11 +1,11 @@
 <div class="d-flex bd-highlight">
-    <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Thêm sản phẩm</button>
+    <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Thêm loại sản phẩm</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="openCreateStaff()">
-            <mat-icon>checkroom</mat-icon><span>Thêm sản phẩm</span>
+            <mat-icon>category</mat-icon><span>Thêm loại sản phẩm</span>
         </button>
         <button   mat-menu-item>
-            <mat-icon>file_upload</mat-icon><span>Thêm sản phẩm từ file</span>
+            <mat-icon>file_upload</mat-icon><span>Thêm loại sản phẩm từ file</span>
         </button>
     </mat-menu>
     </div>
@@ -16,7 +16,6 @@
     <button style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
   </div>
   
- 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
       <!--- Note that these columns can be defined in any order.
@@ -58,6 +57,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
        
     </table>
-    
     <mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-  
+
+   

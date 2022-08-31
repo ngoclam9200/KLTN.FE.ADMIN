@@ -3,18 +3,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
  
  import { MatPaginator } from '@angular/material/paginator';
 import { SignInService } from 'src/app/services/sign-in.service';
-
- 
+import {MatDialog} from '@angular/material/dialog';
+import { CreateEditStaffComponent } from './create-edit-staff/create-edit-staff.component';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-staff',
   templateUrl: './staff.component.html',
   styleUrls: ['./staff.component.css']
 })
 export class StaffComponent implements OnInit {
-  rows = [];
-  displayedColumns: string[] = ['position', 'name', 'weight'];
+  rows:any = [];
+  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
   dataSource:any;
-  constructor(private signInSerVice:SignInService) { }
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
  
   ngOnInit(): void {
@@ -38,6 +39,32 @@ export class StaffComponent implements OnInit {
     };
 
     req.send();
+  }
+  openCreateStaff()
+  {
+    this.dialog.open(CreateEditStaffComponent, {
+      width: '700px',
+    })
+  }
+  openAlertDelete()
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
 
