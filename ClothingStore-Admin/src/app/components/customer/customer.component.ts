@@ -2,8 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AlertService } from 'src/app/services/alert.service';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
+// import { CreateEditCustomerComponent } from './create-edit-customer/create-edit-customer.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { ShowCustomerComponent } from './show-customer/show-customer.component';
 
 @Component({
   selector: 'app-customer',
@@ -15,7 +19,7 @@ export class CustomerComponent implements OnInit {
   rows:any = [];
   displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
   dataSource:any;
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog, private alertService :AlertService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
     this.fetch((data) => {
@@ -38,25 +42,28 @@ export class CustomerComponent implements OnInit {
     req.send();
   }
   
-  openAlertDelete()
+  
+  
+  openEditCustomer()
   {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+    this.dialog.open(EditCustomerComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Chỉnh sửa",
+        title: "Chỉnh sửa thông tin khách hàng"
       }
     })
+  }
+  openShowCustomer()
+  {
+    this.dialog.open(ShowCustomerComponent, {
+      width: '700px',
+       
+    })
+  }
+  openAlertDelete()
+  {
+    this.alertService.openAlertDelete()
   }
 
 

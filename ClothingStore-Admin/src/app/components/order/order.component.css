@@ -1,6 +1,6 @@
 table {
     width: 100%;
   }
-  ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  /* ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
     background-color: red !important;
-}
+} */

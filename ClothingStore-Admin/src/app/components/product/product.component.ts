@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
+import { ShowStaffComponent } from '../staff/show-staff/show-staff.component';
 import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
 
 @Component({
@@ -37,12 +38,7 @@ export class ProductComponent implements OnInit {
 
     req.send();
   }
-  openCreateStaff()
-  {
-    this.dialog.open(CreateEditProductComponent, {
-      width: '700px',
-    })
-  }
+ 
   openAlertDelete()
   {
     Swal.fire({
@@ -64,5 +60,28 @@ export class ProductComponent implements OnInit {
     })
   }
 
-
+  openCreateProduct()
+  {
+    this.dialog.open(CreateEditProductComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Thêm",
+        title: "Thêm sản phẩm"
+      }
+    })
+  }
+  openEditProduct()
+  {
+    this.dialog.open(CreateEditProductComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Chỉnh sửa",
+        title: "Chỉnh sửa thông tin sản phẩm"
+      }
+    })
+  }
+  openShowProduct()
+  {
+    this.dialog.open(ShowStaffComponent)
+  }
 }

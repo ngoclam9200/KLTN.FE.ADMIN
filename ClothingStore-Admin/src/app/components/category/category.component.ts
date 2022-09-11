@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
 import { CreateEditCategoryComponent } from './create-edit-category/create-edit-category.component';
+import { ShowCategoryComponent } from './show-category/show-category.component';
 
 @Component({
   selector: 'app-category',
@@ -37,12 +38,7 @@ export class CategoryComponent implements OnInit {
 
     req.send();
   }
-  openCreateStaff()
-  {
-    this.dialog.open(CreateEditCategoryComponent, {
-      width: '700px',
-    })
-  }
+  
   openAlertDelete()
   {
     Swal.fire({
@@ -62,6 +58,31 @@ export class CategoryComponent implements OnInit {
         )
       }
     })
+  }
+
+  openCreateCategory()
+  {
+    this.dialog.open(CreateEditCategoryComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Thêm",
+        title: "Thêm loại sản phẩm"
+      }
+    })
+  }
+  openEditCategory()
+  {
+    this.dialog.open(CreateEditCategoryComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Chỉnh sửa",
+        title: "Chỉnh sửa thông tin loại sản phẩm"
+      }
+    })
+  }
+  openShowCategory()
+  {
+    this.dialog.open(ShowCategoryComponent)
   }
 
 

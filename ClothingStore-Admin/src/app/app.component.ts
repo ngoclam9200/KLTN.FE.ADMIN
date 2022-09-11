@@ -35,6 +35,10 @@ export class AppComponent implements OnInit {
     this.isLogin=false
     this.router.navigate(['sign-in'])
   }
+  goProfilePage()
+  {
+    this.router.navigate(['profile'])
+  }
    
 
 }
