@@ -15,7 +15,7 @@ import { ShowStaffComponent } from './show-staff/show-staff.component';
 })
 export class StaffComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
+  displayedColumns: string[] = ['ten', 'gioitinh', 'luong','chinhsua', 'xoa'];
   dataSource:any;
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private alertService: AlertService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;

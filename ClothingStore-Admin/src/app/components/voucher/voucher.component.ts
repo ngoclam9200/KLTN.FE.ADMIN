@@ -4,17 +4,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
-import { ShowStaffComponent } from '../staff/show-staff/show-staff.component';
-import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
+import { CreateEditVoucherComponent } from './create-edit-voucher/create-edit-voucher.component';
+import { ShowVoucherComponent } from './show-voucher/show-voucher.component';
+import { TypeofVoucherComponent } from './typeof-voucher/typeof-voucher.component';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-voucher',
+  templateUrl: './voucher.component.html',
+  styleUrls: ['./voucher.component.css']
 })
-export class ProductComponent implements OnInit {
+export class VoucherComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['image', 'name', 'price',"count",'show','chinhsua', 'xoa'];
+  displayedColumns: string[] = ['image', 'name', 'code',"count",'show','chinhsua', 'xoa'];
   dataSource:any;
   constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,28 +61,39 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  openCreateProduct()
+  openCreateVoucher()
   {
-    this.dialog.open(CreateEditProductComponent, {
+    this.dialog.open(CreateEditVoucherComponent, {
       width: '700px',
       data:{
         textBtn:"Thêm",
-        title: "Thêm sản phẩm"
+        title: "Thêm voucher"
       }
     })
   }
-  openEditProduct()
+  openCreateTypeofVoucher()
   {
-    this.dialog.open(CreateEditProductComponent, {
+    this.dialog.open(TypeofVoucherComponent, {
+      width: '700px',
+      data:{
+        textBtn:"Thêm",
+        title: "Thêm loại voucher"
+      }
+    })
+  }
+  openEditVoucher()
+  {
+    this.dialog.open(CreateEditVoucherComponent, {
       width: '700px',
       data:{
         textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin sản phẩm"
+        title: "Chỉnh sửa thông tin voucher"
       }
     })
   }
-  openShowProduct()
+  openShowVoucher()
   {
-    this.dialog.open(ShowStaffComponent)
+    this.dialog.open(ShowVoucherComponent)
   }
+  
 }

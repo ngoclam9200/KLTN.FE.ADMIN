@@ -4,3 +4,8 @@ table {
   .input-search{
     width: 80%;
   }
+  .rounded-circle
+{
+width: 60px;
+height: 60px;
+}

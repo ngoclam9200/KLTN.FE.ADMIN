@@ -18,6 +18,9 @@ export class OrderComponent implements OnInit {
   dataSourceDelivering:any;
   dataSourceDelivered:any;
   dataSourceCancle:any;
+  displayedDeliveredColumns: string[] = ['position', 'name', 'weight',"show"];
+  displayedDeliveringColumns: string[] = ['position', 'name', 'weight',"show",'xoa'];
+
 
   
 

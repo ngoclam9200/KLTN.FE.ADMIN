@@ -1,6 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, LinearScale, BarController , CategoryScale, BarElement} from 'node_modules/chart.js';
+ 
+import {
+  Chart,
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+} from 'chart.js';
 
+Chart.register(
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+);
 @Component({
   selector: 'app-general-statistics',
   templateUrl: './general-statistics.component.html',
@@ -11,53 +64,99 @@ export class GeneralStatisticsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // const ctx = document.getElementById('myChart') 
-    Chart.register(LinearScale,BarController, CategoryScale , BarElement)
-    const myChart = new Chart("myChart", {
+ 
+   this.chartCategory()
+   this.chartCustomer()
+   this.chartProduct()
+  
+  }
+  chartCustomer()
+  {
+    const myChartCustomer = new Chart("myChartCustomer", {
       type: 'bar',
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
         datasets: [{
-          label: '# of Votes',
+          label: 'Số lượng khách hàng',
           data: [12, 19, 3, 5, 2, 3,3,5,6,26,4,6,7,17],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            "#aaffff"
           ],
           borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            "#1890ff",
           ],
           borderWidth: 1
         }]
       },
       options: {
         scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Số khách hàng mới qua từng tháng",
+            }
+          },
           y: {
             beginAtZero: true
           }
         }
       }
+    });
+  }
+  chartCategory() {
+   
+    const myChartCategory= new Chart("myChartCategory", {
+      type: 'pie',
+      data: {
+        labels: [
+          'a',
+          'b',
+          'c',
+          'd',
+          
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [300, 50, 100, 200],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 195, 56)'
+          ],
+          hoverOffset: 4
+        }]
+      },
+     
+     
+    });
+  }
+  chartProduct() {
+   
+    const myChartProduct= new Chart("myChartProduct", {
+      type: 'doughnut',
+      data: {
+        labels: [
+          'a',
+          'b',
+          'c',
+          'd',
+          
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [300, 50, 100, 200],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(255, 195, 56)'
+          ],
+          hoverOffset: 4
+        }]
+      },
+     
+     
     });
   }
 

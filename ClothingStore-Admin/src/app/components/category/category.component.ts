@@ -14,7 +14,7 @@ import { ShowCategoryComponent } from './show-category/show-category.component';
 })
 export class CategoryComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
+  displayedColumns: string[] = ['image', 'name',"show",'chinhsua', 'xoa'];
   dataSource:any;
   constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;

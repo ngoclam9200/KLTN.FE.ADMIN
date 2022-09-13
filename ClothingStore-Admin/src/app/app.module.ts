@@ -49,6 +49,13 @@ import { ShowCategoryComponent } from './components/category/show-category/show-
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatComponent } from './components/chat/chat.component';
 import {MatBadgeModule } from '@angular/material/badge';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { VoucherComponent } from './components/voucher/voucher.component';
+import { CreateEditVoucherComponent } from './components/voucher/create-edit-voucher/create-edit-voucher.component';
+import { ShowVoucherComponent } from './components/voucher/show-voucher/show-voucher.component';
+import { ShippingFeeComponent } from './components/shipping-fee/shipping-fee.component';
+import { TypeofVoucherComponent } from './components/voucher/typeof-voucher/typeof-voucher.component';
+import { CreateEditShippingFeeComponent } from './components/shipping-fee/create-edit-shipping-fee/create-edit-shipping-fee.component';
 registerLocaleData(hi);
 @NgModule({
   declarations: [
@@ -73,6 +80,13 @@ registerLocaleData(hi);
     ShowCategoryComponent,
     ProfileComponent,
     ChatComponent,
+    NotfoundComponent,
+    VoucherComponent,
+    CreateEditVoucherComponent,
+    ShowVoucherComponent,
+    ShippingFeeComponent,
+    TypeofVoucherComponent,
+    CreateEditShippingFeeComponent,
 
   ],
   imports: [

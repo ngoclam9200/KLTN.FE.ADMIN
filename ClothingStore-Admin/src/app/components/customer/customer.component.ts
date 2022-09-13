@@ -17,7 +17,7 @@ import { ShowCustomerComponent } from './show-customer/show-customer.component';
 export class CustomerComponent implements OnInit {
 
   rows:any = [];
-  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
+  displayedColumns: string[] = ['fullname','email','phonenumber', 'avatar', 'show','chinhsua', 'xoa'];
   dataSource:any;
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private alertService :AlertService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -9,36 +9,53 @@ import { SignInService } from './services/sign-in.service';
 
 export class AppComponent implements OnInit {
   isCollapsed = false;
-  isLogin=false;
-  icon:any="expand_more"
-  constructor(private router:Router, private signInService:SignInService) { }
+  isLogin = false;
+  isAdmin =true;
+  username: any
+  icon: any = "expand_more"
+  constructor(private router: Router, private signInService: SignInService) { }
   ngOnInit(): void {
-    if(localStorage.getItem("isLogin")=="true")
     
-    {
-      this.isLogin=true
+    if (sessionStorage.getItem("isLogin") == "true") {
+      this.isLogin = true;
+      this.username = sessionStorage.getItem("username")
+     this.getsessionStorage()
+
+
     }
-    else 
-    {
-      this.isLogin=false
+    else {
+      this.isLogin = false
       this.router.navigate(['sign-in'])
     }
-    this.signInService.isLogin.subscribe(res=>{
-      this.isLogin=true
+    this.signInService.isLogin.subscribe(res => {
+     
+      this.isLogin = true
+      this.getsessionStorage()
+      
     })
-    
+    this.signInService.username.subscribe(res => {
+      this.username = res
+    })
+
 
   }
-  logOut()
-  {
-    localStorage.clear();
-    this.isLogin=false
+  logOut() {
+    sessionStorage.clear();
+    this.isLogin = false
     this.router.navigate(['sign-in'])
   }
-  goProfilePage()
-  {
+  goProfilePage() {
     this.router.navigate(['profile'])
   }
-   
+  getsessionStorage()
+  {
+    if (sessionStorage.getItem("role") == "staff") {
+      this.isAdmin = false
+    }
+    if (sessionStorage.getItem("role") == "admin") {
+      this.isAdmin = true
+    }
+  }
+
 
 }

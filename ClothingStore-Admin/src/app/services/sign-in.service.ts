@@ -23,14 +23,17 @@ export class SignInService {
 
     @Output()
     isLogin = new EventEmitter();
+    username = new EventEmitter();
     constructor(private router: Router, private http: HttpClient) {
 
     }
 
 
-   login()
+   login(username: any)
    {
     this.isLogin.emit(true)
+    this.username.emit(username)
+
 
    }
 }

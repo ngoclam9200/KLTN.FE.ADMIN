@@ -19,7 +19,7 @@
                 </a>
             </div>
             <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/staff"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>person</mat-icon>
@@ -27,7 +27,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li  nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/customer"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>group</mat-icon>
@@ -52,6 +52,22 @@
                     </a>
                 </li>
                 <li nz-menu-item nzMatchRouter>
+                    <a [routerLink]='["/voucher"]'>
+                        <div class="d-flex align-items-center">
+                            <mat-icon>redeem</mat-icon>
+                            Quản lý voucher
+                        </div>
+                    </a>
+                </li>
+                <li   nz-menu-item nzMatchRouter>
+                    <a [routerLink]='["/shipping-fee"]'>
+                        <div class="d-flex align-items-center">
+                            <mat-icon>local_shipping</mat-icon>
+                            Quản lý phí vận chuyển 
+                        </div>
+                    </a>
+                </li>
+                <li nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/order"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon matBadge="15" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
@@ -59,7 +75,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/turnover"]'>
 
                         <div class="d-flex align-items-center">
@@ -69,7 +85,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/general-statistics"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>show_chart</mat-icon>
@@ -77,7 +93,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a routerLink="/chat">
                         <div class="d-flex align-items-center">
                             <mat-icon matBadge="15" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
@@ -106,7 +122,7 @@
                                     src="../assets/logoshop.png">
 
                             </i></div>
-                        <div class="p-2 bd-highlight"><i>Username</i></div>
+                        <div class="p-2 bd-highlight"><i>{{username}}</i></div>
                         <div class="p-2 bd-highlight"><i>
                                 <i class="btn-account " [matMenuTriggerFor]="menu">Quản lí tài khoản </i>
 

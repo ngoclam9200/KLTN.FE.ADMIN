@@ -4,17 +4,17 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
-import { ShowStaffComponent } from '../staff/show-staff/show-staff.component';
-import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
+import { CreateEditShippingFeeComponent } from './create-edit-shipping-fee/create-edit-shipping-fee.component';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-shipping-fee',
+  templateUrl: './shipping-fee.component.html',
+  styleUrls: ['./shipping-fee.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ShippingFeeComponent implements OnInit {
+
   rows:any = [];
-  displayedColumns: string[] = ['image', 'name', 'price',"count",'show','chinhsua', 'xoa'];
+  displayedColumns: string[] = [ 'name', 'price/1km','distance','chinhsua', 'xoa'];
   dataSource:any;
   constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,28 +60,28 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  openCreateProduct()
+  openCreateShippingFee()
   {
-    this.dialog.open(CreateEditProductComponent, {
+    this.dialog.open(CreateEditShippingFeeComponent, {
       width: '700px',
       data:{
         textBtn:"Thêm",
-        title: "Thêm sản phẩm"
+        title: "Thêm phí vận chuyển"
       }
     })
   }
-  openEditProduct()
+  
+  openEditShippingFee()
   {
-    this.dialog.open(CreateEditProductComponent, {
+    this.dialog.open(CreateEditShippingFeeComponent, {
       width: '700px',
       data:{
         textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin sản phẩm"
+        title: "Chỉnh sửa thông tin phí vận chuyển"
       }
     })
   }
-  openShowProduct()
-  {
-    this.dialog.open(ShowStaffComponent)
-  }
+ 
+  
+
 }
