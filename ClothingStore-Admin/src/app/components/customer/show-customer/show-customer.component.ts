@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditCustomerComponent } from '../edit-customer/edit-customer.component';
 
 @Component({
@@ -9,18 +9,12 @@ import { EditCustomerComponent } from '../edit-customer/edit-customer.component'
 })
 export class ShowCustomerComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    console.log(this.data)
   }
-  openEditStaff()
-  { this.dialog.closeAll()
-    this.dialog.open(EditCustomerComponent, {
-      width: '700px',
-      data:{
-        textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin nhân viên"
-      }
-    })
-  }
+   
+  
+   
 }

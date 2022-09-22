@@ -42,7 +42,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { ShowCustomerComponent } from './components/customer/show-customer/show-customer.component';
-// import { CreateEditCustomerComponent } from './components/customer/create-edit-customer/create-edit-customer.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
 import { ShowProductComponent } from './components/product/show-product/show-product.component';
 import { ShowCategoryComponent } from './components/category/show-category/show-category.component';
@@ -56,6 +56,9 @@ import { ShowVoucherComponent } from './components/voucher/show-voucher/show-vou
 import { ShippingFeeComponent } from './components/shipping-fee/shipping-fee.component';
 import { TypeofVoucherComponent } from './components/voucher/typeof-voucher/typeof-voucher.component';
 import { CreateEditShippingFeeComponent } from './components/shipping-fee/create-edit-shipping-fee/create-edit-shipping-fee.component';
+import { RoleComponent } from './components/role/role.component';
+import { CreateEditRoleComponent } from './components/role/create-edit-role/create-edit-role.component';
+import { SalaryStaffComponent } from './components/salary-staff/salary-staff.component';
 registerLocaleData(hi);
 @NgModule({
   declarations: [
@@ -87,6 +90,9 @@ registerLocaleData(hi);
     ShippingFeeComponent,
     TypeofVoucherComponent,
     CreateEditShippingFeeComponent,
+    RoleComponent,
+    CreateEditRoleComponent,
+    SalaryStaffComponent,
 
   ],
   imports: [
@@ -96,6 +102,7 @@ registerLocaleData(hi);
     MatMenuModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     IconsProviderModule,
     NzLayoutModule,

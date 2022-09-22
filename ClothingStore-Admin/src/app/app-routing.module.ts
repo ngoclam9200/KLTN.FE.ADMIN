@@ -7,6 +7,8 @@ import { GeneralStatisticsComponent } from './components/general-statistics/gene
 import { OrderComponent } from './components/order/order.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RoleComponent } from './components/role/role.component';
+import { SalaryStaffComponent } from './components/salary-staff/salary-staff.component';
 import { ShippingFeeComponent } from './components/shipping-fee/shipping-fee.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { StaffComponent } from './components/staff/staff.component';
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'voucher', component: VoucherComponent },
   { path: 'shipping-fee', component: ShippingFeeComponent },
+  { path: 'role', component: RoleComponent },
+  { path: 'salary-staff/:id', component: SalaryStaffComponent },
 
 
 

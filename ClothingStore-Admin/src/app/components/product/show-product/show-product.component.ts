@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateEditProductComponent } from '../create-edit-product/create-edit-product.component';
 
 @Component({
@@ -9,9 +9,10 @@ import { CreateEditProductComponent } from '../create-edit-product/create-edit-p
 })
 export class ShowProductComponent implements OnInit {
 
-  constructor(private dialog : MatDialog) { }
+  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    console.log( this.data)
   }
   openEditProduct()
   { this.dialog.closeAll()

@@ -1,25 +1,18 @@
 <div class="d-flex bd-highlight">
-  <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Thêm sản
+  <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button (click)="openCreateProduct()" color="primary">Thêm sản
       phẩm</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openCreateProduct()">
-        <mat-icon>checkroom</mat-icon><span>Thêm sản phẩm</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>file_upload</mat-icon><span>Thêm sản phẩm từ file</span>
-      </button>
-    </mat-menu>
+     
   </div>
   
 
 </div>
 <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-  <input class="input-search" />
-  <button style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
+  <input [(ngModel)]="search" (input)="onChangeTextSearchEvent()" class="input-search" />
+  <button (click)="searchProduct()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
 </div>
 
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
+<table *ngIf="!notfound" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -27,42 +20,42 @@
   <!-- Position Column -->
   <ng-container matColumnDef="image">
     <th mat-header-cell *matHeaderCellDef> Ảnh </th>
-    <td mat-cell *matCellDef="let element"> <img class="  rounded-circle" src="../../../assets/logoshop.png"> </td>
+    <td mat-cell *matCellDef="let element">  <img class="  rounded-circle" src="{{element.image}}"> </td>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Tên </th>
-    <td mat-cell *matCellDef="let element"> </td>
+    <td mat-cell *matCellDef="let element">{{element.name}} </td>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef> Giá </th>
-    <td mat-cell *matCellDef="let element"> </td>
+    <th mat-header-cell *matHeaderCellDef> Giá nhập </th>
+    <td mat-cell *matCellDef="let element"> {{element.originalprice}}  </td>
   </ng-container>
   <ng-container matColumnDef="count">
     <th mat-header-cell *matHeaderCellDef> Sô lượng còn lại </th>
-    <td mat-cell *matCellDef="let element"> </td>
+    <td mat-cell *matCellDef="let element"> {{element.stock}}</td>
   </ng-container>
 
   <ng-container matColumnDef="show">
     <th mat-header-cell *matHeaderCellDef> Thông tin </th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openShowProduct()" style="color: #1890ff;">visibility</mat-icon>
+      <mat-icon (click)="openShowProduct(element)" style="color: #1890ff;">visibility</mat-icon>
     </td>
   </ng-container>
   <ng-container matColumnDef="chinhsua">
     <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openEditProduct()" style="color: #1890ff;">edit</mat-icon>
+      <mat-icon (click)="openEditProduct(element)" style="color: #1890ff;">edit</mat-icon>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="xoa">
     <th mat-header-cell *matHeaderCellDef> Xóa </th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openAlertDelete()" style="color: red;">delete</mat-icon>
+      <mat-icon (click)="openAlertDeleteCategory(element.id)" style="color: red;">delete</mat-icon>
     </td>
   </ng-container>
 
@@ -71,4 +64,4 @@
 
 </table>
 
-<mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
+<app-notfound *ngIf="notfound"></app-notfound>

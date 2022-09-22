@@ -40,7 +40,18 @@ export class AppComponent implements OnInit {
 
   }
   logOut() {
-    sessionStorage.clear();
+   
+    if(sessionStorage.getItem('isRemember')=="true")
+    {
+      sessionStorage.removeItem('isLogin')
+      sessionStorage.removeItem('role')
+      sessionStorage.removeItem('token')
+    }
+    else
+    {
+      sessionStorage.clear();
+    }
+   
     this.isLogin = false
     this.router.navigate(['sign-in'])
   }

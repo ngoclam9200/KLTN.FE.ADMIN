@@ -28,18 +28,19 @@
        
     
         <div class="login-form">
-          <form action="">
-            <input  [(ngModel)]="username"  name="username" type="email" placeholder="Username">
-            <input  [(ngModel)]="password" name="password" type="password" placeholder="Password">
+          <form [formGroup]="formGroup" action="">
+            <input formControlName="username"    name="username" type="email" placeholder="Username">
+            <input  formControlName="password" name="password" type="password" placeholder="Password">
 
             <div class="remember-form">
-              <input type="checkbox">
+              <input name="isRemember" formControlName="isRemember"   type="checkbox">
               <span>Remember me</span>
             </div>
             
             <div class="forget-pass">
               <a href="#">Quên mật khẩu ?</a>
             </div>
+            <div style="color: red;" *ngIf="isLoginFailed">Sai mật khẩu hoặc tài khoản</div>
             <!-- <span style="text-align:center">Bạn chưa có tài khoản- Đăng kí <a (click)="goSignUpPage()" style="color:blue ;cursor:pointer">tại đây</a></span> -->
             <button type="submit" (click)="signIn()">LOG-IN</button>
             

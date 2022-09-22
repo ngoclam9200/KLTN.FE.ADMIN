@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AlertService } from 'src/app/services/alert.service';
-import { SignInService } from 'src/app/services/sign-in.service';
+import { CustomerService } from 'src/app/services/customer.service';
+ import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
-// import { CreateEditCustomerComponent } from './create-edit-customer/create-edit-customer.component';
-import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { ShowCustomerComponent } from './show-customer/show-customer.component';
 
 @Component({
@@ -17,55 +16,129 @@ import { ShowCustomerComponent } from './show-customer/show-customer.component';
 export class CustomerComponent implements OnInit {
 
   rows:any = [];
-  displayedColumns: string[] = ['fullname','email','phonenumber', 'avatar', 'show','chinhsua', 'xoa'];
+  displayedColumns: string[] = ['fullname','email','phonenumber',  'show','chinhsua', 'xoa'];
   dataSource:any;
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog, private alertService :AlertService) { }
+  dataResponse: any;
+  allUser: any;
+  search: any = ""
+  notfound: boolean=false;
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog, private customerService: CustomerService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
-    this.fetch((data) => {
-      this.rows = data;
-      this.dataSource = new MatTableDataSource(this.rows);
-      this.dataSource.paginator = this.paginator;
-   
-     
-    });
-  }
-  fetch(cb: { (data: any): void; (arg0: any): void; }) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
-
-    req.onload = () => {
-      const data = JSON.parse(req.response);
-      cb(data);
-    };
-
-    req.send();
+    this.getAllUser()
   }
   
   
-  
-  openEditCustomer()
+  getAllUser()
   {
-    this.dialog.open(EditCustomerComponent, {
+    this.customerService.getAllCustomer().subscribe(res => {
+      console.log(res)
+      this.dataResponse = res
+      this.allUser = this.dataResponse.data
+      this.dataSource = new MatTableDataSource(this.allUser);
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+  onChangeTextSearchEvent() {
+   
+    this.searchCustomerOnChange()
+
+  }
+  
+  searchCustomer()
+  {
+    if(this.search!="")
+    {
+      this.customerService.searchUser(this.search).subscribe(res=>{
+      
+        this.dataResponse = res
+        if(this.dataResponse.data==null) this.notfound=true
+        else
+        {
+          this.allUser = this.dataResponse.data
+          this.dataSource = new MatTableDataSource(this.allUser);
+          this.dataSource.paginator = this.paginator;
+          this.notfound=false
+        }
+      
+      })
+    }
+    else
+    {
+      this.getAllUser()
+      this.notfound=false
+    }
+  }
+  searchCustomerOnChange()
+  {
+    if(this.search!="")
+    {
+      this.customerService.searchUser(this.search).subscribe(res=>{
+      
+        this.dataResponse = res
+        if(this.dataResponse.data!=null) 
+        {
+         
+          this.allUser = this.dataResponse.data
+          this.dataSource = new MatTableDataSource(this.allUser);
+          this.dataSource.paginator = this.paginator;
+          this.notfound=false
+        }
+      
+      })
+    }
+    else
+    {
+      this.getAllUser()
+      this.notfound=false
+    }
+  }
+  openEditCustomer(data:any)
+  {
+    const dialogRef= this.dialog.open(EditCustomerComponent, {
       width: '700px',
       data:{
         textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin khách hàng"
+        title: "Chỉnh sửa thông tin khách hàng",
+        data :data
       }
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllUser()
+
+    });
   }
-  openShowCustomer()
+  openShowCustomer(data:any)
   {
     this.dialog.open(ShowCustomerComponent, {
       width: '700px',
+      data :data
        
     })
   }
-  openAlertDelete()
-  {
-    this.alertService.openAlertDelete()
-  }
+  openAlertDeleteUser(id: any) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn xóa?',
+      text: "Người dùng sẽ bị xóa , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xóa người dùng!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.customerService.deleteUser(id).subscribe(res => {
+          Swal.fire(
+            'Đã xóa!',
+            'Người dùng này đã được xóa.',
+            'success'
+          )
+          this.getAllUser()
+        })
 
+      }
+    })
+  }
 
 
 }

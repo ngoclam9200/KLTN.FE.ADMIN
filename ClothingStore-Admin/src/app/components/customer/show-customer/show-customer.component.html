@@ -1,14 +1,22 @@
 <mat-card class="example-card">
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-content>
-        <p>This card has divider and indeterminate progress as footer</p>
-        <p> longText </p>
-    </mat-card-content>
+    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    <mat-card-title>{{data.fullname}} </mat-card-title>
+    <div class="d-flex align-items-center">
+        <img style="height:200px; width:200px" src="{{data.avatar}}">
+        <mat-card-content style="margin-left: 30px;">
+            <p> Id : {{data.id}}</p>
+            <p>Tên đăng nhập : {{data.username}}</p>
+            <p> Email : {{data.email}} </p>
+            <p> Ngày đăng kí tài khoản : {{data.dateCreated | date: 'dd-MM-yyyy'}} </p>
+            <p>Số điện thoại : {{data.phonenumber}} </p>
+            <p>Giới tính : {{data.gender}} </p>
+        </mat-card-content>
+    </div>
+    
     <mat-divider inset></mat-divider>
     <mat-card-actions align="end">
-        <button mat-raised-button mat-dialog-close color="warn">Hủy</button>
-        <button (click)="openEditStaff()" mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Chỉnh sửa</button>
+        <button mat-raised-button mat-dialog-close color="warn">Đóng</button>
+         
     </mat-card-actions>
     <mat-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>

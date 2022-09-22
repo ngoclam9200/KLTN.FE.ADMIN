@@ -4,3 +4,6 @@ mat-form-field {
 .input-search{
    width: 80%;
  }
+ mat-hint{
+   color: red;
+ }

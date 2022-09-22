@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-center">
+
+    <div class="calendar-container">
+        <header>
+            <div class="month"> Ngày làm việc {{dataRes?.month}}</div>
+        </header>
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <td>T2</td>
+                    <td>T3</td>
+                    <td>T4</td>
+                    <td>T5</td>
+                    <td>T6</td>
+                    <td>T7</td>
+                    <td>CN</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td *ngFor="let d of dateoflastmonth" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let d of dateofmonth.slice(0,7)" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let d of dateofmonth.slice(7,14)" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let d of dateofmonth.slice(14,21)" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let d of dateofnextmonth" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+        (Ghi chú) <p class="text-danger bold">{{listDayWorking[0]}}</p> : Ngày nhân viên đã làm trong tháng này
+    </div>
+    <mat-card style="margin-left:20px ; " class="example-card">
+
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{dataRes?.staff.fullname}}</mat-card-title>
+            <mat-card-subtitle>{{dataRes?.staff.email}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+
+            <p>Ngày hiện tại : {{currentDay}}</p>
+
+
+
+            <p>
+                Mức lương hiện tại : {{dataRes?.staff.salary | currency:"VND":"symbol"}}/tháng
+            </p>
+
+            <p>
+                Số ngày đã làm trong tháng này : {{dataRes?.numberOfWorking}}
+            </p>
+
+            <p>
+                Lương phải trả hiện tại cho tháng này : {{dataRes?.salaryOfThisMonth| currency:"VND":"symbol"}}
+            </p>
+            <p>
+                <button mat-raised-button color="primary">Chốt lương cho tháng này</button>
+            </p>
+            <p *ngIf="payForToday">
+                <button mat-raised-button [disabled]="payForToday" color="primary">
+
+                    Tính lương ngày hôm nay(đã tính)
+                </button>
+            </p>
+            <p *ngIf="!payForToday">
+                <button mat-raised-button (click)="PayForToday()"  color="primary">
+
+                    Tính lương ngày hôm nay 
+                </button>
+            </p>
+
+        </mat-card-content>
+
+    </mat-card>
+</div>

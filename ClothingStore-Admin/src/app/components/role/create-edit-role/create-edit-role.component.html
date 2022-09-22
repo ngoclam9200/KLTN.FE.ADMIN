@@ -1,0 +1,23 @@
+ 
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formGroup">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Vai trò</mat-label>
+        <input formControlName="name" matInput placeholder="Nhập tên vai trò">
+        <mat-icon matSuffix>psychology</mat-icon>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </p>
+        
+        
+  </form>
+
+      
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button  mat-dialog-close color="warn">Hủy</button>
+  <button  *ngIf="!data.isEdit" mat-raised-button (click)="createRole()"  color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button *ngIf="data.isEdit"  mat-raised-button (click)="editRole()"  color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+</mat-dialog-actions>

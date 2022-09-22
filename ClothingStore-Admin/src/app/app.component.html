@@ -20,6 +20,14 @@
             </div>
             <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
                 <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
+                    <a [routerLink]='["/role"]'>
+                        <div class="d-flex align-items-center">
+                            <mat-icon>psychology</mat-icon>
+                            Quản lý vai trò
+                        </div>
+                    </a>
+                </li>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/staff"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>person</mat-icon>
@@ -27,6 +35,7 @@
                         </div>
                     </a>
                 </li>
+                 
                 <li  nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/customer"]'>
                         <div class="d-flex align-items-center">

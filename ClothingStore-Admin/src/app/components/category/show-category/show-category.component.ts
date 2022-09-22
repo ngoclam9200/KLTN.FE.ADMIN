@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateEditCategoryComponent } from '../create-edit-category/create-edit-category.component';
 
 @Component({
@@ -9,18 +9,11 @@ import { CreateEditCategoryComponent } from '../create-edit-category/create-edit
 })
 export class ShowCategoryComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
+   
 
   ngOnInit(): void {
+    console.log(this.data)
   }
-  openEditCategory()
-  { this.dialog.closeAll()
-    this.dialog.open(CreateEditCategoryComponent, {
-      width: '700px',
-      data:{
-        textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin loại sản phẩm "
-      }
-    })
-  }
+   
 }
