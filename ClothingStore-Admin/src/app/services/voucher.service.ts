@@ -5,9 +5,9 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
+export class VoucherService {
 
-  apiUrl=environment.apiUrl+"/User"
+  apiUrl=environment.apiUrl+"/Voucher"
  
   constructor( private http: HttpClient ,) { }
   getHeader()
@@ -18,27 +18,30 @@ export class CustomerService {
     
     return headers = headers.set('Access-Control-Allow-Origin', '*').set('Authorization', `Bearer ${token}`);
   }
-  getAllCustomer()
+  getAllVoucher()
   {
     let headers=this.getHeader()
-    return this.http.get(this.apiUrl+"/get-all-user", {headers:headers})
+    return this.http.get(this.apiUrl+"/get-all-voucher", {headers:headers})
   }
   
- 
-  deleteUser(id:any)
+  createVoucher(Voucher:any)
   {
     let headers=this.getHeader()
-    return this.http.delete(this.apiUrl+"/delete-user/"+id, {headers:headers})
+    return this.http.post(this.apiUrl+"/create-voucher",Voucher, {headers:headers})
   }
-  editUser(user:any)
+  deleteVoucher(id:any)
   {
     let headers=this.getHeader()
-    return this.http.put(this.apiUrl+"/edit-user/",user, {headers:headers})
+    return this.http.delete(this.apiUrl+"/delete-voucher/"+id, {headers:headers})
   }
-  searchUser(data:any)
+  editVoucher(role:any)
   {
     let headers=this.getHeader()
-    return this.http.get(this.apiUrl+"/search-customer-by-name/"+data, {headers:headers})
+    return this.http.put(this.apiUrl+"/edit-voucher/",role, {headers:headers})
   }
-
+  searchVoucher(code:any)
+  {
+    let headers=this.getHeader()
+    return this.http.get(this.apiUrl+"/search-voucher-by-code/"+code, {headers:headers})
+  }
 }

@@ -59,6 +59,13 @@ import { CreateEditShippingFeeComponent } from './components/shipping-fee/create
 import { RoleComponent } from './components/role/role.component';
 import { CreateEditRoleComponent } from './components/role/create-edit-role/create-edit-role.component';
 import { SalaryStaffComponent } from './components/salary-staff/salary-staff.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { EditImageProductComponent } from './components/product/edit-image-product/edit-image-product.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import {MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+ 
 registerLocaleData(hi);
 @NgModule({
   declarations: [
@@ -93,6 +100,9 @@ registerLocaleData(hi);
     RoleComponent,
     CreateEditRoleComponent,
     SalaryStaffComponent,
+    LoadingComponent,
+    EditImageProductComponent,
+
 
   ],
   imports: [
@@ -120,7 +130,10 @@ registerLocaleData(hi);
     MatTabsModule,
     MatCardModule,
     MatBadgeModule,
-
+    MatCheckboxModule, 
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
 
 

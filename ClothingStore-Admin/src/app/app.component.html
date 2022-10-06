@@ -105,7 +105,7 @@
                 <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a routerLink="/chat">
                         <div class="d-flex align-items-center">
-                            <mat-icon matBadge="15" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
+                            <mat-icon matBadge="{{countMessUnread}}" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
                             Tin nhắn
                         </div>
                     </a>
@@ -148,7 +148,7 @@
                 </div>
             </nz-header>
             <nz-content style="overflow-y:auto;">
-                <div class="inner-content">
+                <div id="inner-content" class="inner-content">
                     <router-outlet></router-outlet>
                 </div>
             </nz-content>

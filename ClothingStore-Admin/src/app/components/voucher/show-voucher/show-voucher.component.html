@@ -1,1 +1,25 @@
-<p>show-voucher works!</p>
+<mat-card class="example-card">
+    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    <mat-card-title>Mã voucher : {{data.code}} </mat-card-title>
+    <div class="d-flex align-items-center">
+        <img style="height:200px; width:200px" src="https://www.bing.com/th?id=OIP.5eKTXF8UqwqNX7ZVXyGXKQHaFP&w=297&h=210&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2">
+        <mat-card-content style="margin-left: 30px;">
+            <p> Id : {{data.id}}</p>
+            <p *ngIf="data.discountprice>0">Phần trăm giảm giá theo đơn giá : {{data.discountprice}}</p>
+            <p  *ngIf="data.discountfreeship>0">Phần trăm giảm giá theo giá vận chuyển : {{data.discountfreeship}}</p>
+            <p>Số lượng nhập vào : {{data.amountInput}}</p>
+            <p>Số lượng còn lại : {{data.amountRemaining}}</p>
+            <p> Ngày tạo : {{data.dateCreated | date: 'dd-MM-yyyy'}} </p>
+            <p> Ngày hết hạn : {{data.dateExpiration | date: 'dd-MM-yyyy'}} </p>
+        </mat-card-content>
+    </div>
+    
+    <mat-divider inset></mat-divider>
+    <mat-card-actions align="end">
+        <button mat-raised-button mat-dialog-close color="warn">Đóng</button>
+         
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

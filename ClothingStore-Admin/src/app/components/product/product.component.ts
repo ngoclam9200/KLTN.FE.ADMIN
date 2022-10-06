@@ -7,6 +7,7 @@ import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
 import { ShowStaffComponent } from '../staff/show-staff/show-staff.component';
 import { CreateEditProductComponent } from './create-edit-product/create-edit-product.component';
+import { EditImageProductComponent } from './edit-image-product/edit-image-product.component';
 import { ShowProductComponent } from './show-product/show-product.component';
 
 @Component({
@@ -130,6 +131,22 @@ export class ProductComponent implements OnInit {
   {
   const dialogRef=this.dialog.open(CreateEditProductComponent, {
       width: '700px',
+      data:{
+        textBtn:"Chỉnh sửa",
+        title: "Chỉnh sửa thông tin sản phẩm", 
+        isEdit: true,
+        data:data
+      }
+    })
+    dialogRef.afterClosed().subscribe(res=>{
+      this.getAllProduct()
+    })
+  }
+  openEditImageProduct(data:any)
+  {
+  const dialogRef=this.dialog.open(EditImageProductComponent, {
+      width: '700px',
+      height:"670px",
       data:{
         textBtn:"Chỉnh sửa",
         title: "Chỉnh sửa thông tin sản phẩm", 

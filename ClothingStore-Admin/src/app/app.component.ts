@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ChatService } from './services/chat.service';
 import { SignInService } from './services/sign-in.service';
 @Component({
   selector: 'app-root',
@@ -13,43 +14,61 @@ export class AppComponent implements OnInit {
   isAdmin =true;
   username: any
   icon: any = "expand_more"
-  constructor(private router: Router, private signInService: SignInService) { }
+  countMessUnread:any
+  constructor(private router: Router, private signInService: SignInService, private chatService: ChatService) { }
   ngOnInit(): void {
-    
-    if (sessionStorage.getItem("isLogin") == "true") {
+   
+  
+    if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
+       console.log("sadsad")
       this.isLogin = true;
-      this.username = sessionStorage.getItem("username")
-     this.getsessionStorage()
+
+      if(localStorage.getItem("role")=="admin")
+      this.username = localStorage.getItem("usernameAdmin")
+      if(localStorage.getItem("role")=="staff")
+      this.username = localStorage.getItem("usernameStaff")
+     this.getlocalStorage()
 
 
     }
-    else {
-      this.isLogin = false
-      this.router.navigate(['sign-in'])
-    }
+    // else {
+    //   this.isLogin = false
+    //   this.router.navigate(['sign-in'])
+    // }
     this.signInService.isLogin.subscribe(res => {
      
       this.isLogin = true
-      this.getsessionStorage()
+      this.getlocalStorage()
       
     })
     this.signInService.username.subscribe(res => {
       this.username = res
     })
+    this.chatService.getCountMessageUnread()
+    this.chatService.countUnRead.subscribe(res=>{
+      this.countMessUnread =res
+      })
 
 
   }
   logOut() {
    
-    if(sessionStorage.getItem('isRemember')=="true")
+    if(localStorage.getItem('isRememberAdmin')=="true")
     {
-      sessionStorage.removeItem('isLogin')
-      sessionStorage.removeItem('role')
-      sessionStorage.removeItem('token')
+      localStorage.removeItem('isLoginAdmin')
+      localStorage.removeItem('role')
+      localStorage.removeItem('token')
     }
+    else if(localStorage.getItem('isRememberStaff')=="true")
+    {
+      localStorage.removeItem('isLoginStaff')
+      localStorage.removeItem('role')
+      localStorage.removeItem('token')
+    }
+
     else
     {
-      sessionStorage.clear();
+      localStorage.clear();
     }
    
     this.isLogin = false
@@ -58,12 +77,12 @@ export class AppComponent implements OnInit {
   goProfilePage() {
     this.router.navigate(['profile'])
   }
-  getsessionStorage()
+  getlocalStorage()
   {
-    if (sessionStorage.getItem("role") == "staff") {
+    if (localStorage.getItem("role") == "staff") {
       this.isAdmin = false
     }
-    if (sessionStorage.getItem("role") == "admin") {
+    if (localStorage.getItem("role") == "admin") {
       this.isAdmin = true
     }
   }

@@ -1,132 +1,55 @@
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Loại voucher">
-    <div class="d-flex bd-highlight">
-      <div class="p-2 flex-fill bd-highlight">
-        <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Thêm voucher</button>
-            
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openCreateVoucher()">
-            <mat-icon>redeem</mat-icon><span>Thêm voucher</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>file_upload</mat-icon><span>Thêm voucher từ file</span>
-          </button>
-        </mat-menu>
-      </div>
-
-    </div>
-    <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-      <input class="input-search" />
-      <button style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
-    </div>
-
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="image">
-        <th mat-header-cell *matHeaderCellDef> Ảnh </th>
-        <td mat-cell *matCellDef="let element"> <img class="  rounded-circle" src="../../../assets/logoshop.png"> </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Tên </th>
-        <td mat-cell *matCellDef="let element"> </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="code">
-        <th mat-header-cell *matHeaderCellDef> Giá </th>
-        <td mat-cell *matCellDef="let element"> </td>
-      </ng-container>
-      <ng-container matColumnDef="count">
-        <th mat-header-cell *matHeaderCellDef> Sô lượng còn lại </th>
-        <td mat-cell *matCellDef="let element"> </td>
-      </ng-container>
-
-      <ng-container matColumnDef="show">
-        <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon (click)="openShowVoucher()" style="color: #1890ff;">visibility</mat-icon>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="chinhsua">
-        <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon (click)="openEditVoucher()" style="color: #1890ff;">edit</mat-icon>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="xoa">
-        <th mat-header-cell *matHeaderCellDef> Xóa </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon (click)="openAlertDelete()" style="color: red;">delete</mat-icon>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-  </mat-tab>
-  <mat-tab label="Voucher"> <div class="d-flex bd-highlight">
+  <div class="d-flex bd-highlight">
     <div class="p-2 flex-fill bd-highlight">
-          <button   mat-raised-button (click)="openCreateTypeofVoucher()" color="primary">Thêm loại voucher</button>
+          <button   mat-raised-button (click)="openCreateVoucher()" color="primary">Thêm  voucher</button>
        
     </div>
 
   </div>
   <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-    <input class="input-search"/>
-    <button style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
+    <input [(ngModel)]="search"     (input)="onChangeTextSearchEvent()" class="input-search"/>
+    <button (click)="searchVoucher()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
   </div>
   
- 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>  
+  <table mat-table *ngIf="!notfound" [dataSource]="dataSource" class="mat-elevation-z8">
   
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
       <!-- Position Column -->
-      <ng-container matColumnDef="image">
-        <th mat-header-cell *matHeaderCellDef> Ảnh </th>
-        <td mat-cell *matCellDef="let element"> <img class="  rounded-circle"   src="../../../assets/logoshop.png"> </td>
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> Mã </th>
+        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
       </ng-container>
     
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Tên </th>
-        <td mat-cell *matCellDef="let element">  </td>
+      <ng-container matColumnDef="discountfreeship">
+        <th mat-header-cell *matHeaderCellDef> Phần trăm giảm theo giá vận chuyển </th>
+        <td mat-cell style="text-align:center;" *matCellDef="let element"> {{element.discountfreeship}}% </td>
       </ng-container>
     
       <!-- Weight Column -->
-      <ng-container matColumnDef="code">
-        <th mat-header-cell *matHeaderCellDef> Giá </th>
-        <td mat-cell *matCellDef="let element">   </td>
+      <ng-container matColumnDef="discountprice">
+        <th mat-header-cell *matHeaderCellDef> Phần trăm giảm giá theo giá đơn hàng  </th>
+        <td mat-cell  style="text-align:center;" *matCellDef="let element"> {{element.discountprice}}%  </td>
       </ng-container>
-      <ng-container matColumnDef="count">
+      <ng-container matColumnDef="amountremaining">
         <th mat-header-cell *matHeaderCellDef> Sô lượng còn lại </th>
-        <td mat-cell *matCellDef="let element">   </td>
+        <td mat-cell style="text-align:center;" *matCellDef="let element"> {{element.amountRemaining}}   </td>
       </ng-container>
     
       <ng-container matColumnDef="show">
         <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-        <td mat-cell *matCellDef="let element"><mat-icon (click)="openShowVoucher()" style="color: #1890ff;">visibility</mat-icon> </td>
+        <td mat-cell *matCellDef="let element"><mat-icon (click)="openShowVoucher(element)" style="color: #1890ff;">visibility</mat-icon> </td>
       </ng-container>
       <ng-container matColumnDef="chinhsua">
         <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
-        <td mat-cell *matCellDef="let element"> <mat-icon (click)="openEditVoucher()" style="color: #1890ff;">edit</mat-icon> </td>
+        <td mat-cell *matCellDef="let element"> <mat-icon (click)="openEditVoucher(element)" style="color: #1890ff;">edit</mat-icon> </td>
       </ng-container>
     
       <ng-container matColumnDef="xoa">
         <th mat-header-cell *matHeaderCellDef> Xóa </th>
-        <td mat-cell *matCellDef="let element"> <mat-icon (click)="openAlertDelete()" style="color: red;">delete</mat-icon> </td>
+        <td mat-cell *matCellDef="let element"> <mat-icon (click)="openAlertDeleteVoucher(element.id)" style="color: red;">delete</mat-icon> </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -134,6 +57,6 @@
        
     </table>
     
-    <mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator> </mat-tab>
+    <app-notfound *ngIf="notfound"></app-notfound>
 
-</mat-tab-group>
+ 

@@ -26,8 +26,20 @@
       <div class="container">
         <h1>Đăng nhập</h1>
        
-    
+      
         <div class="login-form">
+          
+            
+             
+          
+              <section class="example-section">
+                
+                <mat-radio-group [(ngModel)]="labelPosition">
+                  <mat-radio-button (input)="changeRadioBtn()" color="primary" class="example-margin" value="admin">Quản trị </mat-radio-button>
+                  <mat-radio-button  (input)="changeRadioBtn()" color="primary" class="example-margin" value="staff">Nhân viên</mat-radio-button>
+                </mat-radio-group>
+              </section>
+           
           <form [formGroup]="formGroup" action="">
             <input formControlName="username"    name="username" type="email" placeholder="Username">
             <input  formControlName="password" name="password" type="password" placeholder="Password">

@@ -8,3 +8,7 @@ mat-form-field {
  .price{
     width: 290px;
  }
+  
+ mat-hint{
+   color: red;
+ }

@@ -13,7 +13,7 @@ export class ProductService {
   getHeader()
   {
     let headers = new HttpHeaders();
-    var token = sessionStorage.getItem('token');
+    var token = localStorage.getItem('token');
      
     
     return headers = headers.set('Access-Control-Allow-Origin', '*').set('Authorization', `Bearer ${token}`);
@@ -23,7 +23,21 @@ export class ProductService {
     let headers=this.getHeader()
     return this.http.get(this.apiUrl+"/get-all-product", {headers:headers})
   }
-  
+  getAllImageProductById(id:any)
+  {
+    let headers=this.getHeader()
+    return this.http.get(this.apiUrl+"/get-all-image-by-id/"+id, {headers:headers})
+  }
+  addImageProduct(img:any)
+  {
+    let headers=this.getHeader()
+    return this.http.post(this.apiUrl+"/add-image-product",img, {headers:headers})
+  }
+  changeImageProduct(img:any)
+  {
+    let headers=this.getHeader()
+    return this.http.put(this.apiUrl+"/change-image-product",img, {headers:headers})
+  }
   createProduct(prod:any)
   {
     let headers=this.getHeader()

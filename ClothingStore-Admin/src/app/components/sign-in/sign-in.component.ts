@@ -13,17 +13,34 @@ export class SignInComponent implements OnInit {
   decodedToken:any
   isRemember:any=false
   isLoginFailed:any=false
+  labelPosition:any= 'admin' 
   constructor(private router: Router, private signInService: SignInService) { }
   formGroup: FormGroup;
   ngOnInit(): void {
-    this.initForm()
+    if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
+     
+    this.router.navigate(['/customer'])
+
+
+   }
+   this.initForm()
   }
   initForm() {
-    if(sessionStorage.getItem("isRemember")=="true")
+    
+    if(localStorage.getItem("isRememberAdmin")=="true" &&  this.labelPosition=="admin")
+    {
+     
+      this.formGroup = new FormGroup({
+        username: new FormControl(localStorage.getItem("usernameAdmin"), [Validators.required]),
+        password: new FormControl(localStorage.getItem("passwordAdmin"), [Validators.required]),
+        isRemember: new FormControl(true, [Validators.required])
+      });
+    }
+    else if(localStorage.getItem("isRememberStaff")=="true" &&  this.labelPosition=="staff")
     {
       this.formGroup = new FormGroup({
-        username: new FormControl(sessionStorage.getItem("username"), [Validators.required]),
-        password: new FormControl(sessionStorage.getItem("password"), [Validators.required]),
+        username: new FormControl(localStorage.getItem("usernameStaff"), [Validators.required]),
+        password: new FormControl(localStorage.getItem("passwordStaff"), [Validators.required]),
         isRemember: new FormControl(true, [Validators.required])
       });
     }
@@ -37,13 +54,32 @@ export class SignInComponent implements OnInit {
     
 
   }
+  changeRadioBtn()
+  {
+     if(this.labelPosition=="admin") this.labelPosition="staff"
+     else  this.labelPosition="admin"
+    
+    this.initForm()
+    
+  }
   signIn() {
-    console.log(this.formGroup.value)
-    this.signInService.login(this.formGroup.value)
+    
+    if(this.labelPosition=="admin")
+    {
+       this.signInService.loginAdmin(this.formGroup.value)
     this.signInService.isLoginFailed.subscribe(res=>
       {
         this.isLoginFailed=res
       })
+    }
+    else {
+       this.signInService.loginStaff(this.formGroup.value)
+    this.signInService.isLoginFailed.subscribe(res=>
+      {
+        this.isLoginFailed=res
+      })
+    }
+   
     
     
 

@@ -14,7 +14,7 @@ export class CategoryService {
   getHeader()
   {
     let headers = new HttpHeaders();
-    var token = sessionStorage.getItem('token');
+    var token = localStorage.getItem('token');
      
     
     return headers = headers.set('Access-Control-Allow-Origin', '*').set('Authorization', `Bearer ${token}`);

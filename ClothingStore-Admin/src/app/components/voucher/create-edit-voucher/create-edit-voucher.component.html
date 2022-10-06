@@ -2,67 +2,116 @@
 <h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content class="mat-typography">
     
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Tên</mat-label>
-          <input matInput placeholder="Nhập tên voucher">
-          <mat-icon matSuffix>edit</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
+  <form  *ngIf="!data.isEdit" [formGroup]="formGroup">
+      <p >
         <mat-form-field appearance="outline">
           <mat-label>Loại loại voucher</mat-label>
-          <mat-select>
-            <mat-option value="one">First option</mat-option>
-            <mat-option value="two">Second option</mat-option>
+          <mat-select [(ngModel)]="typeOfVoucher" [ngModelOptions]="{standalone: true}">
+            <mat-option value="price">Giảm giá theo giá đơn hàng</mat-option>
+            <mat-option value="freeship">Giảm giá phí ship</mat-option>
           </mat-select>
           <mat-icon matSuffix>category</mat-icon>
-          <mat-hint>Hint</mat-hint>
+       
         </mat-form-field>
       </p>
-      <p>
+      <p   >
         <mat-form-field appearance="outline">
-          <mat-label>Số lượng</mat-label>
-          <input matInput placeholder="Nhập số lượng voucher">
+          <mat-label >Số lượng</mat-label>
+          <input type="number"  formControlName="amountInput" matInput placeholder="Nhập số lượng voucher">
           <mat-icon matSuffix>pin</mat-icon>
-          <mat-hint>Hint</mat-hint>
+          <mat-hint  *ngIf=" (formGroup.get('amountInput').invalid && formGroup.get('amountInput').touched) || (formGroup.get('amountInput').invalid && isSubmit)"> Vui lòng nhập số lượng</mat-hint>
+
         </mat-form-field>
       </p>
     
      
       
-      <p>
+      <p *ngIf="typeOfVoucher=='price'">
         <mat-form-field appearance="outline">
-          <mat-label>Giảm giá</mat-label>
-          <input matInput placeholder="Nhập giảm giá voucher">
+          <mat-label>Phần trăm giảm giá theo giá đơn hàng</mat-label>
+          <input  type="number" formControlName="discountprice"  matInput placeholder="Nhập % giảm giá voucher theo giá đơn hàng">
           <mat-icon matSuffix>percent</mat-icon>
-          <mat-hint>Hint</mat-hint>
+          <mat-hint  *ngIf=" (formGroup.get('discountprice').invalid && formGroup.get('discountprice').touched) || (formGroup.get('discountprice').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Mô tả</mat-label>
-          <input type="" matInput placeholder="Mô tả sản phẩm">
-          <mat-icon matSuffix>description</mat-icon>
-          <mat-hint>Hint</mat-hint>
+        <p   *ngIf="typeOfVoucher=='freeship' ">
+          <mat-form-field appearance="outline">
+            <mat-label>Giảm giá phí ship</mat-label>
+            <input  type="number" formControlName="discountfreeship"  matInput placeholder="Nhập % giảm giá voucher giảm giá phí ship">
+            <mat-icon matSuffix>percent</mat-icon>
+            <mat-hint  *ngIf=" (formGroup.get('discountfreeship').invalid && formGroup.get('discountfreeship').touched) || (formGroup.get('discountfreeship').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+
+          </mat-form-field>
+        </p>
+         
+     
+      <p>
+        <mat-form-field   class="example-full-width" appearance="outline">
+          <mat-label>Ngày hết hạn</mat-label>
+          <input formControlName="dateExpiration"  matInput [min]="minDate"   [matDatepicker]="picker">
+        
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint  *ngIf=" (formGroup.get('dateExpiration').invalid && formGroup.get('dateExpiration').touched) || (formGroup.get('dateExpiration').invalid && isSubmit)"> Vui lòng chọn ngày hết hạn voucher</mat-hint>
+
         </mat-form-field>
       </p>
       
-       <p>
-        <input type="file">
-       </p>
-        <div>
-          <div class="d-flex flex-row">
-            <div class="p-2"><img src="../../../../assets/data-not-found.png"></div>
-             
-          </div>
-        </div>
-        
-       
       
+      
+       
+        
+    </form>   
+    <form  *ngIf="data.isEdit" [formGroup]="formGroup">
+      
+      
+    
+     
+      
+      <p *ngIf="data.data.discountprice>0">
+        <mat-form-field appearance="outline">
+          <mat-label>Phần trăm giảm giá theo giá đơn hàng</mat-label>
+          <input  type="number" formControlName="discountprice"  matInput placeholder="Nhập % giảm giá voucher theo giá đơn hàng">
+          <mat-icon matSuffix>percent</mat-icon>
+          <mat-hint  *ngIf=" (formGroup.get('discountprice').invalid && formGroup.get('discountprice').touched) || (formGroup.get('discountprice').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+          <mat-hint  *ngIf=" formGroup.get('discountprice').valid && !percentValidate(formGroup.controls['discountprice'].value) "> Phần trăm giảm lớn hơn 0 và nhỏ hơn 100 </mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <p   *ngIf="data.data.discountfreeship>0" >
+          <mat-form-field appearance="outline">
+            <mat-label>Giảm giá phí ship</mat-label>
+            <input  type="number" formControlName="discountfreeship"  matInput placeholder="Nhập % giảm giá voucher giảm giá phí ship">
+            <mat-icon matSuffix>percent</mat-icon>
+            <mat-hint  *ngIf=" (formGroup.get('discountfreeship').invalid && formGroup.get('discountfreeship').touched) || (formGroup.get('discountfreeship').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+            <mat-hint  *ngIf=" formGroup.get('discountfreeship').valid && !percentValidate(formGroup.controls['discountfreeship'].value) "> Phần trăm giảm lớn hơn 0 và nhỏ hơn 100  </mat-hint>
+
+          </mat-form-field>
+        </p>
+         
+     
+      <p>
+        <mat-form-field   class="example-full-width" appearance="outline">
+          <mat-label>Ngày hết hạn</mat-label>
+          <input formControlName="dateExpiration"  matInput [min]="minDate"   [matDatepicker]="picker">
+        
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint  *ngIf=" (formGroup.get('dateExpiration').invalid && formGroup.get('dateExpiration').touched) || (formGroup.get('dateExpiration').invalid && isSubmit)"> Vui lòng chọn ngày hết hạn voucher</mat-hint>
+
+        </mat-form-field>
+      </p>
+      
+      
+      
+       
+        
+    </form>   
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button  mat-dialog-close color="warn">Hủy</button>
-  <button mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button mat-raised-button *ngIf="!data.isEdit" (click)="createVoucher()"  color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button mat-raised-button *ngIf="data.isEdit" (click)="editVoucher()"  color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+
 </mat-dialog-actions>

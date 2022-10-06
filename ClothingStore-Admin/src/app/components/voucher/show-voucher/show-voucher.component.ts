@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VoucherService } from 'src/app/services/voucher.service';
 
 @Component({
   selector: 'app-show-voucher',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowVoucherComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private voucherService:VoucherService, private dialog :MatDialog) { }
+
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
 }

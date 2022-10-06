@@ -60,7 +60,7 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Số điện thoại</mat-label>
-        <input formControlName="phonenumber" type="text" matInput placeholder="Nhập lương nhân viên">
+        <input formControlName="phonenumber" type="text" matInput placeholder="Nhập số điện thoại">
         <mat-icon matSuffix>attach_money</mat-icon>
         <mat-hint  *ngIf=" (formGroup.get('phonenumber').invalid && formGroup.get('phonenumber').touched) || (formGroup.get('phonenumber').invalid && isSubmit)">Vui lòng nhập lương nhân viên</mat-hint>
         <mat-hint *ngIf=" !phonenumberValidate && formGroup.get('phonenumber').valid">Số điện thoại không hợp lệ </mat-hint>

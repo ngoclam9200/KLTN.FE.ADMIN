@@ -73,12 +73,17 @@ nz-header {
 
 nz-content {
   margin: 24px;
+  background-color: #fff;
 }
 
 .inner-content {
   padding: 24px;
-  background: #fff;
-  /* height: 100%; */
+  /* background: #fff; */
+  height: 100%;
+
+  
+   
+   
 }
 a{
     text-decoration: none;

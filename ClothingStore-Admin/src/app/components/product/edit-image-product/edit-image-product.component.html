@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>Chỉnh sửa ảnh sản phẩm</h2>
+
+
+<div class="container">
+    <img src="{{currentImage}}" alt="Avatar" class="image" style="width:100%">
+    <div class="middle">
+        <div class="d-flex justify-content-center">
+            <!-- <button mat-raised-button color="primary">
+                <mat-icon>edit</mat-icon><span>Thay đổi</span>
+            </button>
+            <button  color="warn" mat-raised-button>
+                <mat-icon>delete</mat-icon> <span>Xóa</span>
+            </button> -->
+             
+                <div class="upload1">
+                    <button (click)="buttonChangeClick()" type="button" class="btn-warning1">
+                        <i class="fa fa-camera"></i> Thay đổi
+                        <input (change)="onFileSelected($event)" type="file">
+                    </button>
+                </div>
+               
+                
+                <div  style="margin-left: 20px;"   class="upload1">
+                    <button type="button" class="btn-warning2">
+                        <i class="fa fa-delete"></i> Xóa 
+                        
+                    </button>
+                </div>
+            
+             
+        </div>
+
+
+    </div>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <button [disabled]="listImage.length==1" (click)="prevImage()" mat-stroked-button>
+        <mat-icon>arrow_back_ios</mat-icon><span>Prev</span>
+    </button>
+    <button [disabled]="listImage.length==1" (click)="nextImage()" style="margin-left: 20px;" mat-stroked-button>
+        <span>Next</span>
+        <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <div (click)="changeCurrentImage(i)" *ngFor="let image of listImageBorder; let i=index">
+        <img  style="margin-left: 20px;" id="{{i}}" class="list-image {{image.class}}" src="{{image.url}}" alt="">
+    </div>
+    
+    
+
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <div class="d-flex align-items-center">
+        <div class="upload">
+            <button (click)="buttonAddClick()" type="button" class="btn-warning">
+                <i class="fa fa-upload"></i> Thêm ảnh mới
+                <input (change)="onFileSelected($event)" type="file">
+            </button>
+        </div>
+        <div *ngIf="!isChooseImage">
+         
+                <div class=""><img style="margin-left:12.5px ; margin-right:12.5px" class="new-image" src="{{imagePreview}}"></div>
+    
+           
+        </div>
+        
+        <div (click)="addImageProduct()" *ngIf="!isChooseImage && isAddImage" class="upload">
+            <button type="button" class="btn-warning">
+                <i class="fa fa-camera"></i> Thêm 
+                
+            </button>
+        </div>
+        <div (click)="changeImageProduct()" *ngIf="!isChooseImage && !isAddImage" class="upload">
+            <button type="button" class="btn-warning">
+                <i class="fa fa-camera"></i> Thay đổi ảnh hiện tại 
+                
+            </button>
+        </div>
+    
+    </div>
+</div>

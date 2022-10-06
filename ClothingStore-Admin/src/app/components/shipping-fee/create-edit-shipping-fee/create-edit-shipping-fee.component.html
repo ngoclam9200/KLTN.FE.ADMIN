@@ -1,42 +1,78 @@
- 
 <h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content class="mat-typography">
-    
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Tên</mat-label>
-          <input matInput placeholder="Nhập tên">
-          <mat-icon matSuffix>edit</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Khoảng cách</mat-label>
-          <input matInput placeholder="Nhập khoảng cách">
-          <mat-icon matSuffix>pin</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-    
-     
-      
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Giá trên mỗi km</mat-label>
-          <input matInput placeholder="Nhập giá trên mỗi km">
-          <mat-icon matSuffix>attach_money</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      </p>
-      
-      
-        
-       
-      
+  <form *ngIf="!data.isEdit" [formGroup]="formGroup">
+
+   
+
+  <p><mat-hint *ngIf="distanceExist">{{errtext}}</mat-hint></p>
+  <mat-form-field class="distance" appearance="outline">
+    <mat-label>Đến </mat-label>
+    <mat-select formControlName="name"     >
+      <mat-option   value="Nội thành">Nội thành</mat-option>
+      <mat-option   value="Ngoại thành">Ngoại thành</mat-option>
+    </mat-select>
+    <mat-hint  *ngIf=" (formGroup.get('name').invalid && formGroup.get('name').touched) || (formGroup.get('name').invalid && isSubmit)"> Vui lòng chọn phí vận chuyển</mat-hint>
+
+  </mat-form-field>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Mô tả</mat-label>
+        <input formControlName="description" matInput placeholder="Nhập mô tả">
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-hint  *ngIf=" (formGroup.get('description').invalid && formGroup.get('description').touched) || (formGroup.get('description').invalid && isSubmit)"> Vui lòng nhập mô tả</mat-hint>
+
+      </mat-form-field>
+    </p>
+
+
+
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Giá vận chuyển</mat-label>
+        <input formControlName="price" type="number" matInput placeholder="Nhập giá vận chuyển">
+        <mat-icon matSuffix>attach_money</mat-icon>
+        <mat-hint  *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched) || (formGroup.get('price').invalid && isSubmit)"> Vui lòng giá cho mỗi km</mat-hint>
+
+      </mat-form-field>
+    </p>
+
+
+
+  </form>
+  <form *ngIf="data.isEdit" [formGroup]="formGroup">
+
+   <p>Phí ship : {{data.data.name}} </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Mô tả</mat-label>
+        <input formControlName="description" matInput placeholder="Nhập mô tả">
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-hint  *ngIf=" (formGroup.get('description').invalid && formGroup.get('description').touched) || (formGroup.get('description').invalid && isSubmit)"> Vui lòng nhập mô tả</mat-hint>
+
+      </mat-form-field>
+    </p>
+
+
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Giá </mat-label>
+        <input formControlName="price" type="number" matInput placeholder="Nhập giá ">
+        <mat-icon matSuffix>attach_money</mat-icon>
+        <mat-hint  *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched) || (formGroup.get('price').invalid && isSubmit)"> Vui lòng giá cho mỗi km</mat-hint>
+
+      </mat-form-field>
+    </p>
+
+
+
+  </form>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button  mat-dialog-close color="warn">Hủy</button>
-  <button mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button mat-raised-button mat-dialog-close color="warn">Hủy</button>
+  <button mat-raised-button *ngIf="!data.isEdit" (click)="createShippingFee()" color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button mat-raised-button *ngIf="data.isEdit" (click)="editShippingFee()" color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+
 </mat-dialog-actions>

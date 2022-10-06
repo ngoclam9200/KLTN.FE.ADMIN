@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+ 
 import { RoleService } from 'src/app/services/role.service';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
@@ -23,11 +24,13 @@ export class RoleComponent implements OnInit {
   search: any = ""
   notfound:any=false
   constructor(private signInSerVice: SignInService, private dialog: MatDialog, private roleService: RoleService) { }
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator 
   ngOnInit(): void {
-
+    
+   
     this.getAllRole()
-  
+    
+ 
 
   }
   getAllRole() {

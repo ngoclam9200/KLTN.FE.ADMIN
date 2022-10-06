@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ShippingfeeService } from 'src/app/services/shippingfee.service';
 import { SignInService } from 'src/app/services/sign-in.service';
 import Swal from 'sweetalert2';
 import { CreateEditShippingFeeComponent } from './create-edit-shipping-fee/create-edit-shipping-fee.component';
@@ -13,75 +14,87 @@ import { CreateEditShippingFeeComponent } from './create-edit-shipping-fee/creat
 })
 export class ShippingFeeComponent implements OnInit {
 
-  rows:any = [];
-  displayedColumns: string[] = [ 'name', 'price/1km','distance','chinhsua', 'xoa'];
-  dataSource:any;
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
+  rows: any = [];
+  displayedColumns: string[] = ['name', 'price/1km', 'distance', 'chinhsua', ];
+  dataSource: any;
+  dataResponse: any;
+  allVoucher: any
+  notfound: boolean = false
+  search: any = ""
+  constructor(private signInSerVice: SignInService, private dialog: MatDialog, private shippingfeeService: ShippingfeeService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
-    this.fetch((data) => {
-      this.rows = data;
-      this.dataSource = new MatTableDataSource(this.rows);
+    this.getAllShippingFee()
+  }
+  getAllShippingFee() {
+    this.shippingfeeService.getAllShippingFee().subscribe(res => {
+      console.log(res)
+      this.dataResponse = res
+      this.allVoucher = this.dataResponse.data
+      this.dataSource = new MatTableDataSource(this.allVoucher);
       this.dataSource.paginator = this.paginator;
-   
-     
-    });
+    })
   }
-  fetch(cb: { (data: any): void; (arg0: any): void; }) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
 
-    req.onload = () => {
-      const data = JSON.parse(req.response);
-      cb(data);
-    };
-
-    req.send();
-  }
- 
-  openAlertDelete()
-  {
+  openAlertDeleteShippingFee(id: any) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Bạn có chắc chắn muốn xóa?',
+      text: "Phí ship này sẽ bị xóa , bạn không thể hoàn tác!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Xóa phí ship!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        this.shippingfeeService.deleteShippingFee(id).subscribe(res => {
+          Swal.fire(
+            'Đã xóa!',
+            'Phí ship này đã được xóa.',
+            'success'
+          )
+          this.getAllShippingFee()
+        })
+  
       }
+    })
+  }
+  
+
+ 
+  openCreateShippingFee()
+  {
+   const dialogRef= this.dialog.open(CreateEditShippingFeeComponent, {
+      width: '700px',
+      
+        data:{
+          textBtn: "Thêm",
+          title: "Thêm phí vận chuyển",
+          isEdit:false,
+          
+        }
+      
+    })
+    dialogRef.afterClosed().subscribe(res=>{
+      this.getAllShippingFee()
     })
   }
 
-  openCreateShippingFee()
-  {
-    this.dialog.open(CreateEditShippingFeeComponent, {
+  openEditShippingFee(data:any) {
+   const dialogRef= this.dialog.open(CreateEditShippingFeeComponent, {
       width: '700px',
-      data:{
-        textBtn:"Thêm",
-        title: "Thêm phí vận chuyển"
+      data: {
+        textBtn: "Chỉnh sửa",
+        title: "Chỉnh sửa thông tin phí vận chuyển",
+        isEdit:true,
+        data:data
       }
     })
-  }
-  
-  openEditShippingFee()
-  {
-    this.dialog.open(CreateEditShippingFeeComponent, {
-      width: '700px',
-      data:{
-        textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin phí vận chuyển"
-      }
+    dialogRef.afterClosed().subscribe(res=>{
+      this.getAllShippingFee()
     })
   }
- 
-  
+
+
 
 }

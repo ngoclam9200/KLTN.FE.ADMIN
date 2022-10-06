@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignInService } from 'src/app/services/sign-in.service';
+import { VoucherService } from 'src/app/services/voucher.service';
 import Swal from 'sweetalert2';
 import { CreateEditVoucherComponent } from './create-edit-voucher/create-edit-voucher.component';
 import { ShowVoucherComponent } from './show-voucher/show-voucher.component';
@@ -15,85 +16,151 @@ import { TypeofVoucherComponent } from './typeof-voucher/typeof-voucher.componen
 })
 export class VoucherComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['image', 'name', 'code',"count",'show','chinhsua', 'xoa'];
+  displayedColumns: string[] = ['code', 'discountprice', 'discountfreeship',"amountremaining",'show','chinhsua', 'xoa'];
   dataSource:any;
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
+  dataResponse:any;
+  allVoucher: any
+  notfound:boolean=false
+  search:any=""
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog, private voucherService: VoucherService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
-    this.fetch((data) => {
-      this.rows = data;
-      this.dataSource = new MatTableDataSource(this.rows);
-      this.dataSource.paginator = this.paginator;
+    this.getAllVoucher()
+    // this.fetch((data) => {
+    //   this.rows = data;
+    //   this.dataSource = new MatTableDataSource(this.rows);
+    //   this.dataSource.paginator = this.paginator;
    
      
-    });
+    // });
   }
-  fetch(cb: { (data: any): void; (arg0: any): void; }) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
+   
+ getAllVoucher()
+ {
+this.voucherService.getAllVoucher().subscribe(res=> {
+  console.log(res)
+  this.dataResponse = res
+  this.allVoucher= this.dataResponse.data
+  this.dataSource = new MatTableDataSource(this.allVoucher);
+  this.dataSource.paginator = this.paginator;
+})
 
-    req.onload = () => {
-      const data = JSON.parse(req.response);
-      cb(data);
-    };
-
-    req.send();
-  }
- 
-  openAlertDelete()
-  {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
+ }
+ openAlertDeleteVoucher(id: any) {
+  Swal.fire({
+    title: 'Bạn có chắc chắn muốn xóa?',
+    text: "Voucher này sẽ bị xóa , bạn không thể hoàn tác!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Xóa voucher!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.voucherService.deleteVoucher(id).subscribe(res => {
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          'Đã xóa!',
+          'Voucher này đã được xóa.',
           'success'
         )
-      }
-    })
-  }
+        this.getAllVoucher()
+      })
+
+    }
+  })
+}
 
   openCreateVoucher()
   {
-    this.dialog.open(CreateEditVoucherComponent, {
+   const dialogRef= this.dialog.open(CreateEditVoucherComponent, {
       width: '700px',
-      data:{
-        textBtn:"Thêm",
-        title: "Thêm voucher"
-      }
+      
+        data:{
+          textBtn:"Thêm ",
+          title: "Thêm voucher",
+          isEdit:false,
+          
+        }
+      
+    })
+    dialogRef.afterClosed().subscribe(res=>{
+      this.getAllVoucher()
     })
   }
-  openCreateTypeofVoucher()
+  
+  openEditVoucher(data:any)
   {
-    this.dialog.open(TypeofVoucherComponent, {
-      width: '700px',
-      data:{
-        textBtn:"Thêm",
-        title: "Thêm loại voucher"
-      }
-    })
-  }
-  openEditVoucher()
-  {
-    this.dialog.open(CreateEditVoucherComponent, {
+    if(data.discountprice>0) 
+    {
+      var isEditDiscountprice=true
+    }
+    else isEditDiscountprice=false;
+   const dialogRef= this.dialog.open(CreateEditVoucherComponent, {
       width: '700px',
       data:{
         textBtn:"Chỉnh sửa",
-        title: "Chỉnh sửa thông tin voucher"
+        title: "Chỉnh sửa thông tin voucher",
+        isEdit: true,
+        isEditDiscountprice: isEditDiscountprice,
+        
+        data:data
       }
     })
+    dialogRef.afterClosed().subscribe(res=>{
+      this.getAllVoucher()
+    })
   }
-  openShowVoucher()
+  openShowVoucher(data:any)
   {
-    this.dialog.open(ShowVoucherComponent)
+    this.dialog.open(ShowVoucherComponent, {data:data})
+  }
+  searchVoucher()
+  {
+    if(this.search!="")
+    {
+      this.voucherService.searchVoucher(this.search).subscribe(res=>{
+      
+        this.dataResponse = res
+        if(this.dataResponse.data==null) this.notfound=true
+        else
+        {
+          this.allVoucher = this.dataResponse.data
+          this.dataSource = new MatTableDataSource(this.allVoucher);
+          this.dataSource.paginator = this.paginator;
+          this.notfound=false
+        }
+      
+      })
+    }
+    else
+    {
+      this.getAllVoucher()
+      this.notfound=false
+    }
+  }
+  onChangeTextSearchEvent()
+  {
+    if(this.search!="")
+    {
+      this.voucherService.searchVoucher(this.search).subscribe(res=>{
+      
+        this.dataResponse = res
+        if(this.dataResponse.data!=null) 
+        {
+         
+          this.allVoucher = this.dataResponse.data
+          this.dataSource = new MatTableDataSource(this.allVoucher);
+          this.dataSource.paginator = this.paginator;
+          this.notfound=false
+        }
+      
+      })
+    }
+    else
+    {
+      this.getAllVoucher()
+      this.notfound=false
+    }
   }
   
 }
