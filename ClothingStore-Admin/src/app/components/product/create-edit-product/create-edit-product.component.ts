@@ -47,7 +47,6 @@ export class CreateEditProductComponent implements OnInit {
   }
   getAllCategory() {
     this.categoryService.getAllCategory().subscribe(res => {
-      console.log(res)
       this.dataResponse = res
       this.allCategory = this.dataResponse.data
 
@@ -87,9 +86,7 @@ export class CreateEditProductComponent implements OnInit {
 
     }
     this.isSubmit = true
-
-    console.log(this.formGroup.valid)
-    console.log(this.formGroup.value)
+ 
     if (this.formGroup.valid) {
       this.productService.createProduct(this.formGroup.value).subscribe(res => {
         Swal.fire(
@@ -120,7 +117,6 @@ export class CreateEditProductComponent implements OnInit {
 
     }
 
-    console.log(this.formGroup.value)
     this.productService.editProduct(this.formGroup.value).subscribe(res => {
       Swal.fire(
         'Đã chỉnh sửa!',

@@ -36,7 +36,6 @@ export class ProductComponent implements OnInit {
       this.productService.searchProduct(this.search).subscribe(res=>{
       
         this.dataResponse = res
-        console.log(res)
         if(this.dataResponse.data==null) this.notfound=true
         else
         {
@@ -81,7 +80,6 @@ export class ProductComponent implements OnInit {
   getAllProduct()
   {
     this.productService.getAllProduct().subscribe(res=>{
-      console.log(res)
       this.dataResponse = res
       this.allProduct = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allProduct);

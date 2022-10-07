@@ -38,8 +38,7 @@ export class VoucherComponent implements OnInit {
  getAllVoucher()
  {
 this.voucherService.getAllVoucher().subscribe(res=> {
-  console.log(res)
-  this.dataResponse = res
+   this.dataResponse = res
   this.allVoucher= this.dataResponse.data
   this.dataSource = new MatTableDataSource(this.allVoucher);
   this.dataSource.paginator = this.paginator;

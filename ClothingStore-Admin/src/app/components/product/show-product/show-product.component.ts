@@ -12,7 +12,6 @@ export class ShowProductComponent implements OnInit {
   constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    console.log( this.data)
   }
   openEditProduct()
   { this.dialog.closeAll()

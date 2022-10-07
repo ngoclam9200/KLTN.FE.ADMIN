@@ -35,7 +35,6 @@ export class CategoryComponent implements OnInit {
       this.categoryService.searchCategory(this.search).subscribe(res=>{
       
         this.dataResponse = res
-        console.log(res)
         if(this.dataResponse.data==null) this.notfound=true
         else
         {
@@ -104,7 +103,6 @@ export class CategoryComponent implements OnInit {
   getAllCategory()
   {
     this.categoryService.getAllCategory().subscribe(res => {
-      console.log(res)
       this.dataResponse = res
       this.allCategory = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allCategory);

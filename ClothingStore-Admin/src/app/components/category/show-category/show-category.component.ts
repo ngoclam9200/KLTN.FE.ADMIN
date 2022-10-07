@@ -13,7 +13,6 @@ export class ShowCategoryComponent implements OnInit {
    
 
   ngOnInit(): void {
-    console.log(this.data)
   }
    
 }

@@ -35,8 +35,7 @@ export class StaffComponent implements OnInit {
   getAllStaff() {
     this.staffService.getAllStaff().subscribe(res => {
       this.dataResponse = res
-      console.log(res)
-      this.allStaff= this.dataResponse.data
+       this.allStaff= this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allStaff);
       this.dataSource.paginator = this.paginator;
     })

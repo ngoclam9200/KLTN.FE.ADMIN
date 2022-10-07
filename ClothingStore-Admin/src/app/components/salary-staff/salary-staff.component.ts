@@ -59,7 +59,6 @@ export class SalaryStaffComponent implements OnInit {
     this.salaryStaffService.getSalaryByStaffId(id).subscribe(res => {
 
       this.dataRes = res
-      console.log(this.dataRes)
       this.dataRes = this.dataRes.data[0]
 
       this.listDayWorking = this.dataRes.listDayWorking.split(',')

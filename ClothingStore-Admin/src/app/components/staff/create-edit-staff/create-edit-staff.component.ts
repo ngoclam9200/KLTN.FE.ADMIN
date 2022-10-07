@@ -64,11 +64,7 @@ export class CreateEditStaffComponent implements OnInit {
     }
 
   }
-  // test()
-  // {
-  //   console.log(this.validate.validateUsername(this.formGroup.controls['tenDangNhap'].value))
-
-  // }
+ 
   editStaff() {
 
     this.emailValidate = this.validateService.ValidateEmail(this.formGroup.controls['email'].value)
@@ -117,8 +113,7 @@ export class CreateEditStaffComponent implements OnInit {
       this.isconfirmpassword=this.validateService.confirmPassw(this.formGroup.controls['password'].value,this.confirmpass)
     }
     
-    console.log(this.isconfirmpassword);
-   
+    
  
  
     
@@ -127,9 +122,7 @@ export class CreateEditStaffComponent implements OnInit {
     
     if(this.emailValidate && this.phonenumberValidate && this.usernameValidate && this.isconfirmpassword && this.passwordValidate)
     {
-      // this.formGroup.controls['salary'].setValue(this.formGroup.controls['salary'].value.toString())
-      console.log(this.formGroup.value)
-      this.staffService.createStaff(this.formGroup.value).subscribe(res=>{
+        this.staffService.createStaff(this.formGroup.value).subscribe(res=>{
         
         Swal.fire(
           'Đã thêm!',

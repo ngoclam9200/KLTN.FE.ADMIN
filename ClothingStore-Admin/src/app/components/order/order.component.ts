@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { OrderService } from 'src/app/services/order.service';
 import { SignInService } from 'src/app/services/sign-in.service';
+import { StatusOrderService } from 'src/app/services/status-order.service';
 import Swal from 'sweetalert2';
+import { ShowOrderComponent } from './show-order/show-order.component';
 
 @Component({
   selector: 'app-order',
@@ -11,74 +14,178 @@ import Swal from 'sweetalert2';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-
+allStatusOrder:any
   rows:any = [];
-  displayedColumns: string[] = ['position', 'name', 'weight',"show",'chinhsua', 'xoa'];
-  dataSourceWaitConfirm:any;
-  dataSourceDelivering:any;
-  dataSourceDelivered:any;
-  dataSourceCancle:any;
-  displayedDeliveredColumns: string[] = ['position', 'name', 'weight',"show"];
-  displayedDeliveringColumns: string[] = ['position', 'name', 'weight',"show",'xoa'];
-
-
+  allOrder:any
+  displayedColumns: string[] = ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
+  dataSource :any;
+  idTab:any
+   
   
 
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog) { }
-  @ViewChild('TableWaitConfirmPaginator') TableWaitConfirmPaginator: MatPaginator;
-  @ViewChild('TableDeliveringPaginator', {static: true}) TableDeliveringPaginator: MatPaginator;
-  @ViewChild('TableDeliveredPaginator', {static: true}) TableDeliveredPaginator: MatPaginator;
-  @ViewChild('TableCanclePaginator', {static: true}) TableCanclePaginator: MatPaginator;
+  constructor(private signInSerVice:SignInService, private dialog : MatDialog,private orderService:OrderService, private statusOrderService: StatusOrderService) { }
+  @ViewChild('TablePaginator') TablePaginator: MatPaginator;
+  
   ngOnInit(): void {
+    this.getData()
     
-    this.fetch((data) => {
-      this.rows = data;
-      this.dataSourceWaitConfirm = new MatTableDataSource(this.rows);
-      this.dataSourceWaitConfirm.paginator = this.TableWaitConfirmPaginator;
-      // this.rows1 = data;
-      this.dataSourceDelivering = new MatTableDataSource(this.rows);
-      this.dataSourceDelivering.paginator = this.TableDeliveringPaginator;
-      //
-      this.dataSourceDelivered = new MatTableDataSource(this.rows);
-      this.dataSourceDelivered.paginator = this.TableDeliveredPaginator;
-     //
-     this.dataSourceCancle = new MatTableDataSource(this.rows);
-      this.dataSourceCancle.paginator = this.TableCanclePaginator;
-    });
+    
   }
- 
-  fetch(cb: { (data: any): void; (arg0: any): void; }) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `http://swimlane.github.io/ngx-datatable/assets/data/company.json`);
+  getOrder($event: any) {
+    let id = this.allStatusOrder[$event.index].id
+    this.idTab=id
+    if (id == "1") {
+  this.displayedColumns= ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
 
-    req.onload = () => {
-      const data = JSON.parse(req.response);
-      cb(data);
-    };
+      this.orderService.getOrderWaitConfirm()
+        .subscribe(res => {
+          this.allOrder = res
+          this.allOrder = this.allOrder.data
+          this.dataSource  = new MatTableDataSource( this.allOrder);
+        this.dataSource.paginator = this.TablePaginator;
+        })
+    }
+    if (id == "2") {
+  this.displayedColumns= ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
 
-    req.send();
+      this.orderService.getOrderDelivering( )
+        .subscribe(res => {
+          this.allOrder = res
+          this.allOrder = this.allOrder.data
+          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+        })
+    }
+    if (id == "3") {
+      this.displayedColumns = ['position', 'name', 'weight', "gia","show"];
+      this.orderService.getOrderDelivered( )
+        .subscribe(res => {
+          this.allOrder = res
+          this.allOrder = this.allOrder.data
+          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+        })
+
+    }
+    if (id == "4") {
+      this.displayedColumns = ['position', 'name', 'weight', "gia","show"];
+      this.orderService.getOrderCancle( )
+        .subscribe(res => {
+          this.allOrder = res
+          this.allOrder = this.allOrder.data
+          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+        })
+    }
+
   }
   
-  openAlertDelete()
+  getData ()
   {
+    this.statusOrderService.getAllStatus()
+    .subscribe(res=>{
+      this.allStatusOrder=res
+      this.allStatusOrder=this.allStatusOrder.data
+      
+    })
+  }
+  
+   
+  confirmOrder(id:any)
+  {
+     
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Xác nhận đơn hàng?',
+      text: "Đơn hàng chuyển sang trạng thái đang giao",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Xác nhận'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        this.orderService.confirmOrder({id:id}).subscribe(res=>{
+          Swal.fire(
+            'Đã xác nhận!',
+            'Đơn hàng đang giao',
+            'success'
+          )
+          this.orderService.getOrderWaitConfirm().subscribe(res=>{
+            this.allOrder = res
+            this.allOrder = this.allOrder.data
+            this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+          })
+        })
+       
       }
     })
   }
-
-
+  cancleOrder(id:any)
+  {
+     
+    Swal.fire({
+      title: 'Hủy đơn hàng?',
+      text: "Đơn hàng sẽ bị hủy",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác nhận'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.orderService.cancleOrder({id:id}).subscribe(res=>{
+          Swal.fire(
+            'Đã hủy!',
+            'Đơn hàng đã bị hủy',
+            'success'
+          )
+          this.orderService.getOrderWaitConfirm().subscribe(res=>{
+            this.allOrder = res
+            this.allOrder = this.allOrder.data
+            this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+          })
+        })
+       
+      }
+    })
+  }
+  deliveredOrder(id:any)
+  {
+     
+    Swal.fire({
+      title: 'Xác nhận đã giao đơn hàng?',
+      text: "Đơn hàng đã giao",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xác nhận'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.orderService.deliveredOrder({id:id}).subscribe(res=>{
+          Swal.fire(
+            'Đã giao!',
+            'Đơn hàng đã giao',
+            'success'
+          )
+          this.orderService.getOrderDelivering().subscribe(res=>{
+            this.allOrder = res
+            this.allOrder = this.allOrder.data
+            this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+          })
+        })
+       
+      }
+    })
+  }
+showOrder(data:any)
+{
+ this.dialog.open(ShowOrderComponent, {
+  width:"800px",
+  data:data,
+ })
+}
 }

@@ -37,14 +37,12 @@ isSeen:boolean=true
           }
         }
       }
-      console.log(this.listMessage)
-
+ 
 
       this.currentMessageId=this.listMessage[0].chatId
       if(this.listMessage[0].isNewMessageAdmin)
       {
-        console.log("alo")
-        this.seenMessage(this.currentMessageId)
+         this.seenMessage(this.currentMessageId)
         this.listMessage[0].isNewMessageAdmin=false
         this.chatService.getCountMessageUnread()
       }
@@ -74,10 +72,8 @@ isSeen:boolean=true
       message: this.message,
       isAdmin:true
     }
-    console.log(data)
-    this.chatService.sendMessage(data).subscribe(res=>{
-      console.log(res);
-      this.message=""
+     this.chatService.sendMessage(data).subscribe(res=>{
+       this.message=""
       this.getData()
     })
   }

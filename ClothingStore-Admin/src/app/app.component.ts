@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
    
   
     if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
-       console.log("sadsad")
+       
       this.isLogin = true;
 
       if(localStorage.getItem("role")=="admin")

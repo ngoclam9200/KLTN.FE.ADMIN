@@ -25,13 +25,12 @@ export class EditImageProductComponent implements OnInit {
 
   }
   getData()
-  { console.log(this.data)
+  { 
     this.productService.getAllImageProductById(this.data.data.id).subscribe(res=>
       {
     
         this.dataRes=res
         this.listImage=this.dataRes.data
-        console.log(this.listImage)
         this.currentImage=this.listImage[0].url
         this.currentImageId=this.listImage[0].id
        for(let i=0; i<this.listImage.length;i++)
@@ -52,7 +51,6 @@ export class EditImageProductComponent implements OnInit {
         }
        
        }
-       console.log(this.listImageBorder)
       }
     
       )
@@ -75,10 +73,8 @@ export class EditImageProductComponent implements OnInit {
       productId: this.listImage[0].productId,
       url:this.imagePreview
     }
-    console.log(data)
     this.productService.addImageProduct(data).subscribe(res=>
       {
-        console.log(res)
         this.getData()
         this.isChooseImage=true
       })
@@ -121,7 +117,6 @@ export class EditImageProductComponent implements OnInit {
       this.listImageBorder[this.currentImageNumber].class=""
       this.currentImageNumber -=1
 
-      console.log(this.listImage.length)
       this.currentImage=this.listImage[this.currentImageNumber]?.url
       this.listImageBorder[this.currentImageNumber].class="border-image"
       this.currentImageId=this.listImage[this.currentImageNumber].id
@@ -144,7 +139,7 @@ export class EditImageProductComponent implements OnInit {
       url:this.imagePreview
     }
     this.productService.changeImageProduct(data).subscribe(res=>
-      {console.log(res)
+      { 
       this.getData()
       this.isChooseImage=true
     })

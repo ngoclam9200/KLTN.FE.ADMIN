@@ -31,7 +31,6 @@ export class CreateEditCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
-    console.log(this.data)
     if(this.data.isEdit)   
     {
       this.isChooseImage=false
@@ -69,7 +68,6 @@ export class CreateEditCategoryComponent implements OnInit {
 
     }
 
-    console.log(this.formGroup.value)
     this.categoryService.createCategory(this.formGroup.value).subscribe(res => {
       Swal.fire(
         'Đã thêm!',
@@ -92,7 +90,6 @@ export class CreateEditCategoryComponent implements OnInit {
 
     }
 
-    console.log(this.formGroup.value)
     this.categoryService.editCategory(this.formGroup.value).subscribe(res => {
       Swal.fire(
         'Đã chỉnh sửa!',

@@ -17,8 +17,7 @@ export class CreateEditVoucherComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private voucherService:VoucherService, private dialog :MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.data)
-    this.initForm()
+     this.initForm()
     this.minDate=new Date()
    
   }
@@ -63,27 +62,23 @@ export class CreateEditVoucherComponent implements OnInit {
     for (var i = 0; i < 6; i++)
       code += possible.charAt(Math.floor(Math.random() * possible.length));
       this.formGroup.controls['code'].setValue(code)
-    console.log(this.formGroup.value)
-    this.isSubmit=true
+     this.isSubmit=true
     if(this.formGroup.valid)
     {
       this.voucherService.createVoucher(this.formGroup.value).subscribe(res=>{
-        console.log(res)
-        this.dialog.closeAll()
+         this.dialog.closeAll()
       })
     }
   }
   editVoucher()
   {
     this.isSubmit=true
-    console.log(this.data.isEditDiscountprice)
-    if(this.data.isEditDiscountprice)
+     if(this.data.isEditDiscountprice)
     {
       if(this.formGroup.valid && this.percentValidate(this.formGroup.controls['discountprice'].value))
       {
         this.voucherService.editVoucher(this.formGroup.value).subscribe(res=>{
-          console.log(res)
-          this.dialog.closeAll()
+           this.dialog.closeAll()
         })
       }
        
@@ -94,8 +89,7 @@ export class CreateEditVoucherComponent implements OnInit {
       if(this.formGroup.valid && this.percentValidate(this.formGroup.controls['discountfreeship'].value))
       {
         this.voucherService.editVoucher(this.formGroup.value).subscribe(res=>{
-          console.log(res)
-          this.dialog.closeAll()
+           this.dialog.closeAll()
         })
       }
     }

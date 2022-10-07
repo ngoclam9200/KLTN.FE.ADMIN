@@ -18,8 +18,7 @@ export class CreateEditShippingFeeComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private shippingfeeService: ShippingfeeService, private dialog :MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.data);
-    
+     
     this.initForm()
     
   }
@@ -64,8 +63,7 @@ export class CreateEditShippingFeeComponent implements OnInit {
   createShippingFee()
   {
     this.isSubmit=true
-    console.log(this.formGroup.value);
-    
+     
     if(this.formGroup.valid)
     {
       
@@ -87,8 +85,7 @@ export class CreateEditShippingFeeComponent implements OnInit {
     
     if(this.formGroup.valid)
     {
-      console.log(this.formGroup.value)
-      this.shippingfeeService.editShippingFee(this.formGroup.value).subscribe(res=>{
+       this.shippingfeeService.editShippingFee(this.formGroup.value).subscribe(res=>{
        
         this.dialog.closeAll()
         

@@ -52,7 +52,6 @@ export class EditCustomerComponent implements OnInit {
     this.emailValidate = this.validateService.ValidateEmail(this.formGroup.controls['email'].value)
     this.phonenumberValidate = this.validateService.validatePhoneNumber(this.formGroup.controls['phonenumber'].value)
     this.usernameValidate=this.validateService.validateUsername(this.formGroup.controls['username'].value)
-    console.log(this.usernameValidate);
     
     if(this.emailValidate && this.phonenumberValidate && this.usernameValidate )
     {

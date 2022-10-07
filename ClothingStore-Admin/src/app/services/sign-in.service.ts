@@ -47,27 +47,22 @@ export class SignInService {
                     localStorage.setItem("role", "staff")
                     this.router.navigate(['order'])
                 }
-                console.log(data.password)
-                localStorage.setItem("isRememberAdmin",data.isRemember)
+                 localStorage.setItem("isRememberAdmin",data.isRemember)
                 localStorage.setItem("usernameAdmin", data.username)
                 localStorage.setItem("passwordAdmin", data.password)
-            //    console.log( this.isLoginFailed, "v");
-               this.username.emit(data.username)
+                this.username.emit(data.username)
                 this.isLogin.emit(true)
                 
             })
 
 
 
-            // this.signInService.login(this.formGroup.value)
+ 
 
-
-            console.log(this.decodedToken);
-        },err=>{
+         },err=>{
           
             this.isLoginFailed.emit(true)
-            // console.log( this.isLoginFailed, "sdsad")
-            
+             
         })
 
 
@@ -98,27 +93,22 @@ export class SignInService {
                     localStorage.setItem("role", "staff")
                     this.router.navigate(['order'])
                 }
-                console.log(data.password)
-                localStorage.setItem("isRememberStaff",data.isRemember)
+                 localStorage.setItem("isRememberStaff",data.isRemember)
                 localStorage.setItem("usernameStaff", data.username)
                 localStorage.setItem("passwordStaff", data.password)
-            //    console.log( this.isLoginFailed, "v");
-               this.username.emit(data.username)
+                this.username.emit(data.username)
                 this.isLogin.emit(true)
                 
             })
 
 
 
-            // this.signInService.login(this.formGroup.value)
+ 
 
-
-            console.log(this.decodedToken);
-        },err=>{
+         },err=>{
           
             this.isLoginFailed.emit(true)
-            // console.log( this.isLoginFailed, "sdsad")
-            
+             
         })
 
 

@@ -32,7 +32,6 @@ export class CustomerComponent implements OnInit {
   getAllUser()
   {
     this.customerService.getAllCustomer().subscribe(res => {
-      console.log(res)
       this.dataResponse = res
       this.allUser = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allUser);

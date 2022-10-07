@@ -1,0 +1,26 @@
+ 
+   <mat-card class="example-card">
+    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    <mat-card-title>Id đơn hàng : {{data.id}} </mat-card-title>
+    <div class="d-flex align-items-center">
+        <img style="height:200px; width:200px" src="{{data.product.image}}">
+        <mat-card-content style="margin-left: 30px;">
+            <p> Ngày đặt hàng : {{data.orderDate | date :"dd-MM-yyyy"}}</p>
+            <p>Dự kiến giao : {{estimateDelivery(data.orderDate) | date:"dd-MM-yyyy"}}</p>
+            <p> Tên sản phẩm : {{data.product.name}}</p>
+            <p>Người nhận : {{data.user.fullname}}- {{data.user.phonenumber}}</p>
+            <p>Số lượng : {{data.quantity}} </p>
+            <p>Thanh toán: {{data.transaction.name}}</p>
+            <p style="color: red;"> Thành tiền : {{data.unitPrice | currency: "VND"}}</p>
+        </mat-card-content>
+    </div>
+    
+    <mat-divider inset></mat-divider>
+    <mat-card-actions align="end">
+        <button mat-raised-button mat-dialog-close color="warn">Đóng</button>
+         
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+ 

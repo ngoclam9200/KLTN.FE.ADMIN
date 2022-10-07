@@ -1,47 +1,57 @@
-<mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Đơn chờ xác nhận">
-        <mat-paginator  #TableWaitConfirmPaginator="matPaginator"   [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
+<mat-tab-group mat-align-tabs="center" (selectedTabChange)="getOrder($event)">
+    <mat-tab *ngFor="let statusOrder of allStatusOrder" label="{{statusOrder.name}}">
+        <mat-paginator *ngIf="allOrder?.length>0" #TablePaginator="matPaginator"   [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
 
-        <table mat-table [dataSource]="dataSourceWaitConfirm" class="mat-elevation-z8">
+        <table mat-table  *ngIf="allOrder?.length>0" [dataSource]="dataSource " class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> Gender </th>
-                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                <th mat-header-cell *matHeaderCellDef> Ảnh  </th>
+                <td mat-cell *matCellDef="let element"> <img src="{{element.product.image}}"> </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <th mat-header-cell *matHeaderCellDef> Tên sản phẩm  </th>
+                <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Company </th>
-                <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+                <th mat-header-cell *matHeaderCellDef> Số lượng </th>
+                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+            <ng-container matColumnDef="gia">
+                <th mat-header-cell *matHeaderCellDef> Thành tiền </th>
+                <td mat-cell *matCellDef="let element"> {{element.unitPrice | currency: "VND"}} </td>
             </ng-container>
 
             <ng-container matColumnDef="show">
                 <th mat-header-cell *matHeaderCellDef> Thông tin </th>
                 <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">visibility</mat-icon>
+                    <mat-icon (click)="showOrder(element)" style="color: #1890ff;">visibility</mat-icon>
                 </td>
             </ng-container>
-            <ng-container matColumnDef="chinhsua">
+            <ng-container matColumnDef="chinhsua" *ngIf="idTab==1">
                 <th mat-header-cell *matHeaderCellDef> Xác nhận </th>
                 <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">done</mat-icon>
+                    <mat-icon (click)="confirmOrder(element.id)" style="color: #1890ff;">done</mat-icon>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="chinhsua" *ngIf="idTab==2">
+                <th mat-header-cell *matHeaderCellDef> Xác nhận </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="deliveredOrder(element.id)" style="color: #1890ff;">done</mat-icon>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="xoa">
                 <th mat-header-cell *matHeaderCellDef> Hủy </th>
                 <td mat-cell *matCellDef="let element">
-                    <mat-icon (click)="openAlertDelete()" style="color: red;">delete</mat-icon>
+                    <mat-icon (click)="cancleOrder(element.id)" style="color: red;">delete</mat-icon>
                 </td>
             </ng-container>
 
@@ -49,141 +59,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         </table>
-
-
-    </mat-tab>
-    <mat-tab label="Đơn đang giao">
-        <mat-paginator #TableDeliveringPaginator="matPaginator"   [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-
-        <table mat-table [dataSource]="dataSourceDelivering" class="mat-elevation-z8">
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> Gender </th>
-                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Company </th>
-                <td mat-cell *matCellDef="let element"> {{element.company}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="show">
-                <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">visibility</mat-icon>
-                </td>
-            </ng-container>
-         
-
-            <ng-container matColumnDef="xoa">
-                <th mat-header-cell *matHeaderCellDef> Hủy </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon (click)="openAlertDelete()" style="color: red;">delete</mat-icon>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedDeliveringColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedDeliveringColumns;"></tr>
-
-        </table>
-    </mat-tab>
-    <mat-tab label="Đơn đã giao">
-        <mat-paginator #TableDeliveredPaginator="matPaginator" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-
-        <table mat-table [dataSource]="dataSourceDelivered" class="mat-elevation-z8">
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> Gender </th>
-                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Company </th>
-                <td mat-cell *matCellDef="let element"> {{element.company}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="show">
-                <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">visibility</mat-icon>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="chinhsua">
-                <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">edit</mat-icon>
-                </td>
-            </ng-container>
-
-         
-
-            <tr mat-header-row *matHeaderRowDef="displayedDeliveredColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedDeliveredColumns;"></tr>
-
-        </table>
-    </mat-tab>
-    <mat-tab label="Đơn đã hủy">
-        <mat-paginator #TableCanclePaginator="matPaginator" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-
-        <table mat-table [dataSource]="dataSourceCancle" class="mat-elevation-z8">
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> Gender </th>
-                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Company </th>
-                <td mat-cell *matCellDef="let element"> {{element.company}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="show">
-                <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-icon style="color: #1890ff;">visibility</mat-icon>
-                </td>
-            </ng-container>
-      
-
-          
-
-            <tr mat-header-row *matHeaderRowDef="displayedDeliveredColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedDeliveredColumns;"></tr>
-
-        </table>
-    </mat-tab>
+        <div class="d-flex justify-content-center" *ngIf="allOrder?.length==0">Không có đơn hàng</div>
+ </mat-tab>
 
 </mat-tab-group>

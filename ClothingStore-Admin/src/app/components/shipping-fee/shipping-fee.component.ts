@@ -28,7 +28,6 @@ export class ShippingFeeComponent implements OnInit {
   }
   getAllShippingFee() {
     this.shippingfeeService.getAllShippingFee().subscribe(res => {
-      console.log(res)
       this.dataResponse = res
       this.allVoucher = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allVoucher);

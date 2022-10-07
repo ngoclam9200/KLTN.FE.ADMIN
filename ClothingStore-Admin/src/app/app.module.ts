@@ -65,6 +65,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ShowOrderComponent } from './components/order/show-order/show-order.component';
  
 registerLocaleData(hi);
 @NgModule({
@@ -102,6 +103,7 @@ registerLocaleData(hi);
     SalaryStaffComponent,
     LoadingComponent,
     EditImageProductComponent,
+    ShowOrderComponent,
 
 
   ],
