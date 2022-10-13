@@ -28,4 +28,9 @@ export class SalaryStaffService {
     let headers=this.getHeader()
     return this.http.put(this.apiUrl+"pay-for-today",data, {headers:headers})
   }
+  PayForMonth(data:any)
+  {
+    let headers=this.getHeader()
+    return this.http.put(this.apiUrl+"pay-for-month",data, {headers:headers})
+  }
 }

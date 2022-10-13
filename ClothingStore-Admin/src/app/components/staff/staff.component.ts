@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class StaffComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['ten', 'email', 'luong','salary-staff','chinhsua', 'xoa'];
+  displayedColumns: string[] = ['avatar','ten', 'email', 'luong','salary-staff','chinhsua', 'xoa'];
   dataSource:any;
   dataResponse: any;
   allStaff: any;
@@ -42,7 +42,7 @@ export class StaffComponent implements OnInit {
   }
   openCreateStaff()
   {
-    this.dialog.open(CreateEditStaffComponent, {
+    const dialogREf=this.dialog.open(CreateEditStaffComponent, {
       width: '700px',
       data:{
         textBtn:"Thêm",
@@ -51,6 +51,10 @@ export class StaffComponent implements OnInit {
         
       }
     })
+    dialogREf.afterClosed().subscribe(res=>
+      {
+        this.getAllStaff()
+      })
   }
   openEditStaff(data:any)
   {

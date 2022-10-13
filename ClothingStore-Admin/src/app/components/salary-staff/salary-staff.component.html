@@ -34,7 +34,18 @@
                 </tr>
             </tbody>
         </table>
-        (Ghi chú) <p class="text-danger bold">{{listDayWorking[0]}}</p> : Ngày nhân viên đã làm trong tháng này
+        <div class="d-flex flex-row">
+            <div class="p-2">  (Ghi chú)  </div>
+             
+          </div>
+          <div class="d-flex flex-row">
+             
+            <div class="p-2"> <p style="width:20px;" class="text-danger bold">13 </p></div>
+            <div class="p-2"> : Ngày nhân viên đã làm trong tháng này</div>
+          </div>
+       
+          
+        
     </div>
     <mat-card style="margin-left:20px ; " class="example-card">
 
@@ -63,7 +74,12 @@
                 Lương phải trả hiện tại cho tháng này : {{dataRes?.salaryOfThisMonth| currency:"VND":"symbol"}}
             </p>
             <p>
-                <button mat-raised-button color="primary">Chốt lương cho tháng này</button>
+                <button *ngIf="!dataRes?.isWorking"  [disabled]="!dataRes?.isWorking"  mat-raised-button (click)="PayForMonth()" color="primary">Chốt lương cho tháng này (đã tính)</button>
+              
+            </p>
+            <p>
+                  
+                <button *ngIf="dataRes?.isWorking"    mat-raised-button (click)="PayForMonth()" color="primary">Chốt lương cho tháng này </button>
             </p>
             <p *ngIf="payForToday">
                 <button mat-raised-button [disabled]="payForToday" color="primary">
@@ -72,7 +88,7 @@
                 </button>
             </p>
             <p *ngIf="!payForToday">
-                <button mat-raised-button (click)="PayForToday()"  color="primary">
+                <button mat-raised-button [disabled]="!dataRes?.isWorking" (click)="PayForToday()"  color="primary">
 
                     Tính lương ngày hôm nay 
                 </button>

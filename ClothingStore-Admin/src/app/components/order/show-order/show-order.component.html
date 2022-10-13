@@ -3,15 +3,47 @@
     <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
     <mat-card-title>Id đơn hàng : {{data.id}} </mat-card-title>
     <div class="d-flex align-items-center">
-        <img style="height:200px; width:200px" src="{{data.product.image}}">
+        <!-- <img style="height:200px; width:200px" src="{{data.product.image}}"> -->
         <mat-card-content style="margin-left: 30px;">
             <p> Ngày đặt hàng : {{data.orderDate | date :"dd-MM-yyyy"}}</p>
             <p>Dự kiến giao : {{estimateDelivery(data.orderDate) | date:"dd-MM-yyyy"}}</p>
-            <p> Tên sản phẩm : {{data.product.name}}</p>
+            <p> Địa chỉ giao : {{data.addressShip}}</p>
             <p>Người nhận : {{data.user.fullname}}- {{data.user.phonenumber}}</p>
-            <p>Số lượng : {{data.quantity}} </p>
+            <!-- <p>Số lượng : {{data.quantity}} </p> -->
             <p>Thanh toán: {{data.transaction.name}}</p>
-            <p style="color: red;"> Thành tiền : {{data.unitPrice | currency: "VND"}}</p>
+            <p style="color: red;"> Phí vận chuyển : {{data.shippingFee.price | currency: "VND"}}</p>
+            <p *ngIf="data.voucherId!='0' && data.voucher.discountfreeship>0 "   style="color: red;"> Voucher : giảm {{data.voucher.discountfreeship}}% phí vận chuyển</p>
+            <p *ngIf="data.voucherId!='0' && data.voucher.discountprice>0 "   style="color: red;"> Voucher : giảm {{data.voucher.discountprice}}% tổng tiền hàng </p>
+            <table mat-table    [dataSource]="allProduct " class="mat-elevation-z8">
+ 
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> Sản phẩm   </th>
+                    <td mat-cell *matCellDef="let element"> <img src="{{element.product.image}}"> {{element.product.name}}    </td>
+                </ng-container>
+     
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Số lượng </th>
+                    <td mat-cell *matCellDef="let element"> {{element.productCount}}  </td>
+                </ng-container>
+    
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Thành tiền</th>
+                    <td mat-cell *matCellDef="let element"> {{(element.product.price-
+                        element.product.price*element.product.discount/100)*element.productCount |
+                        currency
+                        :"VND" }}   </td>
+                </ng-container>
+               
+     
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+            </table>
+            <br>
+            <p  style="color: red;"> Thành tiền : {{data.unitPrice | currency: "VND"}}</p>
+
         </mat-card-content>
     </div>
     

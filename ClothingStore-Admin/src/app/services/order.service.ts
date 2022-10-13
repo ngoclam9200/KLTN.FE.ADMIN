@@ -24,6 +24,11 @@ export class OrderService {
     let header=this.getHeader()
     return this.http.get(this.apiUrl+ "/admin-get-all-waitconfirm-order/", {headers:header})
   }
+  getCountOrderWaitConfirm( )
+  {
+    let header=this.getHeader()
+    return this.http.get(this.apiUrl+ "/admin-get-count-waitconfirm-order/", {headers:header})
+  }
   getOrderDelivering( )
   {
     let header=this.getHeader()

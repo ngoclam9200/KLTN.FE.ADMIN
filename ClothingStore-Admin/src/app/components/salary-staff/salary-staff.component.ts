@@ -60,8 +60,7 @@ export class SalaryStaffComponent implements OnInit {
 
       this.dataRes = res
       this.dataRes = this.dataRes.data[0]
-
-      this.listDayWorking = this.dataRes.listDayWorking.split(',')
+       this.listDayWorking = this.dataRes.listDayWorking.split(',')
       for (let i = 1; i < this.listDayWorking.length; i++) {
         if(this.listDayWorking[i]==new Date(this.currentDay).getDate().toString()) 
         {
@@ -140,6 +139,39 @@ export class SalaryStaffComponent implements OnInit {
 
     })
 
+  }
+  PayForMonth()
+  {
+    const data={
+      id: this.dataRes.id,
+      
+    }
+     
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn tính?',
+      text: "Lương tháng này sẽ được tính , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tính lương!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.salaryStaffService.PayForMonth(data).subscribe(res => {
+
+          Swal.fire(
+            'Đã tính!',
+            'Lương tháng'+ new Date().getMonth+1 + ' này đã được tính.',
+            'success'
+          )
+          this.getData()
+        })
+
+      }
+    })
+  
+
+  
   }
 
 }

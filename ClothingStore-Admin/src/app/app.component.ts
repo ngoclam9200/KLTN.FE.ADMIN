@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatService } from './services/chat.service';
+import { OrderService } from './services/order.service';
 import { SignInService } from './services/sign-in.service';
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   username: any
   icon: any = "expand_more"
   countMessUnread:any
-  constructor(private router: Router, private signInService: SignInService, private chatService: ChatService) { }
+  countOrder:any
+  constructor(private router: Router, private signInService: SignInService, private chatService: ChatService, private orderService: OrderService) { }
   ngOnInit(): void {
    
   
@@ -27,6 +29,10 @@ export class AppComponent implements OnInit {
       this.username = localStorage.getItem("usernameAdmin")
       if(localStorage.getItem("role")=="staff")
       this.username = localStorage.getItem("usernameStaff")
+      this.orderService.getCountOrderWaitConfirm().subscribe(res=>{
+         this.countOrder=res
+        this.countOrder=this.countOrder.data
+      })
      this.getlocalStorage()
 
 
