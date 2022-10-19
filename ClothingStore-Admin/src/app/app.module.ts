@@ -53,10 +53,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { VoucherComponent } from './components/voucher/voucher.component';
 import { CreateEditVoucherComponent } from './components/voucher/create-edit-voucher/create-edit-voucher.component';
 import { ShowVoucherComponent } from './components/voucher/show-voucher/show-voucher.component';
-import { ShippingFeeComponent } from './components/shipping-fee/shipping-fee.component';
-import { TypeofVoucherComponent } from './components/voucher/typeof-voucher/typeof-voucher.component';
-import { CreateEditShippingFeeComponent } from './components/shipping-fee/create-edit-shipping-fee/create-edit-shipping-fee.component';
-import { RoleComponent } from './components/role/role.component';
+ import { TypeofVoucherComponent } from './components/voucher/typeof-voucher/typeof-voucher.component';
+ import { RoleComponent } from './components/role/role.component';
 import { CreateEditRoleComponent } from './components/role/create-edit-role/create-edit-role.component';
 import { SalaryStaffComponent } from './components/salary-staff/salary-staff.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -95,10 +93,8 @@ registerLocaleData(hi);
     VoucherComponent,
     CreateEditVoucherComponent,
     ShowVoucherComponent,
-    ShippingFeeComponent,
-    TypeofVoucherComponent,
-    CreateEditShippingFeeComponent,
-    RoleComponent,
+     TypeofVoucherComponent,
+     RoleComponent,
     CreateEditRoleComponent,
     SalaryStaffComponent,
     LoadingComponent,

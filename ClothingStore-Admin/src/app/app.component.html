@@ -36,7 +36,7 @@
                     </a>
                 </li>
                  
-                <li  nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin"  nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/customer"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>group</mat-icon>
@@ -44,7 +44,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/product"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>dry_cleaning</mat-icon>
@@ -52,7 +52,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/category"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>category</mat-icon>
@@ -60,7 +60,7 @@
                         </div>
                     </a>
                 </li>
-                <li nz-menu-item nzMatchRouter>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/voucher"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>redeem</mat-icon>
@@ -68,14 +68,7 @@
                         </div>
                     </a>
                 </li>
-                <li   nz-menu-item nzMatchRouter>
-                    <a [routerLink]='["/shipping-fee"]'>
-                        <div class="d-flex align-items-center">
-                            <mat-icon>local_shipping</mat-icon>
-                            Quản lý phí vận chuyển 
-                        </div>
-                    </a>
-                </li>
+                
                 <li nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/order"]'>
                         <div class="d-flex align-items-center">

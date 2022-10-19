@@ -26,6 +26,7 @@ import {
   Tooltip,
   SubTitle
 } from 'chart.js';
+import { StatisticService } from 'src/app/services/statistic.service';
 
 Chart.register(
   ArcElement,
@@ -60,7 +61,14 @@ Chart.register(
 })
 export class TurnoverComponent implements OnInit {
   displayedColumns: string[] = [ 'turnover', 'cost','profit'];
-  constructor() { }
+  allTurnOver:any;
+  allCostSalary:any;
+  allCostProduct:any;
+  listMonth:any=[];
+  listTurnOver:any=[];
+  listCostSalary:any=[];
+  listCostProduct:any=[]
+  constructor(private statisticService: StatisticService) { }
 
   ngOnInit(): void {
     this.chartTurnOver()
@@ -71,98 +79,139 @@ export class TurnoverComponent implements OnInit {
   }
   
   chartTurnOver() {
-    const myChartTurnOver = new Chart("myChartTurnOver", {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: 'Doanh thu',
-          data: [12, 19, 3, 5, 2, 3, 3, 5, 6, 26, 4, 6 ],
-          fill: false,
-          borderColor: '#aaffff',
-          tension: 0.05,
-        },
-        {
-          label: 'Lợi nhuận',
-          data: [6, 4, 54, 15, 7, 8, 8, 15, 16, 18, 15, 16],
-          fill: false,
-          borderColor: '#00bf00',
-          tension: 0.05,
-        },
-        {
-          label: 'Chi phí phải trả',
-          data: [1,2,3,4,5,6,7,8,9,10,11,12],
-          fill: false,
-          borderColor: '#ff5656',
-          tension: 0.05,
-        }
-       
-      ],
-      },
+    this.statisticService.getTurnOver().subscribe(res=>{
+      this.allTurnOver=res
+      this.allTurnOver=this.allTurnOver.data
+    
+      for(let i=0;i<this.allTurnOver.length;i++)
+      {
+        this.listMonth.push(this.allTurnOver[i].monthyear)
+        this.listTurnOver.push(this.allTurnOver[i].total)
       
-      options: {
-
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Doanh thu - chi phí - lợi nhuận qua từng tháng",
-            }
+      }
+      this.listMonth=this.listMonth.reverse()
+      this.listTurnOver=this.listTurnOver.reverse()
+      console.log(this.listMonth)
+      console.log(this.listTurnOver)
+      const myChartTurnOver = new Chart("myChartTurnOver", {
+        type: 'line',
+        data: {
+          labels:  this.listMonth,
+          datasets: [{
+            label: 'Doanh thu',
+            data: this.listTurnOver,
+            fill: false,
+            borderColor: '#aaffff',
+            tension: 0.05,
           },
-          y: {
-            beginAtZero: true
+          {
+            label: 'Lợi nhuận',
+            data: [6, 4, 54, 15, 7, 8, 8, 15, 16, 18, 15, 16],
+            fill: false,
+            borderColor: '#00bf00',
+            tension: 0.05,
+          },
+          {
+            label: 'Chi phí phải trả',
+            data: [1,2,3,4,5,6,7,8,9,10,11,12],
+            fill: false,
+            borderColor: '#ff5656',
+            tension: 0.05,
+          }
+         
+        ],
+        },
+        
+        options: {
+  
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Doanh thu - chi phí - lợi nhuận qua từng tháng",
+              }
+            },
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    })
+    
   }
   chartCost() {
-    const myChartCost = new Chart("myChartCost", {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: 'Lương nhân viên',
-          data: [12, 19, 3, 5, 2, 3, 3, 5, 6, 26, 4, 6 ],
-          fill: false,
-          borderColor: 'blue',
-          tension: 0.05,
-        },
-        {
-          label: 'Nhập sản phẩm',
-          data: [6, 4, 54, 15, 7, 8, 8, 15, 16, 18, 15, 16],
-          fill: false,
-          borderColor: 'yellow',
-          tension: 0.05,
-        },
-        {
-          label: 'Tổng',
-          data: [1,2,3,4,5,6,7,8,9,10,11,12],
-          fill: false,
-          borderColor: 'red',
-          tension: 0.05,
-        },
-
+    this.statisticService.getCostSalary().subscribe(res=>{
+      this.allCostSalary=res
+      this.allCostSalary=this.allCostSalary.data
+      for(let i=0;i<this.allCostSalary.length;i++)
+      {
          
-       
-      ],
-      },
+        this.listCostSalary.push(this.allCostSalary[i].total)
       
-      options: {
-
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Chi phí từng tháng",
-            }
-          },
-          y: {
-            beginAtZero: true
-          }
-        }
       }
-    });
+      this.statisticService.getCostProduct().subscribe(res=>{
+        this.allCostProduct=res
+        this.allCostProduct=this.allCostProduct.data
+        for(let i=0;i<this.allCostProduct.length;i++)
+        {
+           
+          this.listCostProduct.push(this.allCostProduct[i].total)
+        
+        }
+
+        
+        this.listCostSalary=this.listCostSalary.reverse()
+        this.listCostProduct=this.listCostProduct.reverse()
+        const myChartCost = new Chart("myChartCost", {
+          type: 'line',
+          data: {
+            labels: this.listMonth,
+            datasets: [{
+              label: 'Lương nhân viên',
+              data:  this.listCostSalary,
+              fill: false,
+              borderColor: 'blue',
+              tension: 0.05,
+              backgroundColor:"blue",
+            },
+            {
+              label: 'Nhập sản phẩm',
+              data: this.listCostProduct,
+              fill: false,
+              borderColor: 'yellow',
+              tension: 0.05,
+              backgroundColor:"yellow",
+            },
+             
+    
+             
+           
+          ],
+          },
+          
+          options: {
+    
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: "Chi phí từng tháng",
+                }
+              },
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      })
+     
+     
+      
+    
+    })
+    
   }
   chartCountOrderDelivered() {
     const myChartCountOrderDelivered = new Chart("myChartCountOrderDelivered", {
