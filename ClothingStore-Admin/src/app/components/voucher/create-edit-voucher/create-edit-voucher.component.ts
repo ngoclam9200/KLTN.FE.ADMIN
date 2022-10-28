@@ -37,8 +37,6 @@ export class CreateEditVoucherComponent implements OnInit {
     else {
       this.formGroup = new FormGroup({
         id:new FormControl(this.data.data.id, [Validators.required]),
-        discountprice: new FormControl(this.data.data.discountprice, [Validators.required]),
-        discountfreeship: new FormControl(this.data.data.discountfreeship, [Validators.required]),
         dateExpiration: new FormControl(this.data.data.dateExpiration, [Validators.required]),
         
        
@@ -75,7 +73,7 @@ export class CreateEditVoucherComponent implements OnInit {
     this.isSubmit=true
      if(this.data.isEditDiscountprice)
     {
-      if(this.formGroup.valid && this.percentValidate(this.formGroup.controls['discountprice'].value))
+      if(this.formGroup.valid )
       {
         this.voucherService.editVoucher(this.formGroup.value).subscribe(res=>{
            this.dialog.closeAll()
