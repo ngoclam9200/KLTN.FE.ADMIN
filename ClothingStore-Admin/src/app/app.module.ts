@@ -64,6 +64,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ShowOrderComponent } from './components/order/show-order/show-order.component';
+import { ChangeAvatarComponent } from './components/profile/change-avatar/change-avatar.component';
  
 registerLocaleData(hi);
 @NgModule({
@@ -100,6 +101,7 @@ registerLocaleData(hi);
     LoadingComponent,
     EditImageProductComponent,
     ShowOrderComponent,
+    ChangeAvatarComponent,
 
 
   ],

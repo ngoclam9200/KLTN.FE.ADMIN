@@ -34,6 +34,7 @@ export class RoleComponent implements OnInit {
 
   }
   getAllRole() {
+ 
     this.roleService.getAllRole().subscribe(res => {
       this.dataResponse = res
       this.allRoles = this.dataResponse.data

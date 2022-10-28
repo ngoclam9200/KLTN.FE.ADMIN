@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from './services/admin.service';
 import { ChatService } from './services/chat.service';
 import { OrderService } from './services/order.service';
 import { SignInService } from './services/sign-in.service';
+import { StaffService } from './services/staff.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,15 +16,49 @@ export class AppComponent implements OnInit {
   isLogin = false;
   isAdmin =true;
   username: any
+ 
   icon: any = "expand_more"
   countMessUnread:any
   countOrder:any
-  constructor(private router: Router, private signInService: SignInService, private chatService: ChatService, private orderService: OrderService) { }
+  data:any
+  constructor(private router: Router,private adminService:AdminService,private staffService: StaffService,
+     private signInService: SignInService, private chatService: ChatService, private orderService: OrderService) { }
   ngOnInit(): void {
    
-  
+   this.signInService.avatar.subscribe(res=>
+    {
+      this.data.avatar=res
+    })
+    this.adminService.avatar.subscribe(res=>{
+      this.data.avatar=res
+    })
+    this.staffService.avatar.subscribe(res=>{
+      this.data.avatar=res
+    })
     if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
-       
+      if(localStorage.getItem("isLoginAdmin")=="true")
+      {
+        this.adminService.getadminById(localStorage.getItem("adminId")).subscribe(res=>
+          {
+            this.data=res
+            this.data=this.data.data
+          })
+          this.adminService.avatar.subscribe(res=>{
+            this.data.avatar=res
+          })
+      }
+      if(localStorage.getItem("isLoginStaff")=="true")
+      {
+        this.staffService.getstaffById(localStorage.getItem("staffId")).subscribe(res=>
+          {
+            this.data=res
+            this.data=this.data.data
+          })
+          this.staffService.avatar.subscribe(res=>{
+            this.data.avatar=res
+          })
+      }
+    
       this.isLogin = true;
 
       if(localStorage.getItem("role")=="admin")
@@ -58,18 +94,23 @@ export class AppComponent implements OnInit {
 
   }
   logOut() {
-   
+    localStorage.removeItem('staffId')
+    localStorage.removeItem('adminId')
+    localStorage.removeItem('isLoginAdmin')
+    localStorage.removeItem('isLoginStaff')
     if(localStorage.getItem('isRememberAdmin')=="true")
     {
-      localStorage.removeItem('isLoginAdmin')
+      
       localStorage.removeItem('role')
       localStorage.removeItem('token')
+   
     }
     else if(localStorage.getItem('isRememberStaff')=="true")
     {
-      localStorage.removeItem('isLoginStaff')
+     
       localStorage.removeItem('role')
       localStorage.removeItem('token')
+   
     }
 
     else

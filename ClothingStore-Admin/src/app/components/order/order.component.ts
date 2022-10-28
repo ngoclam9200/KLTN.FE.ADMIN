@@ -27,6 +27,7 @@ allStatusOrder:any
   @ViewChild('TablePaginator') TablePaginator: MatPaginator;
   
   ngOnInit(): void {
+   
     this.getData()
     
     
@@ -82,6 +83,7 @@ allStatusOrder:any
   
   getData ()
   {
+    
     this.statusOrderService.getAllStatus()
     .subscribe(res=>{
       this.allStatusOrder=res

@@ -44,6 +44,20 @@ body {
   .row{
     padding-bottom: 5px;
   }
+  ::ng-deep .mat-form-field-label-wrapper{
+    padding-top: 0px !important;
+  }
+  ::ng-deep .mat-form-field-infix{
+    border-top: 0px;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+    height: 38px !important;
+    width: 300px;
+  }
+  mat-hint{
+    color: red;
+    font-size: 12px;
+  }
  
    
   

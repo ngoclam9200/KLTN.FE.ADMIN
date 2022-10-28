@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class StaffService {
 
   apiUrl=environment.apiUrl+"/Staff"
- 
+  @Output() avatar = new EventEmitter();
   constructor( private http: HttpClient ,) { }
   getHeader()
   {
@@ -43,5 +43,20 @@ export class StaffService {
   {
     let headers=this.getHeader()
     return this.http.get(this.apiUrl+"/search-staff-by-nameoremail/"+staffName, {headers:headers})
+  }
+  getstaffById(id:any)
+  {
+    return this.http.get(this.apiUrl+ "/get-staff-by-id/"+ id)
+  }
+  editstaff(data:any)
+  {
+    return this.http.put(this.apiUrl+ "/edit-staff-profile", data)
+  }
+  editAvatarstaff(data:any)
+  {
+
+    return this.http.put(this.apiUrl+ "/edit-avatar-staff", data).subscribe(res=>{
+      this.avatar.emit(data.avatar)
+    })
   }
 }
