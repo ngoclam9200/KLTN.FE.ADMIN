@@ -5,7 +5,7 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input formControlName="email" matInput placeholder="Nhập email">
+        <input (input)="inputEmailChange()" formControlName="email" matInput placeholder="Nhập email">
         <mat-icon matSuffix>email</mat-icon>
         <mat-hint *ngIf="emailValidate && formGroup.get('email').invalid && formGroup.get('email').touched "> Chọn một địa chỉ email</mat-hint>
         <mat-hint *ngIf=" !emailValidate && formGroup.get('email').valid">Email không hợp lệ </mat-hint>
@@ -24,7 +24,7 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Tên đăng nhập</mat-label>
-            <input formControlName="username"  matInput placeholder="Nhập tên đăng nhập">
+            <input  (input)="inputUserNameChange()" formControlName="username"  matInput placeholder="Nhập tên đăng nhập">
             <mat-icon matSuffix>edit</mat-icon>
              
             <mat-hint *ngIf="formGroup.get('username').invalid && formGroup.get('username').touched ">Nhập tên đăng nhập </mat-hint>
@@ -36,7 +36,7 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Số điện thoại</mat-label>
-            <input formControlName="phonenumber"  matInput placeholder="Nhập tên đăng nhập">
+            <input  (input)="inputPhoneNumberChange()" formControlName="phonenumber"  matInput placeholder="Nhập tên đăng nhập">
             <mat-icon matSuffix>edit</mat-icon>
              
             <mat-hint *ngIf="formGroup.get('phonenumber').invalid && formGroup.get('phonenumber').touched ">Nhập số điện thoại</mat-hint>

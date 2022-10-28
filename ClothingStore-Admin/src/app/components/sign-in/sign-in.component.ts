@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
   labelPosition:any= 'admin' 
   constructor(private router: Router, private signInService: SignInService) { }
   formGroup: FormGroup;
+  errorText=""
   ngOnInit(): void {
     if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
      
@@ -67,7 +68,7 @@ export class SignInComponent implements OnInit {
     if(this.labelPosition=="admin")
     {
        this.signInService.loginAdmin(this.formGroup.value)
-    this.signInService.isLoginFailed.subscribe(res=>
+      this.signInService.isLoginFailed.subscribe(res=>
       {
         this.isLoginFailed=res
       })
@@ -78,7 +79,13 @@ export class SignInComponent implements OnInit {
       {
         this.isLoginFailed=res
       })
+      this.signInService.errorText.subscribe(res=>
+        {
+          this.errorText=res
+        })
+      
     }
+
    
     
     

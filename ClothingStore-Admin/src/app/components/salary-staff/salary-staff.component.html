@@ -30,6 +30,9 @@
                     <td *ngFor="let d of dateofmonth.slice(14,21)" class="{{d.class}}">{{d.value}}</td>
                 </tr>
                 <tr>
+                    <td *ngFor="let d of dateofmonth.slice(21,28)" class="{{d.class}}">{{d.value}}</td>
+                </tr>
+                <tr>
                     <td *ngFor="let d of dateofnextmonth" class="{{d.class}}">{{d.value}}</td>
                 </tr>
             </tbody>

@@ -25,6 +25,19 @@ export class EditCustomerComponent implements OnInit {
     
     this.initForm()
   }
+  inputEmailChange()
+  {
+    this.emailValidate = this.validateService.ValidateEmail(this.formGroup.controls['email'].value)
+  }
+  inputPhoneNumberChange()
+  {
+    this.phonenumberValidate = this.validateService.validatePhoneNumber(this.formGroup.controls['phonenumber'].value)
+
+  }
+  inputUserNameChange()
+  {
+    this.usernameValidate=this.validateService.validateUsername(this.formGroup.controls['username'].value)
+  }
   initForm() {
 
     this.formGroup = new FormGroup({

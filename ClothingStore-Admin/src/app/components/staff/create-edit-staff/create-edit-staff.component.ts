@@ -64,6 +64,30 @@ export class CreateEditStaffComponent implements OnInit {
     }
 
   }
+  inputEmailChange()
+  {
+    this.emailValidate = this.validateService.ValidateEmail(this.formGroup.controls['email'].value)
+  }
+  inputPhoneNumberChange()
+  {
+    this.phonenumberValidate = this.validateService.validatePhoneNumber(this.formGroup.controls['phonenumber'].value)
+
+  }
+  inputUsernameChange()
+  {
+    this.usernameValidate=this.validateService.validateUsername(this.formGroup.controls['username'].value)
+  }
+  inputPassChange()
+  {
+    this.passwordValidate=this.validateService.ValidatePassword(this.formGroup.controls['password'].value)
+
+  }
+  inputConfPassChange()
+  {
+    this.isconfirmpassword=this.validateService.confirmPassw(this.formGroup.controls['password'].value,this.confirmpass)
+
+  }
+  
  
   editStaff() {
 

@@ -32,6 +32,7 @@ export class StaffComponent implements OnInit {
    this.getAllStaff()
   }
 
+
   getAllStaff() {
     this.staffService.getAllStaff().subscribe(res => {
       this.dataResponse = res

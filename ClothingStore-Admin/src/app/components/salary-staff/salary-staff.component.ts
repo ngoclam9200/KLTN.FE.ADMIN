@@ -55,12 +55,20 @@ export class SalaryStaffComponent implements OnInit {
   
   }
   getData() {
+    this.dateofmonth= []
+    this.dateoflastmonth  = []
+    this.dateofnextmonth  = []
+  
+    this.listDayWorking = []
+   
+    this.payForToday=false
     let id = this.route.snapshot.params.id;
     this.salaryStaffService.getSalaryByStaffId(id).subscribe(res => {
 
       this.dataRes = res
       this.dataRes = this.dataRes.data[0]
        this.listDayWorking = this.dataRes.listDayWorking.split(',')
+       console.log(this.listDayWorking)
       for (let i = 1; i < this.listDayWorking.length; i++) {
         if(this.listDayWorking[i]==new Date(this.currentDay).getDate().toString()) 
         {
@@ -138,7 +146,7 @@ export class SalaryStaffComponent implements OnInit {
 
 
     })
-
+    console.log(this.dateoflastmonth)
   }
   PayForMonth()
   {

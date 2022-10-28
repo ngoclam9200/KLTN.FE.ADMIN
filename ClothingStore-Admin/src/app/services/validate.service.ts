@@ -48,5 +48,10 @@ export class ValidateService {
     if(pass==confirmPassw) return true;
     else return false
   }
+  validateCount(count :any)
+  {
+    if(parseInt(count)>0) return true
+    else return false
+  }
 
 }

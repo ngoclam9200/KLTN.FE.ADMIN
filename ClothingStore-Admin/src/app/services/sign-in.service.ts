@@ -18,6 +18,8 @@ export class SignInService {
     isLogin = new EventEmitter();
     isLoginFailed = new EventEmitter();
     username = new EventEmitter();
+    errorText = new EventEmitter();
+    
     constructor(private router: Router, private http: HttpClient, private roleService: RoleService) {
 
     }
@@ -106,7 +108,8 @@ export class SignInService {
  
 
          },err=>{
-          
+            var errtext=err.error.message
+            this.errorText.emit(errtext)
             this.isLoginFailed.emit(true)
              
         })

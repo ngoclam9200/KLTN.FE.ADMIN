@@ -35,12 +35,12 @@
      
       <ng-container matColumnDef="chinhsua">
         <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
-        <td mat-cell *matCellDef="let element">  <mat-icon (click)="openEditRole(element)" style="color: #1890ff;">edit</mat-icon> </td>
+        <td mat-cell *matCellDef="let element">  <mat-icon *ngIf="element.name!='admin'" (click)="openEditRole(element)" style="color: #1890ff;">edit</mat-icon> </td>
       </ng-container>
     
       <ng-container matColumnDef="xoa">
         <th mat-header-cell *matHeaderCellDef> Xóa </th>
-        <td mat-cell *matCellDef="let element"> <mat-icon (click)="openAlertDeleteRole(element.id)" style="color: red;">delete</mat-icon> </td>
+        <td  mat-cell *matCellDef="let element"> <mat-icon *ngIf="element.name!='admin'" (click)="openAlertDeleteRole(element.id)" style="color: red;">delete</mat-icon> </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

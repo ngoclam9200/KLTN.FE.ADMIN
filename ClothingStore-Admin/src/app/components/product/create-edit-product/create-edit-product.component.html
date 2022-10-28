@@ -24,17 +24,20 @@
     <p *ngIf="!data.isEdit">
       <mat-form-field appearance="outline">
         <mat-label>Số lượng</mat-label>
-        <input formControlName="count" type="number" matInput placeholder="Nhập số lượng sản phẩm">
+        <input (input)="inputCountChange()" formControlName="count" type="number" matInput placeholder="Nhập số lượng sản phẩm">
         <mat-icon matSuffix>pin</mat-icon>
         <mat-hint *ngIf=" (formGroup.get('count').invalid && formGroup.get('count').touched)|| (formGroup.get('count').invalid && isSubmit) " class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+        <mat-hint class="text-danger"  *ngIf=" !countValidate && formGroup.get('count').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
+
       </mat-form-field>
     </p>
     <p *ngIf="data.isEdit">
       <mat-form-field class="price" appearance="outline">
         <mat-label>Giá bán</mat-label>
-        <input formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
+        <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
         <mat-icon matSuffix>attach_money</mat-icon>
         <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
+        <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
 
       </mat-form-field>
     </p>
@@ -44,9 +47,10 @@
         <p >
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá nhập</mat-label>
-            <input formControlName="originalprice" type="number" matInput placeholder="Nhập giá nhập sản phẩm">
+            <input (input)="inputOriginalPriceChange()" formControlName="originalprice" type="number" matInput placeholder="Nhập giá nhập sản phẩm">
             <mat-icon matSuffix>attach_money</mat-icon>
             <mat-hint *ngIf=" (formGroup.get('originalprice').invalid && formGroup.get('originalprice').touched )||(formGroup.get('originalprice').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá nhập sản phẩm</mat-hint>
+            <mat-hint class="text-danger"  *ngIf=" !originalPriceValidate && formGroup.get('originalprice').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
 
 
           </mat-form-field>
@@ -56,9 +60,10 @@
         <p>
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá bán</mat-label>
-            <input formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
+            <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
             <mat-icon matSuffix>attach_money</mat-icon>
             <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
+            <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0</mat-hint>
 
           </mat-form-field>
         </p>
@@ -69,9 +74,10 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Giảm giá</mat-label>
-        <input formControlName="discount" type="number" matInput placeholder="Nhập giảm giá sản phẩm">
+        <input (input)="inputDiscountChange()" formControlName="discount" type="number" matInput placeholder="Nhập giảm giá sản phẩm">
         <mat-icon matSuffix>percent</mat-icon>
         <mat-hint *ngIf=" (formGroup.get('discount').invalid && formGroup.get('discount').touched)|| (formGroup.get('discount').invalid && isSubmit) " class="text-danger">Vui lòng nhập phần trăm giảm giá sản phẩm</mat-hint>
+        <mat-hint class="text-danger"  *ngIf=" !discountValidate && formGroup.get('discount').valid">Giảm giá sản phẩm lớn hơn 0 và nhỏ hơn 100</mat-hint>
 
       </mat-form-field>
     </p>

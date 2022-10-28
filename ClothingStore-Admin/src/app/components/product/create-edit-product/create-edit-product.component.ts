@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
+import { ValidateService } from 'src/app/services/validate.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,6 +20,12 @@ export class CreateEditProductComponent implements OnInit {
   isSubmit: boolean = false
   dataResponse: any;
   allCategory: any;
+  countValidate:boolean=true
+  priceValidate:boolean=true
+  originalPriceValidate:boolean=true
+  discountValidate:boolean=true
+
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0]
 
@@ -33,7 +40,10 @@ export class CreateEditProductComponent implements OnInit {
 
     }
   }
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private productService: ProductService, private dialog: MatDialog, private categoryService: CategoryService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+  private productService: ProductService, private dialog: MatDialog,
+  private categoryService: CategoryService
+  ,private validateService:ValidateService) { }
 
   ngOnInit(): void {
     this.initForm()
@@ -79,6 +89,28 @@ export class CreateEditProductComponent implements OnInit {
       });
     }
 
+  }
+  inputCountChange()
+  {
+    this.countValidate=this.validateService.validateCount(this.formGroup.controls['count'].value)
+     
+  }
+  inputPriceChange()
+  {
+    this.priceValidate=this.validateService.validateCount(this.formGroup.controls['price'].value)
+   
+     
+  }
+  inputOriginalPriceChange()
+  {
+    this.originalPriceValidate=this.validateService.validateCount(this.formGroup.controls['originalprice'].value)
+     
+  }
+  inputDiscountChange()
+  {
+    this.discountValidate=this.validateService.validateCount(this.formGroup.controls['discount'].value)
+    if(this.formGroup.controls['discount'].value>100)
+    this.discountValidate=false
   }
   createProduct() {
     if (this.imagePreview != null) {
