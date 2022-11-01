@@ -21,42 +21,47 @@ export class AppComponent implements OnInit {
   countMessUnread:any
   countOrder:any
   data:any
+  avatar:any
   constructor(private router: Router,private adminService:AdminService,private staffService: StaffService,
      private signInService: SignInService, private chatService: ChatService, private orderService: OrderService) { }
   ngOnInit(): void {
    
    this.signInService.avatar.subscribe(res=>
     {
-      this.data.avatar=res
+       
+     
+      this.avatar=res
     })
+ 
     this.adminService.avatar.subscribe(res=>{
-      this.data.avatar=res
+     
+      this.avatar=res
     })
     this.staffService.avatar.subscribe(res=>{
-      this.data.avatar=res
+    
+      this.avatar=res
     })
     if (localStorage.getItem("isLoginAdmin") == "true" || localStorage.getItem("isLoginStaff") == "true" ) {
       if(localStorage.getItem("isLoginAdmin")=="true")
       {
-        this.adminService.getadminById(localStorage.getItem("adminId")).subscribe(res=>
-          {
-            this.data=res
-            this.data=this.data.data
-          })
+        this.adminService.getAvatarAdminById(localStorage.getItem("adminId"))
+   
           this.adminService.avatar.subscribe(res=>{
-            this.data.avatar=res
+          
+            this.avatar=res
           })
+          this.orderService.getCountOrderWaitConfirm()
+
       }
       if(localStorage.getItem("isLoginStaff")=="true")
       {
-        this.staffService.getstaffById(localStorage.getItem("staffId")).subscribe(res=>
-          {
-            this.data=res
-            this.data=this.data.data
-          })
+        this.staffService.getAvatarStaffById(localStorage.getItem("staffId"))
+        
           this.staffService.avatar.subscribe(res=>{
-            this.data.avatar=res
+        
+            this.avatar=res
           })
+          this.orderService.getCountOrderWaitConfirm()
       }
     
       this.isLogin = true;
@@ -65,10 +70,10 @@ export class AppComponent implements OnInit {
       this.username = localStorage.getItem("usernameAdmin")
       if(localStorage.getItem("role")=="staff")
       this.username = localStorage.getItem("usernameStaff")
-      this.orderService.getCountOrderWaitConfirm().subscribe(res=>{
-         this.countOrder=res
-        this.countOrder=this.countOrder.data
+      this.orderService.countOrderWaitConfirm.subscribe(res=>{
+        this.countOrder=res
       })
+     
      this.getlocalStorage()
 
 

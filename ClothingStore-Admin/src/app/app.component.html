@@ -120,8 +120,8 @@
                         <div class="p-2 flex-grow-1 bd-highlight"> <i (click)="isCollapsed = !isCollapsed"
                                 class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
                         </div>
-                        <div class="p-2 bd-highlight"><i> <img class="rounded-circle border border-info"
-                                    src="{{data?.avatar}}">
+                        <div class="p-2 bd-highlight"><i> <img *ngIf="avatar" class="rounded-circle border border-info"
+                                    src="{{avatar}}">
 
                             </i></div>
                         <div class="p-2 bd-highlight"><i>{{username}}</i></div>

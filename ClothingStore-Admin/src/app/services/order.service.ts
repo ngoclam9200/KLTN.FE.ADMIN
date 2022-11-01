@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-
+  @Output()
+  countOrderWaitConfirm = new EventEmitter();
   apiUrl=environment.apiUrl+"/Order"
  
   constructor( private http: HttpClient ,) { }
@@ -27,7 +28,14 @@ export class OrderService {
   getCountOrderWaitConfirm( )
   {
     let header=this.getHeader()
-    return this.http.get(this.apiUrl+ "/admin-get-count-waitconfirm-order/", {headers:header})
+    return this.http.get(this.apiUrl+ "/admin-get-count-waitconfirm-order/", {headers:header}).subscribe(res=>
+      {
+   
+        var count :any=res
+        count=count.data
+        this.countOrderWaitConfirm.emit(count)
+
+      })
   }
   getOrderDelivering( )
   {

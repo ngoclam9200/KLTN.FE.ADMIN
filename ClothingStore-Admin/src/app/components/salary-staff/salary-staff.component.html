@@ -53,7 +53,7 @@
     <mat-card style="margin-left:20px ; " class="example-card">
 
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
+            <div mat-card-avatar class=""><img src="{{dataRes?.staff.avatar}}" class="rounded-circle" style="background-size: cover;"></div>
             <mat-card-title>{{dataRes?.staff.fullname}}</mat-card-title>
             <mat-card-subtitle>{{dataRes?.staff.email}}</mat-card-subtitle>
         </mat-card-header>
@@ -77,7 +77,7 @@
                 Lương phải trả hiện tại cho tháng này : {{dataRes?.salaryOfThisMonth| currency:"VND":"symbol"}}
             </p>
             <p>
-                <button *ngIf="!dataRes?.isWorking"  [disabled]="!dataRes?.isWorking"  mat-raised-button (click)="PayForMonth()" color="primary">Chốt lương cho tháng này (đã tính)</button>
+                <button *ngIf="!dataRes?.isWorking"  [disabled]="!dataRes?.isWorking"  mat-raised-button   color="primary">Chốt lương cho tháng này (đã tính)</button>
               
             </p>
             <p>

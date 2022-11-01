@@ -91,8 +91,7 @@ export class TurnoverComponent implements OnInit {
       }
       this.listMonth=this.listMonth.reverse()
       this.listTurnOver=this.listTurnOver.reverse()
-      console.log(this.listMonth)
-      console.log(this.listTurnOver)
+   
       const myChartTurnOver = new Chart("myChartTurnOver", {
         type: 'line',
         data: {

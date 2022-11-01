@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import { RoleService } from './role.service';
 import { AdminService } from './admin.service';
 import { StaffService } from './staff.service';
+import { OrderService } from './order.service';
 @Injectable({ providedIn: 'root' })
 export class SignInService {
     data: any
@@ -24,7 +25,7 @@ export class SignInService {
     @Output() avatar = new EventEmitter();
 
     constructor(private router: Router, private http: HttpClient, private adminService: AdminService, private staffService: StaffService,
-        private roleService: RoleService) {
+        private roleService: RoleService, private orderService:OrderService) {
 
     }
 
@@ -41,7 +42,7 @@ export class SignInService {
             localStorage.setItem("isLoginAdmin", "true")
             localStorage.setItem("usernameAdmin", this.decodedToken.username)
             localStorage.setItem("adminId", this.decodedToken.id)
-            console.log(this.decodedToken)
+       
 
             this.roleService.getRoleById().subscribe(res => {
                 this.isLoginFailed.emit(false)
@@ -66,6 +67,7 @@ export class SignInService {
                     var avatar: any = res
                     avatar = avatar.data
                     this.avatar.emit(avatar.avatar)
+                    this.orderService.getCountOrderWaitConfirm()
 
 
                 })
@@ -120,6 +122,7 @@ export class SignInService {
                 this.staffService.getstaffById(this.decodedToken.id).subscribe(res => {
                     var avatar: any = res
                     avatar = avatar.data
+                
                     this.avatar.emit(avatar.avatar)
 
 
@@ -132,7 +135,10 @@ export class SignInService {
 
 
         }, err => {
+           
             var errtext = err.error.message
+          
+            
             this.errorText.emit(errtext)
             this.isLoginFailed.emit(true)
 

@@ -75,7 +75,7 @@ export class SignInComponent implements OnInit {
     }
     else {
        this.signInService.loginStaff(this.formGroup.value)
-    this.signInService.isLoginFailed.subscribe(res=>
+       this.signInService.isLoginFailed.subscribe(res=>
       {
         this.isLoginFailed=res
       })

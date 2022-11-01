@@ -33,4 +33,8 @@ export class AdminService {
       this.avatar.emit(data.avatar)
     })
   }
+  changePass(data:any)
+  {
+    return this.http.put(this.apiUrl+ "/change-password", data)
+  }
 }

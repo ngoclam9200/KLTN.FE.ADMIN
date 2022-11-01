@@ -48,7 +48,7 @@ export class ChangeAvatarComponent implements OnInit {
             id: this.data.id,
             avatar: this.imagePreview
           }
-          console.log(data)
+        
           if(localStorage.getItem("isLoginAdmin")=="true")
           {
             this.adminService.editAvataradmin(data)

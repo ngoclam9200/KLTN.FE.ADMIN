@@ -18,7 +18,7 @@ export class SalaryStaffComponent implements OnInit {
   dateofnextmonth: any[] = []
   dataRes: any;
   listDayWorking: any[] = []
-  currentDay = moment().format('L')
+  currentDay = moment().format('DD/MM/YYYY')
   payForToday:boolean=false
   ngOnInit(): void {
     this.getData()
@@ -27,8 +27,10 @@ export class SalaryStaffComponent implements OnInit {
   {
     const data={
       id: this.dataRes.id,
-      listDayWorking: new Date(this.currentDay).getDate().toString()
+      listDayWorking: new Date().getDate().toString()
     }
+ 
+    
     Swal.fire({
       title: 'Bạn có chắc chắn muốn tính?',
       text: "Lương ngày hôm nay sẽ được tính , bạn không thể hoàn tác!",
@@ -64,13 +66,14 @@ export class SalaryStaffComponent implements OnInit {
     this.payForToday=false
     let id = this.route.snapshot.params.id;
     this.salaryStaffService.getSalaryByStaffId(id).subscribe(res => {
-
+     
+      
       this.dataRes = res
       this.dataRes = this.dataRes.data[0]
        this.listDayWorking = this.dataRes.listDayWorking.split(',')
-       console.log(this.listDayWorking)
-      for (let i = 1; i < this.listDayWorking.length; i++) {
-        if(this.listDayWorking[i]==new Date(this.currentDay).getDate().toString()) 
+    
+      for (let i = 0; i < this.listDayWorking.length; i++) {
+        if(this.listDayWorking[i]==new Date().getDate().toString()) 
         {
           this.payForToday=true
           break;
@@ -146,7 +149,7 @@ export class SalaryStaffComponent implements OnInit {
 
 
     })
-    console.log(this.dateoflastmonth)
+ 
   }
   PayForMonth()
   {
@@ -169,7 +172,7 @@ export class SalaryStaffComponent implements OnInit {
 
           Swal.fire(
             'Đã tính!',
-            'Lương tháng'+ new Date().getMonth+1 + ' này đã được tính.',
+            'Lương tháng '+ (new Date().getMonth()+1).toString() + ' này đã được tính.',
             'success'
           )
           this.getData()

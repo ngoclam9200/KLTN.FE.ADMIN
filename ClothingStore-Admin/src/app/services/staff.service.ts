@@ -59,4 +59,16 @@ export class StaffService {
       this.avatar.emit(data.avatar)
     })
   }
+  getAvatarStaffById(id:any)
+  {
+    return this.http.get(this.apiUrl+ "/get-staff-by-id/"+ id).subscribe(res=>{
+      var data:any=res
+      data=data.data
+      this.avatar.emit(data.avatar)
+    })
+  }
+  changePass(data:any)
+  {
+    return this.http.put(this.apiUrl+ "/change-password", data)
+  }
 }

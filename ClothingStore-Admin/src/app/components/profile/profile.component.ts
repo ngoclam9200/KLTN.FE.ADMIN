@@ -6,6 +6,7 @@ import { StaffService } from 'src/app/services/staff.service';
 import { ValidateService } from 'src/app/services/validate.service';
 import Swal from 'sweetalert2';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @Component({
   selector: 'app-profile',
@@ -33,9 +34,9 @@ export class ProfileComponent implements OnInit {
           this.data=this.data.data
           this.initForm()
         })
-        this.adminService.avatar.subscribe(res=>{
-          this.data.avatar=res
-        })
+        // this.adminService.avatar.subscribe(res=>{
+        //   this.data.avatar=res
+        // })
     }
     if(localStorage.getItem("isLoginStaff")=="true")
     {
@@ -117,13 +118,7 @@ export class ProfileComponent implements OnInit {
 
   }
   changeAvatar() {
-    if(localStorage.getItem("isLoginStaff")=="true")
-    {
-      // var data={
-      // id:localStorage.getItem("staffId"),
-      // avatar: this.data.avatar
-      // }
-    }
+ 
    
     const dialogRef = this.dialog.open(ChangeAvatarComponent, {
       width: "600px",
@@ -134,4 +129,11 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  changePassword()
+  {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      width: "700px",
+      data: this.data
+    })
+  }
 }

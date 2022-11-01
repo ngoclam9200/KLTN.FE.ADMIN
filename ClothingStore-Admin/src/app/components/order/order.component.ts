@@ -113,6 +113,7 @@ allStatusOrder:any
             'success'
           )
           this.orderService.getOrderWaitConfirm().subscribe(res=>{
+            this.orderService.getCountOrderWaitConfirm()
             this.allOrder = res
             this.allOrder = this.allOrder.data
             this.dataSource  = new MatTableDataSource( this.allOrder);
@@ -143,6 +144,7 @@ allStatusOrder:any
             'success'
           )
           this.orderService.getOrderWaitConfirm().subscribe(res=>{
+            this.orderService.getCountOrderWaitConfirm()
             this.allOrder = res
             this.allOrder = this.allOrder.data
             this.dataSource  = new MatTableDataSource( this.allOrder);
