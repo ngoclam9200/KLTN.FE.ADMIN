@@ -28,6 +28,7 @@ export class ChatService {
   {
      this.http.get(this.apiUrl+"/get-count-message-unread").subscribe(res=>
       {
+ 
          this.emitCountUnRead(res)
       })
 

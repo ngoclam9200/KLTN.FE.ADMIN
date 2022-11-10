@@ -10,6 +10,12 @@
     height: 100%;
     
 }
+#divChartVoucher{
+    display: block;
+    width: 100%;
+    height: 100%;
+    
+}
 #divChartCountOrderDelivered{
     display: block;
     width: 100%;
@@ -46,3 +52,4 @@ table {
     font-size: 18px;
     text-align: center;
 }
+ 

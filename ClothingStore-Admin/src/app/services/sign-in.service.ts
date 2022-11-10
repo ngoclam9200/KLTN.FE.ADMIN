@@ -8,6 +8,7 @@ import { RoleService } from './role.service';
 import { AdminService } from './admin.service';
 import { StaffService } from './staff.service';
 import { OrderService } from './order.service';
+import { ChatService } from './chat.service';
 @Injectable({ providedIn: 'root' })
 export class SignInService {
     data: any
@@ -25,7 +26,7 @@ export class SignInService {
     @Output() avatar = new EventEmitter();
 
     constructor(private router: Router, private http: HttpClient, private adminService: AdminService, private staffService: StaffService,
-        private roleService: RoleService, private orderService:OrderService) {
+        private roleService: RoleService, private orderService:OrderService, private chatService:ChatService) {
 
     }
 
@@ -71,6 +72,8 @@ export class SignInService {
 
 
                 })
+                this.chatService.getCountMessageUnread()
+
 
             })
 

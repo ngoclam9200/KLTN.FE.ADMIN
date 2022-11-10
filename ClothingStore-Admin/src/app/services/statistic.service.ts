@@ -24,5 +24,32 @@ export class StatisticService {
   {
     return this.http.get(this.apiUrl+"/get-cost-product")
   }
- 
+ getCostVoucher()
+ {
+  return this.http.get(this.apiUrl+"/get-cost-voucher")
+ }
+ getCountDelivered()
+ {
+  return this.http.get(this.apiUrl+"/get-count-delivered")
+ }
+ getCountCancle()
+ {
+  return this.http.get(this.apiUrl+"/get-count-cancel")
+ }
+ getAllCountOrder()
+ {
+  return this.http.get(this.apiUrl+"/get-all-count-order")
+ }
+ getCountNewCustomer()
+ {
+  return this.http.get(this.apiUrl+"/get-new-customer")
+ }
+ getCountProdByCategory()
+ {
+  return this.http.get(this.apiUrl+"/get-count-product-by-category")
+ }
+ getCountProdSoldByCategory()
+ {
+  return this.http.get(this.apiUrl+"/get-count-product-sold-by-category")
+ }
 }

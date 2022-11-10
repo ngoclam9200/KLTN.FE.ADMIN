@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
-
+import Pusher from 'pusher-js';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -18,15 +18,68 @@ isSeen:boolean=true
   ngOnInit(): void {
     var messageBody = <HTMLVideoElement>document.querySelector('#parentDiv');
     messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight+100;
+ 
     this.getData()
+    Pusher.logToConsole = true;
+
+    const pusher = new Pusher('05ba42f251be5a21e7fa', {
+      cluster: 'ap1'
+    });
+
+    const channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', data => {
+  
+ 
+      if(data.chatId==this.currentMessageId)
+      {
+        this.currentMessage.push(data.message);
+      }
+      this.chatService.getAllMessage().subscribe(res=>{
+        this.listMessage=res
+      
+        for(let i=0 ; i<this.listMessage.length ;i++)
+        { 
+          var tmp
+          for(let j=0 ; j<this.listMessage.length ;j++)
+          {
+            if(this.listMessage[i].displayPriority<this.listMessage[j].displayPriority)
+            {
+              tmp=this.listMessage[i]
+              this.listMessage[i]=this.listMessage[j]
+              this.listMessage[j]=tmp
+             
+            }
+          }
+          
+        }
+        for(let i=0 ; i<this.listMessage.length ;i++)
+        { 
+          
+          if(this.listMessage[i].chatId==this.currentMessageId)
+          {
+      
+            this.seenMessage(this.currentMessageId)
+           this.listMessage[i].isNewMessageAdmin=false
+           
+          }
+        }
+      })
+      
+ 
+   
+  
+    });
+    
     
   }
   getData()
   {
     this.chatService.getAllMessage().subscribe(res=>{
       this.listMessage=res
+    
       for(let i=0 ; i<this.listMessage.length ;i++)
-      { var tmp
+      { 
+        var tmp
         for(let j=0 ; j<this.listMessage.length ;j++)
         {
           if(this.listMessage[i].displayPriority<this.listMessage[j].displayPriority)
@@ -37,19 +90,27 @@ isSeen:boolean=true
           }
         }
       }
+  
+
  
 
-      this.currentMessageId=this.listMessage[0].chatId
-      if(this.listMessage[0].isNewMessageAdmin)
+ 
+      if(this.listMessage.length>0)
       {
-         this.seenMessage(this.currentMessageId)
-        this.listMessage[0].isNewMessageAdmin=false
-        this.chatService.getCountMessageUnread()
+        this.currentMessageId=this.listMessage[0].chatId
+        if(this.listMessage[0].isNewMessageAdmin)
+        {
+           this.seenMessage(this.currentMessageId)
+          this.listMessage[0].isNewMessageAdmin=false
+          this.chatService.getCountMessageUnread()
+        }
+       
+  
+        this.currentMessage=this.listMessage[0].message.split("|")
+        this.currentAvatarUser=this.listMessage[0].user.avatar
       }
-     
-
-      this.currentMessage=this.listMessage[0].message.split("|")
-      this.currentAvatarUser=this.listMessage[0].user.avatar
+      
+    
     
     })
   }
@@ -111,5 +172,11 @@ isSeen:boolean=true
     this.chatService.seenMessage(data)
   }
 
-
+checkDefaultMes(mes:any)
+{
+ 
+  if(mes.message.split("|").length>1)
+  return true
+  else return false
+}
 }

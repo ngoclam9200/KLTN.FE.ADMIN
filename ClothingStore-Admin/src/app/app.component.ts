@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Pusher from 'pusher-js';
 import { AdminService } from './services/admin.service';
 import { ChatService } from './services/chat.service';
 import { OrderService } from './services/order.service';
@@ -29,7 +30,6 @@ export class AppComponent implements OnInit {
    this.signInService.avatar.subscribe(res=>
     {
        
-     
       this.avatar=res
     })
  
@@ -95,6 +95,23 @@ export class AppComponent implements OnInit {
     this.chatService.countUnRead.subscribe(res=>{
       this.countMessUnread =res
       })
+      Pusher.logToConsole = true;
+
+      const pusher = new Pusher('05ba42f251be5a21e7fa', {
+        cluster: 'ap1'
+      });
+  
+      const channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', data => {
+        this.chatService.getCountMessageUnread() 
+           
+           
+       
+        
+      
+     
+    
+      });
 
 
   }
