@@ -72,7 +72,8 @@
                 <li nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/order"]'>
                         <div class="d-flex align-items-center">
-                            <mat-icon matBadge="{{countOrder}}" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
+                            <mat-icon *ngIf="countOrder>0" matBadge="{{countOrder}}" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
+                            <mat-icon *ngIf="countOrder==0" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
                             Quản lý đơn đặt
                         </div>
                     </a>
@@ -98,7 +99,8 @@
                 <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a routerLink="/chat">
                         <div class="d-flex align-items-center">
-                            <mat-icon matBadge="{{countMessUnread}}" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
+                            <mat-icon *ngIf="countMessUnread>0" matBadge="{{countMessUnread}}" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
+                            <mat-icon *ngIf="countMessUnread==0" matBadgeColor="warn" matBadgeSize="small">forum</mat-icon>
                             Tin nhắn
                         </div>
                     </a>

@@ -23,6 +23,7 @@ export class RoleComponent implements OnInit {
   dataResponse: any
   search: any = ""
   notfound:any=false
+  isLoading=true
   constructor(private signInSerVice: SignInService, private dialog: MatDialog, private roleService: RoleService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class RoleComponent implements OnInit {
       this.allRoles = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allRoles);
       this.dataSource.paginator = this.paginator;
+      this.isLoading=false
     })
   }
 

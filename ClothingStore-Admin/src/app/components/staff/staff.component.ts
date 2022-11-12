@@ -23,6 +23,7 @@ export class StaffComponent implements OnInit {
   allStaff: any;
   search: string="";
   notfound:any=false
+  isLoading=true
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private staffService: StaffService , private router :Router ) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
  
@@ -39,6 +40,7 @@ export class StaffComponent implements OnInit {
        this.allStaff= this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allStaff);
       this.dataSource.paginator = this.paginator;
+      this.isLoading=false
     })
   }
   openCreateStaff()

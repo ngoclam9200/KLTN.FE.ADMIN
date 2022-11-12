@@ -1,4 +1,5 @@
- 
+<app-loading *ngIf="isLoading"></app-loading>
+<div *ngIf="!isLoading">
   <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
     <input  [(ngModel)]="search"     (input)="onChangeTextSearchEvent()" class="input-search"/>
     <button (click)="searchCustomer()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
@@ -6,19 +7,13 @@
   <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
   <table *ngIf="!notfound" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-    
-      <!-- Position Column -->
+      
       <ng-container matColumnDef="fullname">
         <th mat-header-cell *matHeaderCellDef> Tên </th>
         <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
       </ng-container>
     
-    
-    
-    
-      <!-- Weight Column -->
+     
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
         <td mat-cell *matCellDef="let element">{{element.email}}   </td>
@@ -50,3 +45,5 @@
     <app-notfound *ngIf="notfound"></app-notfound>
 
    
+</div>
+ 

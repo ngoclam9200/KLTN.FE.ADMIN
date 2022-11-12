@@ -22,6 +22,7 @@ export class VoucherComponent implements OnInit {
   allVoucher: any
   notfound:boolean=false
   search:any=""
+  isLoading=true
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private voucherService: VoucherService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
@@ -42,6 +43,7 @@ this.voucherService.getAllVoucher().subscribe(res=> {
   this.allVoucher= this.dataResponse.data
   this.dataSource = new MatTableDataSource(this.allVoucher);
   this.dataSource.paginator = this.paginator;
+  this.isLoading=false
 })
 
  }

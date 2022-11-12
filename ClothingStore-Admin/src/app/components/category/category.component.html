@@ -1,59 +1,59 @@
-<div class="d-flex bd-highlight">
-  <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button (click)="openCreateCategory()" color="primary">Thêm
-      loại sản phẩm</button>
-
+<app-loading *ngIf="isLoading"></app-loading>
+<div  *ngIf="!isLoading">
+  <div class="d-flex bd-highlight">
+    <div class="p-2 flex-fill bd-highlight"> <button mat-raised-button (click)="openCreateCategory()" color="primary">Thêm
+        loại sản phẩm</button>
+  
+    </div>
+  
   </div>
-
+  <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
+    <input [(ngModel)]="search" (input)="onChangeTextSearchEvent()" class="input-search" />
+    <button (click)="searchCategory()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
+  </div>
+  <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
+  <table *ngIf="!notfound" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef> Ảnh </th>
+      <td mat-cell *matCellDef="let element">
+        <img class="rounded-circle" style="height:60px ;width:60px" src="{{element.image}}">
+      </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Tên </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+  
+  
+    <ng-container matColumnDef="show">
+      <th mat-header-cell *matHeaderCellDef> Thông tin </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="openShowCategory(element)" style="color: #1890ff;">visibility</mat-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="chinhsua">
+      <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="openEditCategory(element)" style="color: #1890ff;">edit</mat-icon>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="xoa">
+      <th mat-header-cell *matHeaderCellDef> Xóa </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="openAlertDeleteCategory(element.id)" style="color: red;">delete</mat-icon>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+  
+  <app-notfound *ngIf="notfound"></app-notfound>
 </div>
-<div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-  <input [(ngModel)]="search" (input)="onChangeTextSearchEvent()" class="input-search" />
-  <button (click)="searchCategory()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
-</div>
-<mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
-<table *ngIf="!notfound" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-  <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
-  <ng-container matColumnDef="image">
-    <th mat-header-cell *matHeaderCellDef> Ảnh </th>
-    <td mat-cell *matCellDef="let element">
-      <img class="rounded-circle" style="height:60px ;width:60px" src="{{element.image}}">
-    </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Tên </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-
-
-  <ng-container matColumnDef="show">
-    <th mat-header-cell *matHeaderCellDef> Thông tin </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openShowCategory(element)" style="color: #1890ff;">visibility</mat-icon>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="chinhsua">
-    <th mat-header-cell *matHeaderCellDef> Chỉnh sửa </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openEditCategory(element)" style="color: #1890ff;">edit</mat-icon>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="xoa">
-    <th mat-header-cell *matHeaderCellDef> Xóa </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon (click)="openAlertDeleteCategory(element.id)" style="color: red;">delete</mat-icon>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
-
-<app-notfound *ngIf="notfound"></app-notfound>

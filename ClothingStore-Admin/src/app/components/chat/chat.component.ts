@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import Pusher from 'pusher-js';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -8,16 +9,24 @@ import Pusher from 'pusher-js';
 })
 export class ChatComponent implements OnInit {
 
-  constructor( private chatService: ChatService) { }
+  constructor( private chatService: ChatService, private router:Router) { }
  listMessage:any
  currentMessage:any
  currentAvatarUser:any
+ currentUsername:any
  message:string=""
  currentMessageId:any
 isSeen:boolean=true
+isLoading:boolean=true
   ngOnInit(): void {
-    var messageBody = <HTMLVideoElement>document.querySelector('#parentDiv');
-    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight+100;
+   
+    
+    
+    setTimeout(function(){
+      var scroll=document.getElementById("parentDiv")
+      scroll.scrollTop=scroll.scrollHeight
+
+ },1000);
  
     this.getData()
     Pusher.logToConsole = true;
@@ -28,12 +37,13 @@ isSeen:boolean=true
 
     const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', data => {
-  
+      var rou=this.router.url
  
       if(data.chatId==this.currentMessageId)
       {
         this.currentMessage.push(data.message);
       }
+
       this.chatService.getAllMessage().subscribe(res=>{
         this.listMessage=res
       
@@ -57,9 +67,12 @@ isSeen:boolean=true
           
           if(this.listMessage[i].chatId==this.currentMessageId)
           {
-      
-            this.seenMessage(this.currentMessageId)
-           this.listMessage[i].isNewMessageAdmin=false
+             if(rou=="/chat")
+             {
+             this.seenMessage(this.currentMessageId)
+             }
+           
+            this.listMessage[i].isNewMessageAdmin=false
            
           }
         }
@@ -108,8 +121,9 @@ isSeen:boolean=true
   
         this.currentMessage=this.listMessage[0].message.split("|")
         this.currentAvatarUser=this.listMessage[0].user.avatar
+        this.currentUsername=this.listMessage[0].user.fullname
       }
-      
+      this.isLoading=false
     
     
     })
@@ -135,7 +149,11 @@ isSeen:boolean=true
     }
      this.chatService.sendMessage(data).subscribe(res=>{
        this.message=""
-      this.getData()
+       setTimeout(function(){
+        var scroll=document.getElementById("parentDiv")
+        scroll.scrollTop=scroll.scrollHeight
+  
+   },1000);
     })
   }
   changeCurrentMassage(index:any)
@@ -143,6 +161,8 @@ isSeen:boolean=true
     this.currentMessageId=this.listMessage[index].chatId
     this.currentMessage=this.listMessage[index].message.split("|")
     this.currentAvatarUser=this.listMessage[index].user.avatar
+    this.currentUsername=this.listMessage[index].user.fullname
+
     if(this.listMessage[index].isNewMessageAdmin)
     {
       this.seenMessage(this.currentMessageId)
@@ -163,6 +183,7 @@ isSeen:boolean=true
     
     return d
   }
+
   seenMessage(id:any)
   {
    var data={
@@ -178,5 +199,8 @@ checkDefaultMes(mes:any)
   if(mes.message.split("|").length>1)
   return true
   else return false
+}
+onKeypress(event) {   
+  if(this.message.length>0) this.sendMessage()
 }
 }

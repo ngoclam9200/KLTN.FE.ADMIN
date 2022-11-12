@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
   username: any
  
   icon: any = "expand_more"
-  countMessUnread:any
-  countOrder:any
+  countMessUnread:any=0
+  countOrder:any=0
   data:any
   avatar:any
   constructor(private router: Router,private adminService:AdminService,private staffService: StaffService,
@@ -104,13 +104,6 @@ export class AppComponent implements OnInit {
       const channel = pusher.subscribe('my-channel');
       channel.bind('my-event', data => {
         this.chatService.getCountMessageUnread() 
-           
-           
-       
-        
-      
-     
-    
       });
 
 

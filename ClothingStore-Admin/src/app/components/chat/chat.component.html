@@ -4,92 +4,120 @@
 
 
 <html>
+
 <head>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
+    rel="stylesheet">
 
 </head>
+
 <body>
-<div class="container">
-<div class="messaging">
+  <app-loading *ngIf="isLoading"></app-loading>
+  <div *ngIf="!isLoading" class="container">
+    <div class="messaging">
 
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-              <h4>Recent</h4>
+            
+              <div class="d-flex align-items-center">
+                <img class="rounded-circle" src="../../../assets/logoshop.png">
+                <h4>Tin nhắn của bạn</h4>
+              </div>
             </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
+
           </div>
           <div class="inbox_chat">
-           
-            <div (click)="changeCurrentMassage(i)" *ngFor="let user of listMessage ; let i=index"  class="chat_list">
+
+            <div (click)="changeCurrentMassage(i)" *ngFor="let user of listMessage ; let i=index" class="chat_list">
               <div class="chat_people">
-               <!-- *ngIf="checkDefaultMes(user)"> -->
+                
                 <div class="chat_img"> <img class="rounded-circle" src="{{user.user.avatar}}" alt="sunil"> </div>
                 <div class="chat_ib">
                   <h5>{{user.user.fullname}} <span class="chat_date">
-                    <!-- {{((user.message.split("|")[1]).split(",")[1]).split(" ")[0]}} -->
-                    
-                  </span></h5>
-                  <p *ngIf="user.isNewMessageAdmin" style="color:#1890ff;font-weight: bold;">{{(user.message.split("|")[user.message.split("|").length-1]).split(",")[2]}}</p>
-                  <p *ngIf="!user.isNewMessageAdmin ">{{(user.message.split("|")[user.message.split("|").length-1]).split(",")[2]}}</p>
+                     
+
+                    </span></h5>
+                  <p *ngIf="user.isNewMessageAdmin" style="color:#1890ff;font-weight: bold;">
+                    {{(user.message.split("|")[user.message.split("|").length-1]).split(",")[2]}}</p>
+                  <p *ngIf="!user.isNewMessageAdmin ">
+                    {{(user.message.split("|")[user.message.split("|").length-1]).split(",")[2]}}</p>
 
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
-        <div class="mesgs" >
-          <div *ngIf="listMessage?.length==0">Không có tin nhắn</div>
+
+        <div class="heading-name">
+          <div class="namechat_heading">
+            <div class="d-flex align-items-center">
+              <img *ngIf="currentUsername" class="rounded-circle" src="{{currentAvatarUser}}">
+              <div   *ngIf="!currentUsername" style="width: 35px;height: 35px;"></div>
+              <h4>{{currentUsername}}</h4>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="mesgs">
+
+
+
+          <div style="text-align:center;" *ngIf="listMessage?.length==0">Không có tin nhắn</div>
           <div class="msg_history" id="parentDiv">
-            <div  *ngFor="let mes of currentMessage; let i=index">
+            <div *ngFor="let mes of currentMessage; let i=index">
               <div *ngIf="!checkMes(mes)" class="incoming_msg">
-                <div class="incoming_msg_img"> <img class="rounded-circle" src="{{currentAvatarUser}}" alt="sunil"> </div>
+                <div class="incoming_msg_img"> <img class="rounded-circle" src="{{currentAvatarUser}}" alt="sunil">
+                </div>
                 <div class="received_msg">
                   <div class="received_withd_msg">
                     <p>{{mes.split(",")[2]}}</p>
-                    <span class="time_date"> {{mes.split(",")[1] | date : 'hh:mm a'}}   | {{formatDate(mes.split(",")[1])}}   </span></div>
+                    <span class="time_date"> {{mes.split(",")[1] | date : 'hh:mm a'}} |
+                      {{formatDate(mes.split(",")[1])}} </span>
+                  </div>
                 </div>
-              
+
               </div>
               <div *ngIf="checkMes(mes)" class="outgoing_msg">
                 <div class="sent_msg">
                   <p>{{mes.split(",")[2]}}</p>
-                  <span class="time_date"> {{mes.split(",")[1] | date : 'hh:mm a'}}    |    {{formatDate(mes.split(",")[1])}}</span> </div>
+                  <span class="time_date"> {{mes.split(",")[1] | date : 'hh:mm a'}} |
+                    {{formatDate(mes.split(",")[1])}}</span>
+                </div>
               </div>
             </div>
-            
- 
+
+
           </div>
           <div class="type_msg" *ngIf="listMessage?.length>0">
             <div class="input_msg_write">
               <div class="d-flex">
-              <input [(ngModel)]="message" type="text" class="write_msg border rounded" placeholder="Type a message" />
-              <div class="p-2"></div>
-                <div class="p-2"> <button mat-raised-button [disabled]="message.length==0"  color="primary"  (click)="sendMessage()" class="msg_send_btn" >
-                 <span>Gửi</span>
-              </button> </div>
-                 
+                <input [(ngModel)]="message" (keydown.enter)="onKeypress($event)" type="text" class="write_msg border rounded"
+                  placeholder="Type a message" />
+                <div class="p-2"></div>
+                <div class="p-2"> <button mat-raised-button [disabled]="message.length==0" color="primary"
+                    (click)="sendMessage()" class="msg_send_btn">
+                    <span>Gửi</span>
+                  </button> </div>
+
               </div>
-           
-             
-          
-               
+
+
+
+
             </div>
           </div>
         </div>
       </div>
-      
-      
-       
-    </div></div>
-    </body>
-    </html>
+
+
+
+    </div>
+  </div>
+</body>
+
+</html>

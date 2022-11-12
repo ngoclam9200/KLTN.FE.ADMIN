@@ -75,6 +75,7 @@ export class TurnoverComponent implements OnInit {
   listCostVoucher:any=[]
   listCountDelivered:any=[]
   listCountCancel:any=[]
+  
   constructor(private statisticService: StatisticService) { }
 
   ngOnInit(): void {
@@ -135,6 +136,7 @@ export class TurnoverComponent implements OnInit {
           }
         }
       });
+
     })
     
   }

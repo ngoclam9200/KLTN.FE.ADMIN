@@ -22,6 +22,7 @@ export class CustomerComponent implements OnInit {
   allUser: any;
   search: any = ""
   notfound: boolean=false;
+  isLoading=true
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private customerService: CustomerService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class CustomerComponent implements OnInit {
       this.allUser = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allUser);
       this.dataSource.paginator = this.paginator;
+      this.isLoading=false
     })
   }
   onChangeTextSearchEvent() {

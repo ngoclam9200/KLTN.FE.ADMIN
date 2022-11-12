@@ -1,3 +1,5 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div  *ngIf="!isLoading">
   <div class="d-flex bd-highlight">
     <div class="p-2 flex-fill bd-highlight">
           <button   mat-raised-button (click)="openCreateVoucher()" color="primary">Thêm  voucher</button>
@@ -13,22 +15,17 @@
   <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>  
   <table mat-table *ngIf="!notfound" [dataSource]="dataSource" class="mat-elevation-z8">
   
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-    
-      <!-- Position Column -->
+      
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef> Mã </th>
         <td mat-cell *matCellDef="let element"> {{element.code}} </td>
       </ng-container>
-    
-      <!-- Name Column -->
+   
       <ng-container matColumnDef="discountfreeship">
         <th mat-header-cell *matHeaderCellDef> Phần trăm giảm theo giá vận chuyển </th>
         <td mat-cell style="text-align:center;" *matCellDef="let element"> {{element.discountfreeship}}% </td>
       </ng-container>
-    
-      <!-- Weight Column -->
+ 
       <ng-container matColumnDef="discountprice">
         <th mat-header-cell *matHeaderCellDef> Phần trăm giảm giá theo giá đơn hàng  </th>
         <td mat-cell  style="text-align:center;" *matCellDef="let element"> {{element.discountprice}}%  </td>
@@ -59,4 +56,6 @@
     
     <app-notfound *ngIf="notfound"></app-notfound>
 
+ 
+</div>
  

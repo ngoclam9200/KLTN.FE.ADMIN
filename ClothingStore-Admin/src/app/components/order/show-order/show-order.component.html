@@ -1,15 +1,12 @@
  
    <mat-card class="example-card">
-    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
     <mat-card-title>Id đơn hàng : {{data.id}} </mat-card-title>
     <div class="d-flex align-items-center">
-        <!-- <img style="height:200px; width:200px" src="{{data.product.image}}"> -->
         <mat-card-content style="margin-left: 30px;">
             <p> Ngày đặt hàng : {{data.orderDate | date :"dd-MM-yyyy"}}</p>
             <p>Dự kiến giao : {{estimateDelivery(data.orderDate) | date:"dd-MM-yyyy"}}</p>
             <p> Địa chỉ giao : {{data.addressShip}}</p>
             <p>Người nhận : {{data.user.fullname}}- {{data.user.phonenumber}}</p>
-            <!-- <p>Số lượng : {{data.quantity}} </p> -->
             <p>Thanh toán: {{data.transaction.name}}</p>
             <p style="color: red;"> Phí vận chuyển : {{data.shippingFee.price | currency: "VND"}}</p>
             <p *ngIf="data.voucherId!='0' && data.voucher.discountfreeship>0 "   style="color: red;"> Voucher : giảm {{data.voucher.discountfreeship}}% phí vận chuyển</p>
@@ -26,7 +23,6 @@
                     <td mat-cell *matCellDef="let element"> {{element.productCount}}  </td>
                 </ng-container>
     
-                <!-- Weight Column -->
                 <ng-container matColumnDef="weight">
                     <th mat-header-cell *matHeaderCellDef> Thành tiền</th>
                     <td mat-cell *matCellDef="let element"> {{(element.product.price-
@@ -52,7 +48,4 @@
         <button mat-raised-button mat-dialog-close color="warn">Đóng</button>
          
     </mat-card-actions>
-    <!-- <mat-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </mat-card-footer> -->
  

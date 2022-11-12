@@ -23,6 +23,7 @@ export class ProductComponent implements OnInit {
   allProduct: any;
   search:any="";
   notfound:boolean=false
+  isLoading=true
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private productService: ProductService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
@@ -84,6 +85,7 @@ export class ProductComponent implements OnInit {
       this.allProduct = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allProduct);
       this.dataSource.paginator = this.paginator;
+      this.isLoading=false
     })
   }
  

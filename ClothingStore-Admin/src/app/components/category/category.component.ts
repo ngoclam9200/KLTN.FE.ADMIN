@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit {
   allCategory:any
   search: string="";
   notfound: boolean=false;
+  isLoading=true
   constructor(private signInSerVice:SignInService, private dialog : MatDialog, private categoryService: CategoryService) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit(): void {
@@ -107,6 +108,7 @@ export class CategoryComponent implements OnInit {
       this.allCategory = this.dataResponse.data
       this.dataSource = new MatTableDataSource(this.allCategory);
       this.dataSource.paginator = this.paginator;
+      this.isLoading=false
     })
   }
   openCreateCategory()
