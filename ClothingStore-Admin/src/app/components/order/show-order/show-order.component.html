@@ -8,7 +8,7 @@
             <p> Địa chỉ giao : {{data.addressShip}}</p>
             <p>Người nhận : {{data.user.fullname}}- {{data.user.phonenumber}}</p>
             <p>Thanh toán: {{data.transaction.name}}</p>
-            <p style="color: red;"> Phí vận chuyển : {{data.shippingFee.price | currency: "VND"}}</p>
+            <p style="color: red;"> Phí vận chuyển : {{data.shippingFee | currency: "VND"}}</p>
             <p *ngIf="data.voucherId!='0' && data.voucher.discountfreeship>0 "   style="color: red;"> Voucher : giảm {{data.voucher.discountfreeship}}% phí vận chuyển</p>
             <p *ngIf="data.voucherId!='0' && data.voucher.discountprice>0 "   style="color: red;"> Voucher : giảm {{data.voucher.discountprice}}% tổng tiền hàng </p>
             <table mat-table    [dataSource]="allProduct " class="mat-elevation-z8">

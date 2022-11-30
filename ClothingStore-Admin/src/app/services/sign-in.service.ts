@@ -82,9 +82,12 @@ export class SignInService {
 
 
         }, err => {
-
+            var errtext = err.error.message
+          
+            
+            this.errorText.emit(errtext)
             this.isLoginFailed.emit(true)
-
+            
         })
 
 

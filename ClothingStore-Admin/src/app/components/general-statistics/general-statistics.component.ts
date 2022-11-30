@@ -115,10 +115,17 @@ export class GeneralStatisticsComponent implements OnInit {
               title: {
                 display: true,
                 text: "Số khách hàng mới qua từng tháng",
-              }
+                font : {size:18}
+                
+              },
+              
             },
+            
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks :{
+                stepSize: 1
+              }
             }
           }
         }
@@ -161,6 +168,8 @@ export class GeneralStatisticsComponent implements OnInit {
   chartProduct() {
    this.statisticService.getCountProdSoldByCategory().subscribe(res=>{
     this.allCountProductSoldByCategory=res
+ 
+    
     this.allCountProductSoldByCategory=this.allCountProductSoldByCategory.data
     for(let i=0;i<this.allCountProductSoldByCategory.length;i++)
     {

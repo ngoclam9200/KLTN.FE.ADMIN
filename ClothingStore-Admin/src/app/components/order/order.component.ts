@@ -14,88 +14,93 @@ import { ShowOrderComponent } from './show-order/show-order.component';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-allStatusOrder:any
-  rows:any = [];
-  allOrder:any
-  displayedColumns: string[] = ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
-  dataSource :any;
-  idTab:any
-   
-  
+  allStatusOrder: any
+  rows: any = [];
+  allOrder: any
+  displayedColumns: string[] = ['position', 'name', 'weight', "gia", "show", 'chinhsua', 'xoa'];
+  dataSource: any;
+  idTab: any
+ isLoading=true
 
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog,private orderService:OrderService, private statusOrderService: StatusOrderService) { }
+
+
+  constructor(private signInSerVice: SignInService, private dialog: MatDialog, private orderService: OrderService, private statusOrderService: StatusOrderService) { }
   @ViewChild('TablePaginator') TablePaginator: MatPaginator;
-  
+
   ngOnInit(): void {
-   
+
     this.getData()
-    
-    
+
+
   }
   getOrder($event: any) {
+    this.isLoading=true
+    this.allOrder=[]
     let id = this.allStatusOrder[$event.index].id
-    this.idTab=id
+    this.idTab = id
     if (id == "1") {
-  this.displayedColumns= ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
+      this.displayedColumns = ['position', 'name', 'weight', "gia", "show", 'chinhsua', 'xoa'];
 
       this.orderService.getOrderWaitConfirm()
         .subscribe(res => {
           this.allOrder = res
           this.allOrder = this.allOrder.data
-          this.dataSource  = new MatTableDataSource( this.allOrder);
-        this.dataSource.paginator = this.TablePaginator;
+          this.dataSource = new MatTableDataSource(this.allOrder);
+          this.dataSource.paginator = this.TablePaginator;
+          this.isLoading=false
         })
     }
     if (id == "2") {
-  this.displayedColumns= ['position', 'name', 'weight', "gia","show",'chinhsua', 'xoa'];
+      this.displayedColumns = ['position', 'name', 'weight', "gia", "show", 'chinhsua', 'xoa'];
 
-      this.orderService.getOrderDelivering( )
+      this.orderService.getOrderDelivering()
         .subscribe(res => {
           this.allOrder = res
           this.allOrder = this.allOrder.data
-          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource = new MatTableDataSource(this.allOrder);
           this.dataSource.paginator = this.TablePaginator;
+          this.isLoading=false
         })
     }
     if (id == "3") {
-      this.displayedColumns = ['position', 'name', 'weight', "gia","show"];
-      this.orderService.getOrderDelivered( )
+      this.displayedColumns = ['position', 'name', 'weight', "gia", "show"];
+      this.orderService.getOrderDelivered()
         .subscribe(res => {
           this.allOrder = res
           this.allOrder = this.allOrder.data
-          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource = new MatTableDataSource(this.allOrder);
           this.dataSource.paginator = this.TablePaginator;
+          this.isLoading=false
         })
 
     }
     if (id == "4") {
-      this.displayedColumns = ['position', 'name', 'weight', "gia","show"];
-      this.orderService.getOrderCancle( )
+      this.displayedColumns = ['position', 'name', 'weight', "gia", "show"];
+      this.orderService.getOrderCancle()
         .subscribe(res => {
           this.allOrder = res
           this.allOrder = this.allOrder.data
-          this.dataSource  = new MatTableDataSource( this.allOrder);
+          this.dataSource = new MatTableDataSource(this.allOrder);
           this.dataSource.paginator = this.TablePaginator;
+          this.isLoading=false
         })
     }
 
   }
-  
-  getData ()
-  {
-    
+
+  getData() {
+
     this.statusOrderService.getAllStatus()
-    .subscribe(res=>{
-      this.allStatusOrder=res
-      this.allStatusOrder=this.allStatusOrder.data
-      
-    })
+      .subscribe(res => {
+        this.allStatusOrder = res
+        this.allStatusOrder = this.allStatusOrder.data
+
+      })
   }
-  
-   
-  confirmOrder(id:any)
-  {
-     
+
+
+  confirmOrder(id: any) {
+
     Swal.fire({
       title: 'Xác nhận đơn hàng?',
       text: "Đơn hàng chuyển sang trạng thái đang giao",
@@ -106,27 +111,26 @@ allStatusOrder:any
       confirmButtonText: 'Xác nhận'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.orderService.confirmOrder({id:id}).subscribe(res=>{
+        this.orderService.confirmOrder({ id: id }).subscribe(res => {
           Swal.fire(
             'Đã xác nhận!',
             'Đơn hàng đang giao',
             'success'
           )
-          this.orderService.getOrderWaitConfirm().subscribe(res=>{
+          this.orderService.getOrderWaitConfirm().subscribe(res => {
             this.orderService.getCountOrderWaitConfirm()
             this.allOrder = res
             this.allOrder = this.allOrder.data
-            this.dataSource  = new MatTableDataSource( this.allOrder);
-          this.dataSource.paginator = this.TablePaginator;
+            this.dataSource = new MatTableDataSource(this.allOrder);
+            this.dataSource.paginator = this.TablePaginator;
           })
         })
-       
+
       }
     })
   }
-  cancleOrder(id:any)
-  {
-     
+  cancleOrder(id: any) {
+
     Swal.fire({
       title: 'Hủy đơn hàng?',
       text: "Đơn hàng sẽ bị hủy",
@@ -137,27 +141,26 @@ allStatusOrder:any
       confirmButtonText: 'Xác nhận'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.orderService.cancleOrder({id:id}).subscribe(res=>{
+        this.orderService.cancleOrder({ id: id }).subscribe(res => {
           Swal.fire(
             'Đã hủy!',
             'Đơn hàng đã bị hủy',
             'success'
           )
-          this.orderService.getOrderWaitConfirm().subscribe(res=>{
+          this.orderService.getOrderWaitConfirm().subscribe(res => {
             this.orderService.getCountOrderWaitConfirm()
             this.allOrder = res
             this.allOrder = this.allOrder.data
-            this.dataSource  = new MatTableDataSource( this.allOrder);
-          this.dataSource.paginator = this.TablePaginator;
+            this.dataSource = new MatTableDataSource(this.allOrder);
+            this.dataSource.paginator = this.TablePaginator;
           })
         })
-       
+
       }
     })
   }
-  deliveredOrder(id:any)
-  {
-     
+  deliveredOrder(id: any) {
+
     Swal.fire({
       title: 'Xác nhận đã giao đơn hàng?',
       text: "Đơn hàng đã giao",
@@ -168,28 +171,27 @@ allStatusOrder:any
       confirmButtonText: 'Xác nhận'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.orderService.deliveredOrder({id:id}).subscribe(res=>{
+        this.orderService.deliveredOrder({ id: id }).subscribe(res => {
           Swal.fire(
             'Đã giao!',
             'Đơn hàng đã giao',
             'success'
           )
-          this.orderService.getOrderDelivering().subscribe(res=>{
+          this.orderService.getOrderDelivering().subscribe(res => {
             this.allOrder = res
             this.allOrder = this.allOrder.data
-            this.dataSource  = new MatTableDataSource( this.allOrder);
-          this.dataSource.paginator = this.TablePaginator;
+            this.dataSource = new MatTableDataSource(this.allOrder);
+            this.dataSource.paginator = this.TablePaginator;
           })
         })
-       
+
       }
     })
   }
-showOrder(data:any)
-{
- this.dialog.open(ShowOrderComponent, {
-  width:"800px",
-  data:data,
- })
-}
+  showOrder(data: any) {
+    this.dialog.open(ShowOrderComponent, {
+      width: "800px",
+      data: data,
+    })
+  }
 }

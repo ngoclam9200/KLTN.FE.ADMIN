@@ -24,7 +24,8 @@ import {
   Legend,
   Title,
   Tooltip,
-  SubTitle
+  SubTitle,
+  Ticks
 } from 'chart.js';
 import { StatisticService } from 'src/app/services/statistic.service';
 
@@ -128,10 +129,14 @@ export class TurnoverComponent implements OnInit {
               title: {
                 display: true,
                 text: "Doanh thu qua từng tháng",
+                font : {size:15}
               }
             },
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks :{
+                stepSize: 200000
+              }
             }
           }
         }
@@ -197,6 +202,7 @@ export class TurnoverComponent implements OnInit {
                 title: {
                   display: true,
                   text: "Chi phí từng tháng",
+                  font : {size:15}
                 }
               },
               y: {
@@ -256,10 +262,12 @@ export class TurnoverComponent implements OnInit {
                 title: {
                   display: true,
                   text: "Chi phí từng tháng",
+                  font : {size:15}
                 }
               },
               y: {
-                beginAtZero: true
+                beginAtZero: true,
+              
               }
             }
           }
@@ -308,10 +316,14 @@ export class TurnoverComponent implements OnInit {
               title: {
                 display: true,
                 text: "Số đơn hàng đã giao qua từng tháng",
+                font : {size:15}
               }
             },
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks :{
+                stepSize: 1
+              }
             }
           }
         }
@@ -362,7 +374,10 @@ export class TurnoverComponent implements OnInit {
               }
             },
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks :{
+                stepSize: 1
+              }
             }
           }
         }

@@ -57,10 +57,13 @@ export class SignInComponent implements OnInit {
   }
   changeRadioBtn()
   {
+
      if(this.labelPosition=="admin") this.labelPosition="staff"
      else  this.labelPosition="admin"
     
     this.initForm()
+    // this.errorText=""
+    this.signInService.errorText.emit("")
     
   }
   signIn() {
@@ -70,8 +73,13 @@ export class SignInComponent implements OnInit {
        this.signInService.loginAdmin(this.formGroup.value)
       this.signInService.isLoginFailed.subscribe(res=>
       {
+
         this.isLoginFailed=res
       })
+      this.signInService.errorText.subscribe(res=>
+        {
+          this.errorText=res
+        })
     }
     else {
        this.signInService.loginStaff(this.formGroup.value)

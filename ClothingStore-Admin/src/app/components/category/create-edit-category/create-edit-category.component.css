@@ -34,3 +34,6 @@ mat-form-field {
    width: 150px;
    height: 150px;
  }
+ input.c {
+  text-transform: capitalize;
+}

@@ -38,8 +38,16 @@ export class CreateEditCategoryComponent implements OnInit {
     this.imagePreview=this.data.data.image
     
     }  
+ 
     
 
+  }
+  inputChange()
+  {
+  
+      this.formGroup.get('name').setValue(this.formGroup.controls['name'].value?.charAt(0).toUpperCase() + this.formGroup.controls['name'].value?.slice(1))
+      this.formGroup.get('description').setValue(this.formGroup.controls['description'].value?.charAt(0).toUpperCase() + this.formGroup.controls['description'].value?.slice(1))
+ 
   }
   initForm() {
     if (!this.data.isEdit) {

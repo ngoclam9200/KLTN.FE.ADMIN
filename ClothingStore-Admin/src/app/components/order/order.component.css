@@ -5,6 +5,9 @@ table {
     width: 80px;
     height: 80px;
   }
-  /* ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
-    background-color: red !important;
-} */
+  ::ng-deep .mat-tab-label-active {
+    color: #1890ff !important;
+  }
+  ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: #1890ff !important;
+}

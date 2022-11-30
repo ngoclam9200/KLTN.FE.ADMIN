@@ -14,6 +14,8 @@ displayedColumns= ['position', 'name', 'weight'];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private orderDetailService :OrderDetailService) { }
 
   ngOnInit(): void {
+   
+    
      this.getProductInOrder()
   }
   estimateDelivery(date: any) {
@@ -27,8 +29,9 @@ displayedColumns= ['position', 'name', 'weight'];
   {
     this.orderDetailService.getOrderDetailByOrderId(this.data.id).subscribe(res=>{
        this.allProduct=res
+
       this.allProduct=this.allProduct.data
-    })
+     })
   }
 
 }

@@ -4,7 +4,7 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Tên</mat-label>
-        <input formControlName="name" matInput placeholder="Nhập tên loại sản phẩm">
+        <input formControlName="name" matInput placeholder="Nhập tên loại sản phẩm"  class="c">
         <mat-icon matSuffix>edit</mat-icon>
         <mat-hint *ngIf=" formGroup.get('name').invalid && formGroup.get('name').touched " class="text-danger">Chọn tên
           loại sản phẩm</mat-hint>
