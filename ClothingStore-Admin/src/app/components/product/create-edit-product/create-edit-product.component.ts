@@ -101,6 +101,30 @@ export class CreateEditProductComponent implements OnInit {
    
      
   }
+  inputDescriptionChange()
+  {
+    
+      if(this.formGroup.controls['description'].value?.toString().length==1)
+      {
+        this.formGroup.get('description').setValue(this.formGroup.controls['description'].value?.charAt(0).toUpperCase() + this.formGroup.controls['description'].value?.slice(1))
+    
+        
+      }
+    
+ 
+  }
+  inputNameChange()
+  {
+    
+  
+      if(this.formGroup.controls['name'].value?.toString().length==1)
+      {
+        this.formGroup.get('name').setValue(this.formGroup.controls['name'].value?.charAt(0).toUpperCase() + this.formGroup.controls['name'].value?.slice(1))
+     
+        
+      }
+ 
+  }
   inputOriginalPriceChange()
   {
     this.originalPriceValidate=this.validateService.validateCount(this.formGroup.controls['originalprice'].value)

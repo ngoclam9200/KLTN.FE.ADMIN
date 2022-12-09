@@ -13,7 +13,8 @@ export class CreateEditVoucherComponent implements OnInit {
   typeOfVoucher:any="price"
   minDate: Date;
   isSubmit:boolean=false
- 
+ discountPrice=false
+ discountFreeShip=false
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private voucherService:VoucherService, private dialog :MatDialog) { }
 
   ngOnInit(): void {
@@ -49,6 +50,16 @@ export class CreateEditVoucherComponent implements OnInit {
   {
     if (percent>0 && percent>100) return false
     else return true
+  }
+  discountPriceValidate()
+  {
+    if(this.formGroup.controls['discountprice'].value>0 && this.formGroup.controls['discountprice'].value<=100) this.discountPrice=true
+    else this.discountPrice=false
+  }
+  discountFreeShipValidate()
+  {
+    if(this.formGroup.controls['discountfreeship'].value>0 && this.formGroup.controls['discountfreeship'].value<=100) this.discountFreeShip=true
+    else this.discountFreeShip=false
   }
   createVoucher()
   { 

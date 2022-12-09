@@ -44,9 +44,13 @@ export class CreateEditCategoryComponent implements OnInit {
   }
   inputChange()
   {
-  
-      this.formGroup.get('name').setValue(this.formGroup.controls['name'].value?.charAt(0).toUpperCase() + this.formGroup.controls['name'].value?.slice(1))
-      this.formGroup.get('description').setValue(this.formGroup.controls['description'].value?.charAt(0).toUpperCase() + this.formGroup.controls['description'].value?.slice(1))
+    
+      if(this.formGroup.controls['description'].value?.toString().length==1)
+      {
+        this.formGroup.get('description').setValue(this.formGroup.controls['description'].value?.charAt(0).toUpperCase() + this.formGroup.controls['description'].value?.slice(1))
+        console.log(1);
+        
+      }
  
   }
   initForm() {

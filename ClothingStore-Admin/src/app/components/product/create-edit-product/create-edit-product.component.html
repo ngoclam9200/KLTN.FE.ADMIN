@@ -4,8 +4,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Tên</mat-label>
-        <input formControlName="name" matInput placeholder="Nhập tên sản phẩm">
-        <mat-icon matSuffix>edit</mat-icon>
+        <input formControlName="name" matInput placeholder="Nhập tên sản phẩm" (input)="inputNameChange()">
+    
         <mat-hint *ngIf="( formGroup.get('name').invalid && formGroup.get('name').touched )|| (formGroup.get('name').invalid && isSubmit) " class="text-danger">Chọn tên  sản phẩm</mat-hint>
       </mat-form-field>
     </p>
@@ -16,7 +16,7 @@
           <mat-option *ngFor="let cate of allCategory" value="{{cate.id}}">{{cate.name}}</mat-option>
           
         </mat-select>
-        <mat-icon matSuffix>category</mat-icon>
+        
         <mat-hint *ngIf=" (formGroup.get('categoryId').invalid && formGroup.get('categoryId').touched )|| (formGroup.get('categoryId').invalid && isSubmit)  " class="text-danger">Chọn  
           loại sản phẩm</mat-hint>
       </mat-form-field>
@@ -25,7 +25,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Số lượng</mat-label>
         <input (input)="inputCountChange()" formControlName="count" type="number" matInput placeholder="Nhập số lượng sản phẩm">
-        <mat-icon matSuffix>pin</mat-icon>
+        
         <mat-hint *ngIf=" (formGroup.get('count').invalid && formGroup.get('count').touched)|| (formGroup.get('count').invalid && isSubmit) " class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
         <mat-hint class="text-danger"  *ngIf=" !countValidate && formGroup.get('count').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
 
@@ -35,7 +35,7 @@
       <mat-form-field class="price" appearance="outline">
         <mat-label>Giá bán</mat-label>
         <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
-        <mat-icon matSuffix>attach_money</mat-icon>
+      
         <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
         <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
 
@@ -48,7 +48,7 @@
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá nhập</mat-label>
             <input (input)="inputOriginalPriceChange()" formControlName="originalprice" type="number" matInput placeholder="Nhập giá nhập sản phẩm">
-            <mat-icon matSuffix>attach_money</mat-icon>
+           
             <mat-hint *ngIf=" (formGroup.get('originalprice').invalid && formGroup.get('originalprice').touched )||(formGroup.get('originalprice').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá nhập sản phẩm</mat-hint>
             <mat-hint class="text-danger"  *ngIf=" !originalPriceValidate && formGroup.get('originalprice').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
 
@@ -61,7 +61,7 @@
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá bán</mat-label>
             <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
-            <mat-icon matSuffix>attach_money</mat-icon>
+            
             <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
             <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0</mat-hint>
 
@@ -75,7 +75,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Giảm giá</mat-label>
         <input (input)="inputDiscountChange()" formControlName="discount" type="number" matInput placeholder="Nhập giảm giá sản phẩm">
-        <mat-icon matSuffix>percent</mat-icon>
+        
         <mat-hint *ngIf=" (formGroup.get('discount').invalid && formGroup.get('discount').touched)|| (formGroup.get('discount').invalid && isSubmit) " class="text-danger">Vui lòng nhập phần trăm giảm giá sản phẩm</mat-hint>
         <mat-hint class="text-danger"  *ngIf=" !discountValidate && formGroup.get('discount').valid">Giảm giá sản phẩm lớn hơn 0 và nhỏ hơn 100</mat-hint>
 
@@ -84,8 +84,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Mô tả</mat-label>
-        <input formControlName="description" type="" matInput placeholder="Mô tả sản phẩm">
-        <mat-icon matSuffix>description</mat-icon>
+        <input formControlName="description" type="" matInput placeholder="Mô tả sản phẩm" (input)="inputDescriptionChange()">
+      
         <mat-hint *ngIf=" (formGroup.get('description').invalid && formGroup.get('description').touched) || (formGroup.get('description').invalid && isSubmit) " class="text-danger">Vui lòng nhập mô tả sản phẩm</mat-hint>
 
       </mat-form-field>

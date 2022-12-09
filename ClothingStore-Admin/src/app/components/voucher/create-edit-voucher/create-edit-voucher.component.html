@@ -10,16 +10,14 @@
             <mat-option value="price">Giảm giá theo giá đơn hàng</mat-option>
             <mat-option value="freeship">Giảm giá phí ship</mat-option>
           </mat-select>
-          <mat-icon matSuffix>category</mat-icon>
-       
+        
         </mat-form-field>
       </p>
       <p   >
         <mat-form-field appearance="outline">
           <mat-label >Số lượng</mat-label>
           <input type="number"  formControlName="amountInput" matInput placeholder="Nhập số lượng voucher">
-          <mat-icon matSuffix>pin</mat-icon>
-          <mat-hint  *ngIf=" (formGroup.get('amountInput').invalid && formGroup.get('amountInput').touched) || (formGroup.get('amountInput').invalid && isSubmit)"> Vui lòng nhập số lượng</mat-hint>
+           <mat-hint  *ngIf=" (formGroup.get('amountInput').invalid && formGroup.get('amountInput').touched) || (formGroup.get('amountInput').invalid && isSubmit)"> Vui lòng nhập số lượng</mat-hint>
 
         </mat-form-field>
       </p>
@@ -29,18 +27,18 @@
       <p *ngIf="typeOfVoucher=='price'">
         <mat-form-field appearance="outline">
           <mat-label>Phần trăm giảm giá theo giá đơn hàng</mat-label>
-          <input  type="number" formControlName="discountprice"  matInput placeholder="Nhập % giảm giá voucher theo giá đơn hàng">
-          <mat-icon matSuffix>percent</mat-icon>
-          <mat-hint  *ngIf=" (formGroup.get('discountprice').invalid && formGroup.get('discountprice').touched) || (formGroup.get('discountprice').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+          <input  type="number" formControlName="discountprice"  matInput placeholder="Nhập % giảm giá voucher theo giá đơn hàng" (input)="discountPriceValidate()">
+           <mat-hint  *ngIf=" (formGroup.get('discountprice').invalid && formGroup.get('discountprice').touched) || (formGroup.get('discountprice').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+           <mat-hint class="text-danger"  *ngIf=" !discountPrice && formGroup.get('discountprice').valid">Phần trăm giảm lơn hơn 0 và nhỏ hơn 100 </mat-hint>
         </mat-form-field>
       </p>
       <p>
         <p   *ngIf="typeOfVoucher=='freeship' ">
           <mat-form-field appearance="outline">
             <mat-label>Giảm giá phí ship</mat-label>
-            <input  type="number" formControlName="discountfreeship"  matInput placeholder="Nhập % giảm giá voucher giảm giá phí ship">
-            <mat-icon matSuffix>percent</mat-icon>
-            <mat-hint  *ngIf=" (formGroup.get('discountfreeship').invalid && formGroup.get('discountfreeship').touched) || (formGroup.get('discountfreeship').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+            <input  type="number" formControlName="discountfreeship"  matInput placeholder="Nhập % giảm giá voucher giảm giá phí ship" (input)="discountFreeShipValidate()">
+             <mat-hint  *ngIf=" (formGroup.get('discountfreeship').invalid && formGroup.get('discountfreeship').touched) || (formGroup.get('discountfreeship').invalid && isSubmit)"> Vui lòng nhập phần trăm giảm giá theo giá đơn hàng</mat-hint>
+           <mat-hint class="text-danger"  *ngIf=" !discountFreeShip && formGroup.get('discountfreeship').valid">Phần trăm giảm lơn hơn 0 và nhỏ hơn 100 </mat-hint>
 
           </mat-form-field>
         </p>

@@ -4,8 +4,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Tên</mat-label>
-        <input formControlName="name" matInput placeholder="Nhập tên loại sản phẩm"  class="c">
-        <mat-icon matSuffix>edit</mat-icon>
+        <input style="text-transform: capitalize;" formControlName="name" matInput placeholder="Nhập tên loại sản phẩm"  class="c">
+       
         <mat-hint *ngIf=" formGroup.get('name').invalid && formGroup.get('name').touched " class="text-danger">Chọn tên
           loại sản phẩm</mat-hint>
         <mat-hint *ngIf=" !nameExist   && formGroup.get('name').valid" class="text-danger">{{errorRes}} </mat-hint>
@@ -15,8 +15,8 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Mô tả</mat-label>
-        <input formControlName="description" matInput placeholder="Nhập tên loại sản phẩm">
-        <mat-icon matSuffix>edit</mat-icon>
+        <input  formControlName="description" matInput placeholder="Nhập tên loại sản phẩm" (input)="inputChange()">
+     
         <mat-hint *ngIf=" formGroup.get('description').invalid && formGroup.get('description').touched "
           class="text-danger">Vui lòng điền mô tả loại sản phẩm</mat-hint>
       </mat-form-field>

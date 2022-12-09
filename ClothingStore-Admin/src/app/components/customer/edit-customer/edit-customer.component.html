@@ -6,7 +6,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input (input)="inputEmailChange()" formControlName="email" matInput placeholder="Nhập email">
-        <mat-icon matSuffix>email</mat-icon>
+      
         <mat-hint *ngIf="emailValidate && formGroup.get('email').invalid && formGroup.get('email').touched "> Chọn một địa chỉ email</mat-hint>
         <mat-hint *ngIf=" !emailValidate && formGroup.get('email').valid">Email không hợp lệ </mat-hint>
         <mat-hint *ngIf=" !emailExist && emailValidate && formGroup.get('email').valid">{{errorRes}} </mat-hint>
@@ -16,7 +16,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Tên</mat-label>
             <input formControlName="fullname" matInput placeholder="Nhập tên người dùng">
-            <mat-icon matSuffix>edit</mat-icon>
+         
              
             <mat-hint *ngIf="formGroup.get('fullname').invalid && formGroup.get('fullname').touched ">Nhập tên người dùng</mat-hint>
           </mat-form-field>
@@ -25,7 +25,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Tên đăng nhập</mat-label>
             <input  (input)="inputUserNameChange()" formControlName="username"  matInput placeholder="Nhập tên đăng nhập">
-            <mat-icon matSuffix>edit</mat-icon>
+        
              
             <mat-hint *ngIf="formGroup.get('username').invalid && formGroup.get('username').touched ">Nhập tên đăng nhập </mat-hint>
             <mat-hint *ngIf=" !usernameValidate && formGroup.get('username').valid">Tên đăng nhập không hợp lệ 
@@ -37,7 +37,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Số điện thoại</mat-label>
             <input  (input)="inputPhoneNumberChange()" formControlName="phonenumber"  matInput placeholder="Nhập tên đăng nhập">
-            <mat-icon matSuffix>edit</mat-icon>
+           
              
             <mat-hint *ngIf="formGroup.get('phonenumber').invalid && formGroup.get('phonenumber').touched ">Nhập số điện thoại</mat-hint>
             <mat-hint *ngIf=" !phonenumberValidate && formGroup.get('phonenumber').valid">Số điện thoại không hợp lệ </mat-hint>
@@ -51,7 +51,7 @@
               <mat-option value="Nữ">Nữ</mat-option>
               <mat-option value="Khác">Khác</mat-option>
             </mat-select>
-            <mat-icon matSuffix>transgender</mat-icon>
+         
          
 
           </mat-form-field>
