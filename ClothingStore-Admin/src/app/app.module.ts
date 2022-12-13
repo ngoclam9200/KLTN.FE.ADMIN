@@ -66,7 +66,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ShowOrderComponent } from './components/order/show-order/show-order.component';
 import { ChangeAvatarComponent } from './components/profile/change-avatar/change-avatar.component';
 import { ChangePasswordComponent } from './components/profile/change-password/change-password.component';
- 
+ import { CurrencyPipe } from '@angular/common';
 registerLocaleData(hi);
 @NgModule({
   declarations: [
@@ -141,7 +141,7 @@ registerLocaleData(hi);
 
 
   ],
-  providers: [{ provide: NZ_I18N, useValue: hi_IN }],
+  providers: [{ provide: NZ_I18N, useValue: hi_IN }, CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

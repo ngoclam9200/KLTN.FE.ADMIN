@@ -5,8 +5,10 @@
       <mat-form-field appearance="outline">
         <mat-label>Tên</mat-label>
         <input formControlName="name" matInput placeholder="Nhập tên sản phẩm" (input)="inputNameChange()">
-    
-        <mat-hint *ngIf="( formGroup.get('name').invalid && formGroup.get('name').touched )|| (formGroup.get('name').invalid && isSubmit) " class="text-danger">Chọn tên  sản phẩm</mat-hint>
+
+        <mat-hint
+          *ngIf="( formGroup.get('name').invalid && formGroup.get('name').touched )|| (formGroup.get('name').invalid && isSubmit) "
+          class="text-danger">Chọn tên sản phẩm</mat-hint>
       </mat-form-field>
     </p>
     <p>
@@ -14,43 +16,165 @@
         <mat-label>Loại sản phẩm</mat-label>
         <mat-select formControlName="categoryId">
           <mat-option *ngFor="let cate of allCategory" value="{{cate.id}}">{{cate.name}}</mat-option>
-          
+
         </mat-select>
-        
-        <mat-hint *ngIf=" (formGroup.get('categoryId').invalid && formGroup.get('categoryId').touched )|| (formGroup.get('categoryId').invalid && isSubmit)  " class="text-danger">Chọn  
+
+        <mat-hint
+          *ngIf=" (formGroup.get('categoryId').invalid && formGroup.get('categoryId').touched )|| (formGroup.get('categoryId').invalid && isSubmit)  "
+          class="text-danger">Chọn
           loại sản phẩm</mat-hint>
       </mat-form-field>
     </p>
-    <p *ngIf="!data.isEdit">
+  
+    <div *ngIf="!data.isEdit" class="line"></div> 
+    <label *ngIf="!data.isEdit" style="font-size: 17px;">Số lượng sản phẩm</label>
+    <div *ngIf="!data.isEdit">
+      <div class="d-flex align-items-center">
+        <label>Phân loại sản phẩm: </label>
+     
+        <section  class="example-section p-2"  >
+          <mat-checkbox class="example-margin" formControlName="isSize">Có size</mat-checkbox>
+           
+        </section>
+      </div>
+     
+    </div>
+       
+   
+  
+    <p *ngIf="!data.isEdit && !formGroup.controls['isSize'].value">
       <mat-form-field appearance="outline">
         <mat-label>Số lượng</mat-label>
-        <input (input)="inputCountChange()" formControlName="count" type="number" matInput placeholder="Nhập số lượng sản phẩm">
-        
-        <mat-hint *ngIf=" (formGroup.get('count').invalid && formGroup.get('count').touched)|| (formGroup.get('count').invalid && isSubmit) " class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
-        <mat-hint class="text-danger"  *ngIf=" !countValidate && formGroup.get('count').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
+        <input (input)="inputCountChange()" formControlName="count" type="number" matInput
+          placeholder="Nhập số lượng sản phẩm">
+
+        <mat-hint
+          *ngIf=" (formGroup.get('count').invalid && formGroup.get('count').touched)|| (formGroup.get('count').invalid && isSubmit) "
+          class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+        <mat-hint class="text-danger" *ngIf=" !countValidate && formGroup.get('count').valid">Số lượng sản phẩm lớn hơn
+          0 </mat-hint>
 
       </mat-form-field>
     </p>
+    
+    <div *ngIf="!data.isEdit && formGroup.controls['isSize'].value" class="d-flex flex-row">
+      <div class="p-2">
+        <p>
+          <mat-form-field class="price" appearance="outline">
+            <mat-label>Số lượng size S</mat-label>
+            <input  formControlName="S" (input)="inputCountSizeSChange()"  type="number" matInput
+              placeholder="Nhập số sản phẩm size S">
+              <mat-hint
+              *ngIf=" (formGroup.get('S').invalid && formGroup.get('S').touched)|| (formGroup.get('S').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !countSizeSValidate && formGroup.get('S').valid">Số lượng sản phẩm không hợp lệ </mat-hint>
+          </mat-form-field>
+        </p>
+      </div>
+      <div class="p-2">
+        <p>
+          <mat-form-field class="price" appearance="outline">
+            <mat-label>Số lượng size M</mat-label>
+            <input  formControlName="M" (input)="inputCountSizeMChange()" type="number" matInput
+              placeholder="Nhập số sản phẩm size M">
+              <mat-hint
+              *ngIf=" (formGroup.get('M').invalid && formGroup.get('M').touched)|| (formGroup.get('M').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !countSizeMValidate && formGroup.get('M').valid">Số lượng sản phẩm không hợp lệ </mat-hint>
+         
+            
+
+          </mat-form-field>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="!data.isEdit && formGroup.controls['isSize'].value" class="d-flex flex-row">
+      <div class="p-2">
+        <p>
+          <mat-form-field class="price" appearance="outline">
+            <mat-label>Số lượng size L</mat-label>
+            <input formControlName="L" (input)="inputCountSizeLChange()"  type="number" matInput
+              placeholder="Nhập số sản phẩm size L">
+              <mat-hint
+              *ngIf=" (formGroup.get('L').invalid && formGroup.get('L').touched)|| (formGroup.get('L').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !countSizeLValidate && formGroup.get('L').valid">Số lượng sản phẩm không hợp lệ </mat-hint>
+         
+            
+
+          </mat-form-field>
+        </p>
+      </div>
+      <div class="p-2">
+        <p>
+          <mat-form-field class="price" appearance="outline">
+            <mat-label>Số lượng size XL</mat-label>
+            <input formControlName="XL" (input)="inputCountSizeXLChange()"   type="number" matInput
+              placeholder="Nhập số sản phẩm size XL">
+              <mat-hint
+              *ngIf=" (formGroup.get('XL').invalid && formGroup.get('XL').touched)|| (formGroup.get('XL').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !countSizeXLValidate && formGroup.get('XL').valid">Số lượng sản phẩm không hợp lệ </mat-hint>
+         
+            
+
+          </mat-form-field>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="!data.isEdit && formGroup.controls['isSize'].value" class="d-flex flex-row">
+ 
+      <div class="p-2">
+        <p>
+          <mat-form-field class="price" appearance="outline">
+            <mat-label>Số lượng size XXL</mat-label>
+            <input  formControlName="XXL" (input)="inputCountSizeXXLChange()" type="number" matInput
+              placeholder="Nhập số sản phẩm size XXL">
+              <mat-hint
+              *ngIf=" (formGroup.get('XXL').invalid && formGroup.get('XXL').touched)|| (formGroup.get('XXL').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập só lượng sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !countSizeXXLValidate && formGroup.get('XXL').valid">Số lượng sản phẩm không hợp lệ </mat-hint>
+         
+            
+            
+
+          </mat-form-field>
+        </p>
+      </div>
+
+    </div>
+     
+    <div class="line"></div> 
+    <label style="font-size: 17px;">Giá bán sản phẩm</label>
+    <br>
     <p *ngIf="data.isEdit">
       <mat-form-field class="price" appearance="outline">
         <mat-label>Giá bán</mat-label>
-        <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
-      
-        <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
-        <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
+        <input (input)="inputPriceChange()" formControlName="price" type="text" matInput
+          placeholder="Nhập giá bán sản phẩm">
+
+        <mat-hint
+          *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) "
+          class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
+        <mat-hint class="text-danger" *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn
+          0 </mat-hint>
 
       </mat-form-field>
     </p>
 
     <div *ngIf="!data.isEdit" class="d-flex flex-row">
       <div class="p-2">
-        <p >
+        <p>
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá nhập</mat-label>
-            <input (input)="inputOriginalPriceChange()" formControlName="originalprice" type="number" matInput placeholder="Nhập giá nhập sản phẩm">
-           
-            <mat-hint *ngIf=" (formGroup.get('originalprice').invalid && formGroup.get('originalprice').touched )||(formGroup.get('originalprice').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá nhập sản phẩm</mat-hint>
-            <mat-hint class="text-danger"  *ngIf=" !originalPriceValidate && formGroup.get('originalprice').valid">Số lượng sản phẩm lớn hơn 0 </mat-hint>
+            <input (input)="inputOriginalPriceChange()" formControlName="originalprice" type="text" matInput   
+              placeholder="Nhập giá nhập sản phẩm" >
+
+            <mat-hint
+              *ngIf=" (formGroup.get('originalprice').invalid && formGroup.get('originalprice').touched )||(formGroup.get('originalprice').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập giá nhập sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !originalPriceValidate && formGroup.get('originalprice').valid">Số
+              lượng sản phẩm lớn hơn 0 </mat-hint>
 
 
           </mat-form-field>
@@ -60,10 +184,14 @@
         <p>
           <mat-form-field class="price" appearance="outline">
             <mat-label>Giá bán</mat-label>
-            <input (input)="inputPriceChange()" formControlName="price" type="number" matInput placeholder="Nhập giá bán sản phẩm">
-            
-            <mat-hint *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) " class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
-            <mat-hint class="text-danger"  *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn hơn 0</mat-hint>
+            <input (input)="inputPriceChange()" formControlName="price" type="text" matInput
+              placeholder="Nhập giá bán sản phẩm">
+
+            <mat-hint
+              *ngIf=" (formGroup.get('price').invalid && formGroup.get('price').touched )||(formGroup.get('price').invalid && isSubmit) "
+              class="text-danger">Vui lòng nhập giá bán sản phẩm</mat-hint>
+            <mat-hint class="text-danger" *ngIf=" !priceValidate && formGroup.get('price').valid">Số lượng sản phẩm lớn
+              hơn 0</mat-hint>
 
           </mat-form-field>
         </p>
@@ -74,19 +202,27 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Giảm giá</mat-label>
-        <input (input)="inputDiscountChange()" formControlName="discount" type="number" matInput placeholder="Nhập giảm giá sản phẩm">
-        
-        <mat-hint *ngIf=" (formGroup.get('discount').invalid && formGroup.get('discount').touched)|| (formGroup.get('discount').invalid && isSubmit) " class="text-danger">Vui lòng nhập phần trăm giảm giá sản phẩm</mat-hint>
-        <mat-hint class="text-danger"  *ngIf=" !discountValidate && formGroup.get('discount').valid">Giảm giá sản phẩm lớn hơn 0 và nhỏ hơn 100</mat-hint>
+        <input (input)="inputDiscountChange()" formControlName="discount" type="number" matInput
+          placeholder="Nhập giảm giá sản phẩm">
+
+        <mat-hint
+          *ngIf=" (formGroup.get('discount').invalid && formGroup.get('discount').touched)|| (formGroup.get('discount').invalid && isSubmit) "
+          class="text-danger">Vui lòng nhập phần trăm giảm giá sản phẩm</mat-hint>
+        <mat-hint class="text-danger" *ngIf=" !discountValidate && formGroup.get('discount').valid">Giảm giá sản phẩm
+          lớn hơn 0 và nhỏ hơn 100</mat-hint>
 
       </mat-form-field>
     </p>
+    <div class="line"></div> 
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Mô tả</mat-label>
-        <input formControlName="description" type="" matInput placeholder="Mô tả sản phẩm" (input)="inputDescriptionChange()">
-      
-        <mat-hint *ngIf=" (formGroup.get('description').invalid && formGroup.get('description').touched) || (formGroup.get('description').invalid && isSubmit) " class="text-danger">Vui lòng nhập mô tả sản phẩm</mat-hint>
+        <input formControlName="description" type="" matInput placeholder="Mô tả sản phẩm"
+          (input)="inputDescriptionChange()">
+
+        <mat-hint
+          *ngIf=" (formGroup.get('description').invalid && formGroup.get('description').touched) || (formGroup.get('description').invalid && isSubmit) "
+          class="text-danger">Vui lòng nhập mô tả sản phẩm</mat-hint>
 
       </mat-form-field>
     </p>
@@ -101,13 +237,13 @@
       <div *ngIf="isChooseImage && isSubmit">
         <div class="d-flex flex-row">
           <div class="p-2 text-danger">Vui lòng chọn ảnh</div>
-  
+
         </div>
       </div>
       <div *ngIf="!isChooseImage">
         <div class="d-flex flex-row">
           <div class="p-2"><img src="{{imagePreview}}"></div>
-  
+
         </div>
       </div>
     </div>
@@ -117,6 +253,8 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close color="warn">Hủy</button>
-  <button *ngIf="!data.isEdit"  mat-raised-button (click)=" createProduct()"   color="primary" cdkFocusInitial>{{data.textBtn}}</button>
-  <button *ngIf="data.isEdit"  mat-raised-button (click)=" editProduct()"   color="primary" cdkFocusInitial>{{data.textBtn}}</button>
+  <button *ngIf="!data.isEdit" mat-raised-button (click)=" createProduct()" color="primary"
+    cdkFocusInitial>{{data.textBtn}}</button>
+  <button *ngIf="data.isEdit" mat-raised-button (click)=" editProduct()" color="primary"
+    cdkFocusInitial>{{data.textBtn}}</button>
 </mat-dialog-actions>

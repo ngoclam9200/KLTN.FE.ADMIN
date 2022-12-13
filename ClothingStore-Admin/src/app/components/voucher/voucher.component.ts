@@ -41,8 +41,7 @@ export class VoucherComponent implements OnInit {
 this.voucherService.getAllVoucher().subscribe(res=> {
    this.dataResponse = res
   this.allVoucher= this.dataResponse.data
-  console.log(this.allVoucher.length);
-  
+   
   if(this.allVoucher.length==0) this.notfound=true
   this.dataSource = new MatTableDataSource(this.allVoucher);
   this.dataSource.paginator = this.paginator;

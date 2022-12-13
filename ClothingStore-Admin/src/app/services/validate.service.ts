@@ -53,5 +53,10 @@ export class ValidateService {
     if(parseInt(count)>0) return true
     else return false
   }
+  validateSizeCount(count :any)
+  {
+    if(parseInt(count)>=0) return true
+    else return false
+  }
 
 }

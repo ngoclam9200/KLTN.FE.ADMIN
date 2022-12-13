@@ -44,3 +44,9 @@ img{
   width: 150px;
   height: 150px;
 }
+.line
+{
+  height: 1px;
+  background: black;
+  margin-bottom: 10px;
+}
