@@ -58,4 +58,9 @@ export class ProductService {
     let headers=this.getHeader()
     return this.http.get(this.apiUrl+"/search-product-by-name/"+prod, {headers:headers})
   }
+  deleteImage(id)
+  {
+    let headers=this.getHeader()
+    return this.http.delete(this.apiUrl+"/delete-image-product/"+id, {headers:headers})
+  }
 }

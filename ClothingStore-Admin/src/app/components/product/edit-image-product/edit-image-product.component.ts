@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductService } from 'src/app/services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-image-product',
@@ -20,6 +21,7 @@ export class EditImageProductComponent implements OnInit {
  currentImageId:any
  isChangeImage:boolean=false
  isAddImage:boolean=false
+ defauImageId:any
   ngOnInit(): void {
     this.getData()
 
@@ -28,13 +30,15 @@ export class EditImageProductComponent implements OnInit {
   { 
     this.productService.getAllImageProductById(this.data.data.id).subscribe(res=>
       {
-    
+        
         this.dataRes=res
         this.listImage=this.dataRes.data
         this.currentImage=this.listImage[0].url
         this.currentImageId=this.listImage[0].id
+        this.listImageBorder=[]
        for(let i=0; i<this.listImage.length;i++)
        {
+        if(this.listImage[i].isDefaut) this.defauImageId= this.listImage[i].id
         if(i==0)
         {
           this.listImageBorder[i]=({
@@ -69,12 +73,16 @@ export class EditImageProductComponent implements OnInit {
   }
   addImageProduct()
   {
+     console.log(1);
+     
     var data={
       productId: this.listImage[0].productId,
       url:this.imagePreview
     }
+
     this.productService.addImageProduct(data).subscribe(res=>
       {
+       
         this.getData()
         this.isChooseImage=true
       })
@@ -155,6 +163,16 @@ export class EditImageProductComponent implements OnInit {
     this.isChangeImage=false
     this.isAddImage=true
     this.isChooseImage=true
+  }
+  deleteImage()
+  {
+    console.log(this.currentImageId);
+    
+    this.productService.deleteImage(this.currentImageId).subscribe(res=>{
+      console.log(res);
+      this.getData()
+      
+    })
   }
   
 
