@@ -9,6 +9,7 @@ import { CreateEditStaffComponent } from './create-edit-staff/create-edit-staff.
 import Swal from 'sweetalert2';
 import { StaffService } from 'src/app/services/staff.service';
 import { Router } from '@angular/router';
+import { SalaryStaffService } from 'src/app/services/salary-staff.service';
 
 @Component({
   selector: 'app-staff',
@@ -17,14 +18,18 @@ import { Router } from '@angular/router';
 })
 export class StaffComponent implements OnInit {
   rows:any = [];
-  displayedColumns: string[] = ['avatar','ten', 'email', 'luong','salary-staff','chinhsua', 'xoa'];
+  displayedColumns: string[] = ['avatar','ten', 'email', 'luong','salary-staff-today','salary-staff','chinhsua', 'xoa'];
   dataSource:any;
   dataResponse: any;
   allStaff: any;
   search: string="";
   notfound:any=false
   isLoading=true
-  constructor(private signInSerVice:SignInService, private dialog : MatDialog, private staffService: StaffService , private router :Router ) { }
+  dataRes:any
+  listDayWorking:any
+
+  constructor(private signInSerVice:SignInService,private salaryStaffService: SalaryStaffService,
+     private dialog : MatDialog, private staffService: StaffService , private router :Router ) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
  
   ngOnInit(): void {
@@ -38,9 +43,39 @@ export class StaffComponent implements OnInit {
     this.staffService.getAllStaff().subscribe(res => {
       this.dataResponse = res
        this.allStaff= this.dataResponse.data
+       for (let i=0 ; i<this.allStaff.length; i++)
+       {
+        this.salaryStaffService.getSalaryByStaffId(this.allStaff[i].id).subscribe(res=>
+          { 
+            this.dataRes = res
+            this.dataRes = this.dataRes.data[0]
+             this.listDayWorking = this.dataRes.listDayWorking.split(',')
+             this.allStaff[i].isPayToDay=false
+             this.allStaff[i].salaryId=this.dataRes.id
+            for (let j = 0; j < this.listDayWorking.length; j++) {
+              if(this.listDayWorking[j]==new Date().getDate().toString()) 
+              {
+                this.allStaff[i].isPayToDay=true
+                break;
+              }
+            }
+          })
+       }
       this.dataSource = new MatTableDataSource(this.allStaff);
       this.dataSource.paginator = this.paginator;
       this.isLoading=false
+      
+      
+    })
+  }
+  PayToday(id)
+  {
+    const data={
+      id: this.allStaff[id].salaryId,
+      listDayWorking: new Date().getDate().toString()
+    }
+    this.salaryStaffService.PayForToday(data).subscribe(res=>{
+      this.getAllStaff()
     })
   }
   openCreateStaff()

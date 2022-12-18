@@ -48,5 +48,9 @@ img{
 {
   height: 1px;
   background: black;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+textarea{
+  height: 150px;
 }

@@ -235,8 +235,11 @@ this.formGroup.controls['originalprice'].setValue(a)
       this.formGroup.controls['image'].setValue(this.imagePreview)
 
     }
-
+ 
+    this.formGroup.controls['price'].setValue( parseInt( this.formGroup.controls['price'].value.replace(/\D/g,'').replace(/^0+/,'')))
     this.productService.editProduct(this.formGroup.value).subscribe(res => {
+      
+      
       Swal.fire(
         'Đã chỉnh sửa!',
         'Chỉnh sửa  sản phẩm  thành công',

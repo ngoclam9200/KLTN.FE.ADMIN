@@ -47,7 +47,7 @@
     <p>
       <mat-form-field appearance="outline">
         <mat-label>Lương</mat-label>
-        <input formControlName="salary" type="text" matInput placeholder="Nhập lương nhân viên">
+        <input (input)="inputSalaryChange()" formControlName="salary" type="text" matInput placeholder="Nhập lương nhân viên">
          <mat-hint  *ngIf=" (formGroup.get('salary').invalid && formGroup.get('salary').touched) || (formGroup.get('salary').invalid && isSubmit)">Vui lòng nhập lương nhân viên</mat-hint>
 
       </mat-form-field>

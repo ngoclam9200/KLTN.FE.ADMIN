@@ -45,14 +45,6 @@
                     </a>
                 </li>
                 <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
-                    <a [routerLink]='["/product"]'>
-                        <div class="d-flex align-items-center">
-                            <mat-icon>dry_cleaning</mat-icon>
-                            Quản lý sản phẩm
-                        </div>
-                    </a>
-                </li>
-                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/category"]'>
                         <div class="d-flex align-items-center">
                             <mat-icon>category</mat-icon>
@@ -60,6 +52,15 @@
                         </div>
                     </a>
                 </li>
+                <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
+                    <a [routerLink]='["/product"]'>
+                        <div class="d-flex align-items-center">
+                            <mat-icon>dry_cleaning</mat-icon>
+                            Quản lý sản phẩm
+                        </div>
+                    </a>
+                </li>
+             
                 <li *ngIf="isAdmin" nz-menu-item nzMatchRouter>
                     <a [routerLink]='["/voucher"]'>
                         <div class="d-flex align-items-center">

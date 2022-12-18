@@ -29,7 +29,7 @@
   
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Giá nhập </th>
-      <td mat-cell *matCellDef="let element"> {{element.originalprice}}  </td>
+      <td mat-cell *matCellDef="let element"> {{element.originalprice | currency :"VND"}}  </td>
     </ng-container>
     <ng-container matColumnDef="count">
       <th mat-header-cell *matHeaderCellDef> Sô lượng còn lại </th>

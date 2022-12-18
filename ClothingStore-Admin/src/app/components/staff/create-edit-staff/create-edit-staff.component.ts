@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 export class CreateEditStaffComponent implements OnInit {
   
   
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any ,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any , private currencyPipe:CurrencyPipe,
    private validateService : ValidateService, private staffService: StaffService,
    private dialog:MatDialog) { }
   formGroup: FormGroup;
@@ -61,8 +62,17 @@ export class CreateEditStaffComponent implements OnInit {
         avatar: new FormControl(this.data.data.avatar, [Validators.required]),
 
       });
+      var a= this.currencyPipe.transform(this.formGroup.controls['salary'].value.toString().replace(/\D/g,'').replace(/^0+/,''),'VND','symbol','1.0-0')
+  
+this.formGroup.controls['salary'].setValue(a)
     }
 
+  }
+  inputSalaryChange()
+  {
+    var a= this.currencyPipe.transform(this.formGroup.controls['salary'].value.toString().replace(/\D/g,'').replace(/^0+/,''),'VND','symbol','1.0-0')
+  
+    this.formGroup.controls['salary'].setValue(a)
   }
   inputEmailChange()
   {
@@ -99,6 +109,10 @@ export class CreateEditStaffComponent implements OnInit {
     
     if(this.emailValidate && this.phonenumberValidate && this.usernameValidate   )
     {
+     
+      
+      this.formGroup.controls['salary'].setValue(  this.formGroup.controls['salary'].value.replace(/\D/g,'').replace(/^0+/,''))
+ 
       this.staffService.editStaff(this.formGroup.value).subscribe(res=>{
         
         Swal.fire(
@@ -146,6 +160,8 @@ export class CreateEditStaffComponent implements OnInit {
     
     if(this.emailValidate && this.phonenumberValidate && this.usernameValidate && this.isconfirmpassword && this.passwordValidate)
     {
+      this.formGroup.controls['salary'].setValue(  this.formGroup.controls['salary'].value.replace(/\D/g,'').replace(/^0+/,''))
+
         this.staffService.createStaff(this.formGroup.value).subscribe(res=>{
         
         Swal.fire(

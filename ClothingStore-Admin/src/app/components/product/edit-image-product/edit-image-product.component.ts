@@ -72,9 +72,7 @@ export class EditImageProductComponent implements OnInit {
    
   }
   addImageProduct()
-  {
-     console.log(1);
-     
+  { 
     var data={
       productId: this.listImage[0].productId,
       url:this.imagePreview
@@ -166,10 +164,9 @@ export class EditImageProductComponent implements OnInit {
   }
   deleteImage()
   {
-    console.log(this.currentImageId);
     
     this.productService.deleteImage(this.currentImageId).subscribe(res=>{
-      console.log(res);
+      
       this.getData()
       
     })
