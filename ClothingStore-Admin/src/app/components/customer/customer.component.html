@@ -1,7 +1,7 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <div *ngIf="!isLoading">
   <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-    <input  [(ngModel)]="search"     (input)="onChangeTextSearchEvent()" class="input-search"/>
+    <input  [(ngModel)]="search"  placeholder="Nhập tên hoặc email khách hàng muốn tìm kiếm"   (input)="onChangeTextSearchEvent()" class="input-search"/>
     <button (click)="searchCustomer()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
   </div>
   <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>

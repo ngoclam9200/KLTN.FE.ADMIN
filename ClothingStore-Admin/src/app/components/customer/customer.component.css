@@ -3,4 +3,8 @@ table {
   }
   .input-search{
     width: 80%;
+    text-align: center;
   }
+  ::placeholder {
+    text-align: center; 
+ }

@@ -7,7 +7,7 @@
     
   </div>
   <div class="d-flex justify-content-center" style="margin-bottom: 10px;">
-    <input  [(ngModel)]="search"     (input)="onChangeTextSearchEvent()" class="input-search"/>
+    <input  [(ngModel)]="search"  placeholder="Nhập email nhân viên muốn tìm kiếm"   (input)="onChangeTextSearchEvent()" class="input-search"/>
     <button (click)="searchStaff()" style="margin-left:20px ;" mat-raised-button color="primary">Tìm kiếm</button>
   </div>
   <mat-paginator *ngIf="!notfound" [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
