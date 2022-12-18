@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { StaffService } from 'src/app/services/staff.service';
 import { Router } from '@angular/router';
 import { SalaryStaffService } from 'src/app/services/salary-staff.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-staff',
@@ -27,7 +28,7 @@ export class StaffComponent implements OnInit {
   isLoading=true
   dataRes:any
   listDayWorking:any
-
+  currentDay = moment().format('DD/MM/YYYY')
   constructor(private signInSerVice:SignInService,private salaryStaffService: SalaryStaffService,
      private dialog : MatDialog, private staffService: StaffService , private router :Router ) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -74,9 +75,29 @@ export class StaffComponent implements OnInit {
       id: this.allStaff[id].salaryId,
       listDayWorking: new Date().getDate().toString()
     }
-    this.salaryStaffService.PayForToday(data).subscribe(res=>{
-      this.getAllStaff()
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn tính?',
+      text: "Lương ngày hôm nay sẽ được tính , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tính lương!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.salaryStaffService.PayForToday(data).subscribe(res => {
+          Swal.fire(
+            'Đã tính!',
+            'Lương ngày'+ this.currentDay + ' này đã được tính.',
+            'success'
+          )
+          this.getAllStaff()
+        })
+
+      }
     })
+  
+     
   }
   openCreateStaff()
   {
