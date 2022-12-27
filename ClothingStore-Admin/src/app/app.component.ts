@@ -105,6 +105,14 @@ export class AppComponent implements OnInit {
       channel.bind('my-event', data => {
         this.chatService.getCountMessageUnread() 
       });
+      const newOrder = pusher.subscribe('new-order');
+      newOrder.bind('new-order', data => {
+        this.orderService.getCountOrderWaitConfirm() 
+      });
+      this.orderService.countOrderWaitConfirm.subscribe(res=>
+        {
+          this.countOrder=res
+        })
 
 
   }
