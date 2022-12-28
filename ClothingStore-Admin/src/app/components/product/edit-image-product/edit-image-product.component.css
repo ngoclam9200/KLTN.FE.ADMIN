@@ -60,9 +60,9 @@
     opacity: 0;
   }
   
-  .btn-warning:hover{
+  /* .btn-warning:hover{
     background-color: #ffc100;
-  }
+  } */
   .new-image {
     width: 100px;
     height: 100px;

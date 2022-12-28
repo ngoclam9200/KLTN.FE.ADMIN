@@ -77,13 +77,32 @@ export class EditImageProductComponent implements OnInit {
       productId: this.listImage[0].productId,
       url:this.imagePreview
     }
-
-    this.productService.addImageProduct(data).subscribe(res=>
-      {
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn thêm?',
+      text: "Ảnh sẽ được thêm , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Thêm'
+    }).then((result) => {
+      if (result.isConfirmed) {
        
-        this.getData()
-        this.isChooseImage=true
-      })
+        this.productService.addImageProduct(data).subscribe(res=>
+          {
+            Swal.fire(
+              'Đã thêm!',
+              'Ảnh đã được thêm.',
+              'success'
+            )
+            this.getData()
+            this.isChooseImage=true
+          })
+         
+      }
+      
+    })
+   
   }
   nextImage()
   {
@@ -144,11 +163,32 @@ export class EditImageProductComponent implements OnInit {
       productId: this.listImage[0].productId,
       url:this.imagePreview
     }
-    this.productService.changeImageProduct(data).subscribe(res=>
-      { 
-      this.getData()
-      this.isChooseImage=true
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn thay đổi?',
+      text: "Ảnh sẽ bị thay đổi , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Thay đổi'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        this.productService.changeImageProduct(data).subscribe(res=>
+          { 
+            Swal.fire(
+              'Đã thay đổi!',
+              'Ảnh đã được thay đổi.',
+              'success'
+            )
+          this.getData()
+          this.isChooseImage=true
+        })
+         
+      }
+      
     })
+    
   }
   buttonChangeClick()
   {
@@ -164,12 +204,32 @@ export class EditImageProductComponent implements OnInit {
   }
   deleteImage()
   {
-    
-    this.productService.deleteImage(this.currentImageId).subscribe(res=>{
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn xóa?',
+      text: "Ảnh sẽ bị xóa , bạn không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Xóa'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+
+        this.productService.deleteImage(this.currentImageId).subscribe(res=>{
       
-      this.getData()
+          this.getData()
+          Swal.fire(
+            'Đã xóa!',
+            'Ảnh đã được xóa.',
+            'success'
+          )
+          
+        })
+      }
       
     })
+  
   }
   
 

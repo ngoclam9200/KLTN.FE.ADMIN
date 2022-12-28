@@ -95,6 +95,11 @@ export class StaffComponent implements OnInit {
         })
 
       }
+      else
+      {
+        this.getAllStaff()
+        
+      }
     })
   
      
